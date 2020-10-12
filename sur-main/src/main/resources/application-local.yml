@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///survey?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    username: root
+    password: root
+    filters: wall,mergeStat
+
+    # 连接池大小根据实际情况调整
+    max-active: 20
+    max-pool-prepared-statement-per-connection-size: 20
+
+jodconverter:
+  local:
+    enabled: true
+    office-home: C:/Program Files (x86)/OpenOffice 4
+    max-tasks-per-process: 50
+    taskExecutionTimeout: 180000
+    processTimeout: 180000
+    port-numbers: 8100

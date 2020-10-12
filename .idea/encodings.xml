@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-base" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-base-auth" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-base-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-base/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-bus" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-bus/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-dbctn" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-dbctn/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-generator" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-generator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-sys" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-base-support/sur-sys/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-main" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sur-main/src/main/java" charset="UTF-8" />
+  </component>
+</project>

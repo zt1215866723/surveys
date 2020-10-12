@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.FocusMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.Focus">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="unit" property="unit"/>
+        <result column="type" property="type"/>
+        <result column="state" property="state"/>
+        <result column="add_user" property="addUser"/>
+        <result column="add_time" property="addTime"/>
+        <result column="item_type" property="itemType"/>
+        <result column="is_necessary" property="isNecessary"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", name AS "name", unit AS "unit", type AS "type", state AS "state", add_user AS "addUser", add_time AS "addTime", item_type AS "itemType", is_necessary AS "isNecessary"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.FocusResult" parameterType="com.lfxwkj.sur.model.params.FocusParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_focus where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.FocusParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_focus where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.FocusResult" parameterType="com.lfxwkj.sur.model.params.FocusParam">
+        SELECT a.*, b.name typeName, c.name itemName
+        FROM `sur_focus` a
+        LEFT JOIN `sys_dict` b ON a.`type` > 0 AND a.`type` = b.dict_id
+        LEFT JOIN `sys_dict` c ON a.`item_type` = c.dict_id
+        where a.state != 1
+        <if test="paramCondition.name != null and paramCondition.name != ''">
+            and a.name like CONCAT('%',#{paramCondition.name},'%')
+        </if>
+        <if test="paramCondition.itemType != null">
+            and a.item_type = #{paramCondition.itemType}
+        </if>
+        order by a.sort,a.add_time desc
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.FocusParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_focus where 1 = 1
+    </select>
+
+</mapper>

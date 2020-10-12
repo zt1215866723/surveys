@@ -1,0 +1,340 @@
+@layout("/common/_form.html",{js:["/assets/drilling/standard/standard_add.js"],css:["/assets/expand/module/formSelects/formSelects-v4.css"]}){
+
+<form class="layui-form" id="standardForm" lay-filter="standardForm">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-card-header">基本信息</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item layui-row">
+                    <input name="id" type="hidden"/>
+
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">工程id<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="itemId" name="itemId" placeholder="请输入工程id" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">钻孔编号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="holeCode" name="holeCode" placeholder="请输入钻孔编号" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">层底深度（米）<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="depth" name="depth" placeholder="请输入层底深度（米）" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label"><span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcxh" name="tcxh" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">主层编号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="mainCode" name="mainCode" placeholder="请输入主层编号" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">亚层编号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="secondaryCode" name="secondaryCode" placeholder="请输入亚层编号" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">次亚层编号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="thirdCode" name="thirdCode" placeholder="请输入次亚层编号" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">地质时代<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcdzsd" name="tcdzsd" placeholder="请输入地质时代" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">地质成因<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcdzcy" name="tcdzcy" placeholder="请输入地质成因" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">自然层厚度(m)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcdchd" name="tcdchd" placeholder="请输入自然层厚度(m)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">地层厚度(m)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tchd" name="tchd" placeholder="请输入地层厚度(m)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">岩土类别<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="type" name="type" placeholder="请输入岩土类别" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">岩土名称<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="name" name="name" placeholder="请输入岩土名称" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">土名代号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcmdh" name="tcmdh" placeholder="请输入土名代号" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">亚岩土名称<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcymc" name="tcymc" placeholder="请输入亚岩土名称" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">土层颜色<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcys" name="tcys" placeholder="请输入土层颜色" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">密实度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcmsd" name="tcmsd" placeholder="请输入密实度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">湿度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcsid" name="tcsid" placeholder="请输入湿度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">可塑性<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcksx" name="tcksx" placeholder="请输入可塑性" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">浑圆度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tchyd" name="tchyd" placeholder="请输入浑圆度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">均匀性<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcjyx" name="tcjyx" placeholder="请输入均匀性" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">风化程度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcfhcd" name="tcfhcd" placeholder="请输入风化程度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">岩层倾向(度)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcysqx" name="tcysqx" placeholder="请输入岩层倾向(度)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">岩层倾角(度)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcysqj" name="tcysqj" placeholder="请输入岩层倾角(度)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">矿物成分<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tckwcf" name="tckwcf" placeholder="请输入矿物成分" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">结构构造<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcjggz" name="tcjggz" placeholder="请输入结构构造" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">包含物<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcbhw" name="tcbhw" placeholder="请输入包含物" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">气味<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcqw" name="tcqw" placeholder="请输入气味" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">土层描述<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="desc" name="desc" placeholder="请输入土层描述" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">完整程度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcztx" name="tcztx" placeholder="请输入完整程度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">坚硬程度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcjycd" name="tcjycd" placeholder="请输入坚硬程度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">破碎程度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcpl" name="tcpl" placeholder="请输入破碎程度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">节理发育<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcjlfy" name="tcjlfy" placeholder="请输入节理发育" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">地层描述<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcdcms" name="tcdcms" placeholder="请输入地层描述" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">节理间距(cm)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcjljj" name="tcjljj" placeholder="请输入节理间距(cm)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">视倾角(度)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcpxjd" name="tcpxjd" placeholder="请输入视倾角(度)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">其他特征<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcqttz" name="tcqttz" placeholder="请输入其他特征" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">天然重度(kN/m3)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tczrzd" name="tczrzd" placeholder="请输入天然重度(kN/m3)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">粘聚力(kPa)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcnjl" name="tcnjl" placeholder="请输入粘聚力(kPa)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">内摩擦角(°)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcnmcj" name="tcnmcj" placeholder="请输入内摩擦角(°)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">承载力(kPa)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcczl" name="tcczl" placeholder="请输入承载力(kPa)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">压缩模量(MPa)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcysml" name="tcysml" placeholder="请输入压缩模量(MPa)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">预制桩侧阻力特征值(kPa)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcyzzCzltzz" name="tcyzzCzltzz" placeholder="请输入预制桩侧阻力特征值(kPa)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">预制桩端阻力特征值(kPa)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcyzzDzltzz" name="tcyzzDzltzz" placeholder="请输入预制桩端阻力特征值(kPa)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">预制桩极限侧阻力标准值(kPa)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcyzzCzlbzz" name="tcyzzCzlbzz" placeholder="请输入预制桩极限侧阻力标准值(kPa)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">预制桩极限端阻力标准值(kPa)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcyzzDzlbzz" name="tcyzzDzlbzz" placeholder="请输入预制桩极限端阻力标准值(kPa)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">冲(钻)孔桩侧阻力特征值(kPa)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcckzCzltzz" name="tcckzCzltzz" placeholder="请输入冲(钻)孔桩侧阻力特征值(kPa)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">冲(钻)孔桩端阻力特征值(kPa)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcckzDzltzz" name="tcckzDzltzz" placeholder="请输入冲(钻)孔桩端阻力特征值(kPa)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">冲(钻)孔桩极限侧阻力标准值(kPa)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcckzCzlbzz" name="tcckzCzlbzz" placeholder="请输入冲(钻)孔桩极限侧阻力标准值(kPa)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">冲(钻)孔桩极限端阻力标准值(kPa)<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcckzDzlbzz" name="tcckzDzlbzz" placeholder="请输入冲(钻)孔桩极限端阻力标准值(kPa)" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">自定义字段1<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcuserdefine1" name="tcuserdefine1" placeholder="请输入自定义字段1" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">自定义字段2<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcuserdefine2" name="tcuserdefine2" placeholder="请输入自定义字段2" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">自定义字段3<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="tcuserdefine3" name="tcuserdefine3" placeholder="请输入自定义字段3" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-bottom text-center">
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+        <button type="reset" class="layui-btn layui-btn-primary" ew-event="closeDialog">&emsp;取消&emsp;</button>
+    </div>
+
+</form>
+
+@}

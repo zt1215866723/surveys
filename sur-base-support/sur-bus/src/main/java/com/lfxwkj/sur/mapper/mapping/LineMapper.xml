@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.LineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.Line">
+        <id column="id" property="id" />
+        <result column="item_id" property="itemId" />
+        <result column="code" property="code" />
+        <result column="hole_codes" property="holeCodes" />
+        <result column="pxkj" property="pxkj" />
+        <result column="pxfwj" property="pxfwj" />
+        <result column="pxshx" property="pxshx" />
+        <result column="pxqfx" property="pxqfx" />
+        <result column="pxzfx" property="pxzfx" />
+        <result column="pxsc" property="pxsc" />
+        <result column="ysgcbh" property="ysgcbh" />
+        <result column="pxqsdx" property="pxqsdx" />
+        <result column="pxqsdy" property="pxqsdy" />
+        <result column="pxzzdx" property="pxzzdx" />
+        <result column="pxzzdy" property="pxzzdy" />
+        <result column="pxqsdjl" property="pxqsdjl" />
+        <result column="pxqsdjd" property="pxqsdjd" />
+        <result column="pxzzdjl" property="pxzzdjl" />
+        <result column="pxzzdjd" property="pxzzdjd" />
+        <result column="zkh" property="zkh" />
+        <result column="zkv" property="zkv" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", item_id AS "itemId", code AS "code", hole_codes AS "holeCodes", pxkj AS "pxkj", pxfwj AS "pxfwj", pxshx AS "pxshx", pxqfx AS "pxqfx", pxzfx AS "pxzfx", pxsc AS "pxsc", ysgcbh AS "ysgcbh", pxqsdx AS "pxqsdx", pxqsdy AS "pxqsdy", pxzzdx AS "pxzzdx", pxzzdy AS "pxzzdy", pxqsdjl AS "pxqsdjl", pxqsdjd AS "pxqsdjd", pxzzdjl AS "pxzzdjl", pxzzdjd AS "pxzzdjd", zkh AS "zkh", zkv AS "zkv"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.LineResult" parameterType="com.lfxwkj.sur.model.params.LineParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_line where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.LineParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_line where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.LineResult" parameterType="com.lfxwkj.sur.model.params.LineParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_line where 1 = 1
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.LineParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_line where 1 = 1
+    </select>
+
+</mapper>

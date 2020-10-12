@@ -1,0 +1,44 @@
+@layout("/common/_container.html",{js:["/assets/recordBorrow/recordBorrow.js"]}){
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">借阅记录表管理</span>
+</div>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-form toolbar">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <input id="borrower" class="layui-input" type="text" placeholder="借阅人"/>
+                            </div>
+                            <div class="layui-inline">
+                                <input id="documentName" class="layui-input" type="text" placeholder="文档名称"/>
+                            </div>
+                            <div class="layui-inline">
+                                <input id="timeLimit" class="layui-input" autocomplete="off" type="text" placeholder="借出日期"/>
+                            </div>
+                            <div class="layui-inline">
+                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+<!--                                <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>-->
+                                <button id="btnExp" class="layui-btn icon-btn"><i class="layui-icon">&#xe67d;</i>导出</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="layui-table" id="recordBorrowTable" lay-filter="recordBorrowTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="tableBar">
+    {{# if(d.returnTime==""){}}
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="return">归还</a>
+    {{#}}}
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+<!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>-->
+</script>
+@}

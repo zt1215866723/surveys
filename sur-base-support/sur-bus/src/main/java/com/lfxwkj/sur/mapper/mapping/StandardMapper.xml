@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.StandardMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.Standard">
+        <id column="id" property="id"/>
+        <result column="item_id" property="itemId"/>
+        <result column="hole_code" property="holeCode"/>
+        <result column="depth" property="depth"/>
+        <result column="tcxh" property="tcxh"/>
+        <result column="main_code" property="mainCode"/>
+        <result column="secondary_code" property="secondaryCode"/>
+        <result column="third_code" property="thirdCode"/>
+        <result column="tcdzsd" property="tcdzsd"/>
+        <result column="tcdzcy" property="tcdzcy"/>
+        <result column="tcdchd" property="tcdchd"/>
+        <result column="tchd" property="tchd"/>
+        <result column="type" property="type"/>
+        <result column="name" property="name"/>
+        <result column="tcmdh" property="tcmdh"/>
+        <result column="tcymc" property="tcymc"/>
+        <result column="tcys" property="tcys"/>
+        <result column="tcmsd" property="tcmsd"/>
+        <result column="tcsid" property="tcsid"/>
+        <result column="tcksx" property="tcksx"/>
+        <result column="tchyd" property="tchyd"/>
+        <result column="tcjyx" property="tcjyx"/>
+        <result column="tcfhcd" property="tcfhcd"/>
+        <result column="tcysqx" property="tcysqx"/>
+        <result column="tcysqj" property="tcysqj"/>
+        <result column="tckwcf" property="tckwcf"/>
+        <result column="tcjggz" property="tcjggz"/>
+        <result column="tcbhw" property="tcbhw"/>
+        <result column="tcqw" property="tcqw"/>
+        <result column="tcms" property="tcms"/>
+        <result column="tcztx" property="tcztx"/>
+        <result column="tcjycd" property="tcjycd"/>
+        <result column="tcpl" property="tcpl"/>
+        <result column="tcjlfy" property="tcjlfy"/>
+        <result column="tcdcms" property="tcdcms"/>
+        <result column="tcjljj" property="tcjljj"/>
+        <result column="tcpxjd" property="tcpxjd"/>
+        <result column="tcqttz" property="tcqttz"/>
+        <result column="tczrzd" property="tczrzd"/>
+        <result column="tcnjl" property="tcnjl"/>
+        <result column="tcnmcj" property="tcnmcj"/>
+        <result column="tcczl" property="tcczl"/>
+        <result column="tcysml" property="tcysml"/>
+        <result column="tcyzz_czltzz" property="tcyzzCzltzz"/>
+        <result column="tcyzz_dzltzz" property="tcyzzDzltzz"/>
+        <result column="tcyzz_czlbzz" property="tcyzzCzlbzz"/>
+        <result column="tcyzz_dzlbzz" property="tcyzzDzlbzz"/>
+        <result column="tcckz_czltzz" property="tcckzCzltzz"/>
+        <result column="tcckz_dzltzz" property="tcckzDzltzz"/>
+        <result column="tcckz_czlbzz" property="tcckzCzlbzz"/>
+        <result column="tcckz_dzlbzz" property="tcckzDzlbzz"/>
+        <result column="tcuserdefine1" property="tcuserdefine1"/>
+        <result column="tcuserdefine2" property="tcuserdefine2"/>
+        <result column="tcuserdefine3" property="tcuserdefine3"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", item_id AS "itemId", hole_code AS "holeCode", depth AS "depth", tcxh AS "tcxh", main_code AS "mainCode", secondary_code AS "secondaryCode", third_code AS "thirdCode", tcdzsd AS "tcdzsd", tcdzcy AS "tcdzcy", tcdchd AS "tcdchd", tchd AS "tchd", type AS "type", name AS "name", tcmdh AS "tcmdh", tcymc AS "tcymc", tcys AS "tcys", tcmsd AS "tcmsd", tcsid AS "tcsid", tcksx AS "tcksx", tchyd AS "tchyd", tcjyx AS "tcjyx", tcfhcd AS "tcfhcd", tcysqx AS "tcysqx", tcysqj AS "tcysqj", tckwcf AS "tckwcf", tcjggz AS "tcjggz", tcbhw AS "tcbhw", tcqw AS "tcqw", tcms AS "tcms", tcztx AS "tcztx", tcjycd AS "tcjycd", tcpl AS "tcpl", tcjlfy AS "tcjlfy", tcdcms AS "tcdcms", tcjljj AS "tcjljj", tcpxjd AS "tcpxjd", tcqttz AS "tcqttz", tczrzd AS "tczrzd", tcnjl AS "tcnjl", tcnmcj AS "tcnmcj", tcczl AS "tcczl", tcysml AS "tcysml", tcyzz_czltzz AS "tcyzzCzltzz", tcyzz_dzltzz AS "tcyzzDzltzz", tcyzz_czlbzz AS "tcyzzCzlbzz", tcyzz_dzlbzz AS "tcyzzDzlbzz", tcckz_czltzz AS "tcckzCzltzz", tcckz_dzltzz AS "tcckzDzltzz", tcckz_czlbzz AS "tcckzCzlbzz", tcckz_dzlbzz AS "tcckzDzlbzz", tcuserdefine1 AS "tcuserdefine1", tcuserdefine2 AS "tcuserdefine2", tcuserdefine3 AS "tcuserdefine3"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.StandardResult"
+            parameterType="com.lfxwkj.sur.model.params.StandardParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_standard where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.StandardParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_standard where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.StandardResult"
+            parameterType="com.lfxwkj.sur.model.params.StandardParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_standard where 1 = 1
+        <if test="paramCondition.holeCode != null and paramCondition.holeCode != ''">
+            and hole_code = #{paramCondition.holeCode}
+        </if>
+        <if test="paramCondition.itemId != null">
+            and item_id = #{paramCondition.itemId}
+        </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.StandardParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_standard where 1 = 1
+    </select>
+    <select id="selectStandardByIds" resultType="com.lfxwkj.sur.model.result.StandardResult">
+        select * from lz_standard where hole_code in (
+        <foreach collection="strings" item="strings" separator=",">
+            #{strings}
+        </foreach>
+        )
+        and item_id = #{itemId}
+        order by CAST( hole_code AS SIGNED),
+        depth
+    </select>
+    <select id="selectStandardHistogram" resultType="com.lfxwkj.sur.model.result.StandardResult">
+        select * from lz_standard where hole_code = #{holeCode}
+        and item_id = #{itemId}
+    </select>
+    <select id="selectStandardsHistogram" resultType="com.lfxwkj.sur.model.result.StandardResult">
+        select * from lz_standard where hole_code in (
+        <foreach collection="strings" item="strings" separator=",">
+            #{strings}
+        </foreach>
+        )
+        and item_id = #{itemId}
+    </select>
+
+</mapper>

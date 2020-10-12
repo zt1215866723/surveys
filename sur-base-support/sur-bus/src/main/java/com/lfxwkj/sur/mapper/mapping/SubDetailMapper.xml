@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.SubDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.SubDetail">
+        <id column="id" property="id" />
+        <result column="sub_id" property="subId" />
+        <result column="cata_id" property="cataId" />
+        <result column="cata_name" property="cataName" />
+        <result column="remarks" property="remarks" />
+        <result column="page_num" property="pageNum" />
+        <result column="save_url" property="saveUrl" />
+        <result column="prep_name" property="prepName" />
+        <result column="revie_name" property="revieName" />
+        <result column="check_name" property="checkName" />
+        <result column="state" property="state" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", cata_id AS "cataId", cata_name AS "cataName", remarks AS "remarks", page_num AS "pageNum", save_url AS "saveUrl", prep_name AS "prepName", revie_name AS "revieName", check_name AS "checkName", state AS "state"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.SubDetailResult" parameterType="com.lfxwkj.sur.model.params.SubDetailParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_sub_detail where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.SubDetailParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_sub_detail where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.SubDetailResult" parameterType="com.lfxwkj.sur.model.params.SubDetailParam">
+        select a.*
+        from sur_sub_detail a
+        left join sys_dict b on a.cata_id = b.dict_id
+        left join sur_item_sub c on a.sub_id = c.id
+        where a.state = 0
+        <if test="paramCondition.cataId != null and paramCondition.cataId != ''">
+            and a.cata_id = #{paramCondition.cataId}
+        </if>
+        <if test="paramCondition.subId != null and paramCondition.subId != ''">
+            and a.sub_id = #{paramCondition.subId}
+        </if>
+        <if test="paramCondition.itemId != null and paramCondition.itemId != ''">
+            and c.item_id = #{paramCondition.itemId}
+        </if>
+        order by b.sort
+    </select>
+
+    <select id="getSynchronousFile" resultType="com.lfxwkj.sur.model.result.SubDetailResult">
+        SELECT a.`save_url`
+        FROM `sur_sub_detail` a
+        LEFT JOIN `sur_item_sub` b ON a.`sub_id` = b.`id`
+        WHERE b.`item_id` = #{itemId}
+        AND a.`cata_id` = '1303524475271630850'
+        AND a.`state` = 0
+        AND b.`state` = 0
+        ORDER BY b.write_time DESC
+        LIMIT 1
+    </select>
+
+    <select id="getTree" resultType="com.lfxwkj.sur.base.pojo.node.LayuiTreeNode">
+        SELECT max(a.cata_id) id,max(a.sub_id) pid,max(a.cata_name) title
+        FROM `sur_sub_detail` a
+        left join sys_dict b on a.cata_id = b.dict_id
+        where sub_id = #{subId}
+        group by a.cata_id
+        order by b.sort
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.SubDetailParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_sub_detail where 1 = 1
+    </select>
+
+</mapper>

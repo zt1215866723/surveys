@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.core.quartz.mapper.SysTaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.core.quartz.entity.SysTask">
+        <id column="id" property="id" />
+        <result column="job_name" property="jobName" />
+        <result column="description" property="description" />
+        <result column="cron_expression" property="cronExpression" />
+        <result column="bean_class" property="beanClass" />
+        <result column="job_status" property="jobStatus" />
+        <result column="job_group" property="jobGroup" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", job_name AS "jobName", description AS "description", cron_expression AS "cronExpression", bean_class AS "beanClass", job_status AS "jobStatus", job_group AS "jobGroup", create_user AS "createUser", create_time AS "createTime", update_user AS "updateUser", update_time AS "updateTime"
+    </sql>
+
+    <select id="customList" resultType="com.lfxwkj.sur.core.quartz.model.result.SysTaskResult" parameterType="com.lfxwkj.sur.core.quartz.model.params.SysTaskParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_task where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.core.quartz.model.params.SysTaskParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_task where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.core.quartz.model.result.SysTaskResult" parameterType="com.lfxwkj.sur.core.quartz.model.params.SysTaskParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_task where 1 = 1
+        <if test="paramCondition.jobGroup != null and paramCondition.jobGroup != ''">
+            and job_group = #{paramCondition.jobGroup}
+        </if>
+        order by create_time desc
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.core.quartz.model.params.SysTaskParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_task where 1 = 1
+    </select>
+
+</mapper>

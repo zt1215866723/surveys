@@ -1,0 +1,63 @@
+@layout("/common/_form.html",{js:["/assets/focus/focus_add.js"],css:["/assets/expand/module/formSelects/formSelects-v4.css"]}){
+
+<form class="layui-form" id="focusForm" lay-filter="focusForm">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-card-header">基本信息</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item layui-row">
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">名称<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="name" name="name" autocomplete="off" placeholder="请输入关注项名称" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">单位</label>
+                        <div class="layui-input-block">
+                            <input id="unit" name="unit" autocomplete="off" placeholder="请输入单位" type="text" class="layui-input" />
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">工程类别<span style="color: #ff0000;">*</span></label>
+                        <div class="layui-input-block">
+                            <select id="itemType" name="itemType" class="layui-input" type="text" lay-verify="required">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">类型<span style="color: #ff0000;">*</span></label>
+                        <div class="layui-input-block">
+                            <select name="type"  id="type" lay-verify="required" lay-search="">
+                                <option value=""></option>
+<!--                                <option value=-1>文本</option>-->
+                                <option value=-0>数值</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">排序</label>
+                        <div class="layui-input-block">
+                            <input id="sort" name="sort" autocomplete="off" type="number" class="layui-input" />
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">是否必填</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="isNecessary" value=1 title="是">
+                            <input type="radio" name="isNecessary" value=0 title="否" checked="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-bottom text-center">
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+        <button type="reset" class="layui-btn layui-btn-primary" ew-event="closeDialog">&emsp;取消&emsp;</button>
+    </div>
+
+</form>
+
+@}

@@ -1,0 +1,7 @@
+# Project exclude paths
+/sur-base-support/sur-base/target/
+/sur-base-support/sur-base-auth/target/
+/sur-base-support/sur-dbctn/target/
+/sur-base-support/sur-generator/target/
+/sur-base-support/sur-sys/target/
+/sur-main/target/

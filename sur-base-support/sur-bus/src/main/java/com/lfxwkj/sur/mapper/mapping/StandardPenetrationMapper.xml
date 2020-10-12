@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.StandardPenetrationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.StandardPenetration">
+        <id column="id" property="id" />
+        <result column="item_id" property="itemId" />
+        <result column="hole_code" property="holeCode" />
+        <result column="depth" property="depth" />
+        <result column="bglx" property="bglx" />
+        <result column="bgtzz" property="bgtzz" />
+        <result column="length" property="length" />
+        <result column="bgyzcd" property="bgyzcd" />
+        <result column="bgyzjs" property="bgyzjs" />
+        <result column="bgjs" property="bgjs" />
+        <result column="bgxs" property="bgxs" />
+        <result column="bgxzjs" property="bgxzjs" />
+        <result column="bgsxz" property="bgsxz" />
+        <result column="cy" property="cy" />
+        <result column="bgxjsx" property="bgxjsx" />
+        <result column="bgxjstjx" property="bgxjstjx" />
+        <result column="bgjsx" property="bgjsx" />
+        <result column="bgjstjx" property="bgjstjx" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", item_id AS "itemId", hole_code AS "holeCode", depth AS "depth", bglx AS "bglx", bgtzz AS "bgtzz", length AS "length", bgyzcd AS "bgyzcd", bgyzjs AS "bgyzjs", bgjs AS "bgjs", bgxs AS "bgxs", bgxzjs AS "bgxzjs", bgsxz AS "bgsxz", cy AS "cy", bgxjsx AS "bgxjsx", bgxjstjx AS "bgxjstjx", bgjsx AS "bgjsx", bgjstjx AS "bgjstjx"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.StandardPenetrationResult" parameterType="com.lfxwkj.sur.model.params.StandardPenetrationParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_standard_penetration where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.StandardPenetrationParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_standard_penetration where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.StandardPenetrationResult" parameterType="com.lfxwkj.sur.model.params.StandardPenetrationParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_standard_penetration where 1 = 1
+        <if test="paramCondition.holeCode != null and paramCondition.holeCode != ''">
+            and hole_code = #{paramCondition.holeCode}
+        </if>
+        <if test="paramCondition.itemId != null">
+            and item_id = #{paramCondition.itemId}
+        </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.StandardPenetrationParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_standard_penetration where 1 = 1
+    </select>
+
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.ItemSubMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.ItemSub">
+        <id column="id" property="id" />
+        <result column="item_id" property="itemId" />
+        <result column="item_type" property="itemType" />
+        <result column="sur_num" property="surNum" />
+        <result column="location" property="location" />
+        <result column="sur_level" property="surLevel" />
+        <result column="sur_stage" property="surStage" />
+        <result column="sur_name" property="surName" />
+        <result column="write_name" property="writeName" />
+        <result column="review_name" property="reviewName" />
+        <result column="check_name" property="checkName" />
+        <result column="exam_name" property="examName" />
+        <result column="charge_name" property="chargeName" />
+        <result column="engin_name" property="enginName" />
+        <result column="legal_name" property="legalName" />
+        <result column="write_time" property="writeTime" />
+        <result column="add_user" property="addUser" />
+        <result column="add_time" property="addTime" />
+        <result column="state" property="state" />
+        <result column="is_foreign" property="isForeign" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", item_id AS "itemId", item_type AS "itemType", sur_num AS "surNum", sur_level AS "surLevel", sur_stage AS "surStage", sur_name AS "surName", write_name AS "writeName", review_name AS "reviewName", check_name AS "checkName", exam_name AS "examName", charge_name AS "chargeName", engin_name AS "enginName", legal_name AS "legalName", write_time AS "writeTime", add_user AS "addUser", add_time AS "addTime", state AS "state"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.ItemSubResult" parameterType="com.lfxwkj.sur.model.params.ItemSubParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_item_sub where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.ItemSubParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_item_sub where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.ItemSubResult" parameterType="com.lfxwkj.sur.model.params.ItemSubParam">
+        SELECT a.*, d.`item_name`, b.name levelName, c.name stageName
+        FROM `sur_item_sub` a
+        LEFT JOIN sys_dict b on a.sur_level = b.dict_id
+        LEFT JOIN sys_dict c on a.sur_stage = c.dict_id
+        LEFT JOIN `sur_item` d ON a.`item_id` = d.`id`
+        WHERE a.`state` != 1
+        <if test="paramCondition.itemName != null and paramCondition.itemName != ''">
+            and d.item_name like CONCAT('%',#{paramCondition.itemName},'%')
+        </if>
+        <if test="paramCondition.itemType != null and paramCondition.itemType != ''">
+            and a.item_type = #{paramCondition.itemType}
+        </if>
+        <if test="paramCondition.surNum != null and paramCondition.surNum != ''">
+            and a.sur_num like CONCAT('%',#{paramCondition.surNum},'%')
+        </if>
+        <if test="paramCondition.surLevel != null and paramCondition.surLevel != ''">
+            and a.sur_level = #{paramCondition.surLevel}
+        </if>
+        <if test="paramCondition.surStage != null and paramCondition.surStage != ''">
+            and a.sur_stage = #{paramCondition.surStage}
+        </if>
+        <if test="paramCondition.surName != null and paramCondition.surName != ''">
+            and a.sur_name like CONCAT('%',#{paramCondition.surName},'%')
+        </if>
+        <if test="paramCondition.writeName != null and paramCondition.writeName != ''">
+            and a.write_name like CONCAT('%',#{paramCondition.writeName},'%')
+        </if>
+        <if test="paramCondition.checkName != null and paramCondition.checkName != ''">
+            and a.check_name like CONCAT('%',#{paramCondition.checkName},'%')
+        </if>
+        <if test="paramCondition.chargeName != null and paramCondition.chargeName != ''">
+            and a.charge_name like CONCAT('%',#{paramCondition.chargeName},'%')
+        </if>
+        <if test="paramCondition.enginName != null and paramCondition.enginName != ''">
+            and a.engin_name like CONCAT('%',#{paramCondition.enginName},'%')
+        </if>
+        <if test="paramCondition.legalName != null and paramCondition.legalName != ''">
+            and a.legal_name like CONCAT('%',#{paramCondition.legalName},'%')
+        </if>
+        <if test="paramCondition.startTime != null">
+            and a.write_time > #{paramCondition.startTime}
+            and a.write_time &lt; #{paramCondition.endTime}
+        </if>
+        order by a.write_time desc
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.ItemSubParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_item_sub where 1 = 1
+    </select>
+
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.WaterLevelMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.WaterLevel">
+        <id column="id" property="id" />
+        <result column="item_id" property="itemId" />
+        <result column="hole_code" property="holeCode" />
+        <result column="depth" property="depth" />
+        <result column="swlx" property="swlx" />
+        <result column="swch" property="swch" />
+        <result column="swcsrq" property="swcsrq" />
+        <result column="swdxsw" property="swdxsw" />
+        <result column="swfw" property="swfw" />
+        <result column="swxz" property="swxz" />
+        <result column="cy" property="cy" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", item_id AS "itemId", hole_code AS "holeCode", depth AS "depth", swlx AS "swlx", swch AS "swch", swcsrq AS "swcsrq", swdxsw AS "swdxsw", swfw AS "swfw", swxz AS "swxz", cy AS "cy"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.WaterLevelResult" parameterType="com.lfxwkj.sur.model.params.WaterLevelParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_water_level where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.WaterLevelParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_water_level where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.WaterLevelResult" parameterType="com.lfxwkj.sur.model.params.WaterLevelParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_water_level where 1 = 1
+        <if test="paramCondition.holeCode != null and paramCondition.holeCode != ''">
+            and hole_code = #{paramCondition.holeCode}
+        </if>
+        <if test="paramCondition.itemId != null">
+            and item_id = #{paramCondition.itemId}
+        </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.WaterLevelParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_water_level where 1 = 1
+    </select>
+
+</mapper>

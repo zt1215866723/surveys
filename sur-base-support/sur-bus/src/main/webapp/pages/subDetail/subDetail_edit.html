@@ -1,0 +1,58 @@
+@layout("/common/_form.html",{js:["/assets/subDetail/subDetail_edit.js"]}){
+
+<form class="layui-form" id="subDetailForm" lay-filter="subDetailForm">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-card-header">基本信息</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item layui-row">
+                    <input name="id" type="hidden"/>
+
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">内容</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="cataName" name="cataName" class="layui-input" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">描述</label>
+                        <div class="layui-input-block">
+                            <input id="remarks" name="remarks" placeholder="请输入描述" type="text" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">页数</label>
+                        <div class="layui-input-block">
+                            <input id="pageNum" name="pageNum" placeholder="请输入文档的页数" type="text" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">编制人</label>
+                        <div class="layui-input-block">
+                            <input id="prepName" name="prepName" placeholder="请输入编制人" type="text" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">复核人</label>
+                        <div class="layui-input-block">
+                            <input id="revieName" name="revieName" placeholder="请输入复核人" type="text" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">审核人</label>
+                        <div class="layui-input-block">
+                            <input id="checkName" name="checkName" placeholder="请输入审核人" type="text" class="layui-input"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-bottom text-center">
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+        <button type="reset" class="layui-btn layui-btn-primary" ew-event="closeDialog">&emsp;取消&emsp;</button>
+    </div>
+
+</form>
+
+@}

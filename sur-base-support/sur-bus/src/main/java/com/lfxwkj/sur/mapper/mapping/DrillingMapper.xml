@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.DrillingMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.Drilling">
+        <id column="id" property="id" />
+        <result column="item_id" property="itemId" />
+        <result column="hole_code" property="holeCode" />
+        <result column="type" property="type" />
+        <result column="zkx" property="zkx" />
+        <result column="zky" property="zky" />
+        <result column="jzdd" property="jzdd" />
+        <result column="zkdh" property="zkdh" />
+        <result column="zklc" property="zklc" />
+        <result column="zkpil" property="zkpil" />
+        <result column="zkbg" property="zkbg" />
+        <result column="zkhsbg" property="zkhsbg" />
+        <result column="depth" property="depth" />
+        <result column="zktjsd" property="zktjsd" />
+        <result column="zkzj" property="zkzj" />
+        <result column="zkdclc" property="zkdclc" />
+        <result column="zkdcjj" property="zkdcjj" />
+        <result column="zkdcqsd" property="zkdcqsd" />
+        <result column="zkdczsd" property="zkdczsd" />
+        <result column="zkdcpm" property="zkdcpm" />
+        <result column="zkxn" property="zkxn" />
+        <result column="zksfcy" property="zksfcy" />
+        <result column="zkjyk" property="zkjyk" />
+        <result column="zkdxsw" property="zkdxsw" />
+        <result column="zktcjd" property="zktcjd" />
+        <result column="zkksrq" property="zkksrq" />
+        <result column="zkzzrq" property="zkzzrq" />
+        <result column="zkdj" property="zkdj" />
+        <result column="zkpztsdxs" property="zkpztsdxs" />
+        <result column="zkpzdqyxsd" property="zkpzdqyxsd" />
+        <result column="bz" property="bz" />
+        <result column="zksc" property="zksc" />
+        <result column="zkh" property="zkh" />
+        <result column="zkv" property="zkv" />
+        <result column="zkyhzs" property="zkyhzs" />
+        <result column="sxdj" property="sxdj" />
+        <result column="sxlx" property="sxlx" />
+        <result column="zkpzqs" property="zkpzqs" />
+        <result column="zkpzdj" property="zkpzdj" />
+        <result column="zkymchsl" property="zkymchsl" />
+        <result column="zkymcsxhsl" property="zkymcsxhsl" />
+        <result column="dtable" property="dtable" />
+        <result column="ysgcbh" property="ysgcbh" />
+        <result column="zkcolor" property="zkcolor" />
+        <result column="zkzbh" property="zkzbh" />
+        <result column="zkszff" property="zkszff" />
+        <result column="zkzjlx" property="zkzjlx" />
+        <result column="zkztdw" property="zkztdw" />
+        <result column="zkgdmc" property="zkgdmc" />
+        <result column="zkdmbg" property="zkdmbg" />
+        <result column="jyjcgc" property="jyjcgc" />
+        <result column="sortkey" property="sortkey" />
+    </resultMap>
+    <resultMap id="BaseResultMap1" type="com.lfxwkj.sur.model.result.DrillingVo">
+        <result column="hole_code" property="holeCode" />
+        <result column="type" property="type" />
+        <result column="depth" property="depth" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", item_id AS "itemId", hole_code AS "holeCode", type AS "type", zkx AS "zkx", zky AS "zky", jzdd AS "jzdd", zkdh AS "zkdh", zklc AS "zklc", zkpil AS "zkpil", zkbg AS "zkbg", zkhsbg AS "zkhsbg", depth AS "depth", zktjsd AS "zktjsd", zkzj AS "zkzj", zkdclc AS "zkdclc", zkdcjj AS "zkdcjj", zkdcqsd AS "zkdcqsd", zkdczsd AS "zkdczsd", zkdcpm AS "zkdcpm", zkxn AS "zkxn", zksfcy AS "zksfcy", zkjyk AS "zkjyk", zkdxsw AS "zkdxsw", zktcjd AS "zktcjd", zkksrq AS "zkksrq", zkzzrq AS "zkzzrq", zkdj AS "zkdj", zkpztsdxs AS "zkpztsdxs", zkpzdqyxsd AS "zkpzdqyxsd", bz AS "bz", zksc AS "zksc", zkh AS "zkh", zkv AS "zkv", zkyhzs AS "zkyhzs", sxdj AS "sxdj", sxlx AS "sxlx", zkpzqs AS "zkpzqs", zkpzdj AS "zkpzdj", zkymchsl AS "zkymchsl", zkymcsxhsl AS "zkymcsxhsl", dtable AS "dtable", ysgcbh AS "ysgcbh", zkcolor AS "zkcolor", zkzbh AS "zkzbh", zkszff AS "zkszff", zkzjlx AS "zkzjlx", zkztdw AS "zkztdw", zkgdmc AS "zkgdmc", zkdmbg AS "zkdmbg", jyjcgc AS "jyjcgc", sortkey AS "sortkey"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.DrillingResult" parameterType="com.lfxwkj.sur.model.params.DrillingParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_drilling where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.DrillingParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_drilling where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.DrillingResult" parameterType="com.lfxwkj.sur.model.params.DrillingParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_drilling where 1 = 1
+        <if test="paramCondition.itemId != null">
+            AND item_id = #{paramCondition.itemId}
+        </if>
+        <if test="paramCondition.holeCode != null and paramCondition.holeCode != '' ">
+            AND hole_code = #{paramCondition.holeCode}
+        </if>
+        order by CAST( hole_code AS SIGNED)
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.DrillingParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_drilling where 1 = 1
+    </select>
+    <select id="selectDrillingByIds" resultType="com.lfxwkj.sur.model.result.DrillingResult">
+        select * from lz_drilling where hole_code in (
+        <foreach collection="strings" item="strings" separator=",">
+          #{strings}
+        </foreach>
+        )
+        and item_id = #{itemId}
+        order by CAST( hole_code AS SIGNED)
+    </select>
+    <select id="selectDrillingByItemId" resultMap="BaseResultMap1">
+        SELECT
+            hole_code,
+            type,
+            depth
+        FROM
+            lz_drilling
+        WHERE
+            item_id = #{paramCondition.itemId}
+            <if test="paramCondition.holeCode != null">
+                AND CONCAT( hole_code, type ) like CONCAT('%',#{paramCondition.holeCode},'%')
+            </if>
+    </select>
+
+</mapper>

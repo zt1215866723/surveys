@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.RecordBorrowMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.RecordBorrow">
+        <id column="id" property="id" />
+        <result column="borrower" property="borrower" />
+        <result column="document_id" property="documentId" />
+        <result column="add_time" property="addTime" />
+        <result column="return_time" property="returnTime" />
+        <result column="administrator" property="administrator" />
+        <result column="note" property="note" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", borrower AS "borrower", document_id AS "documentId", add_time AS "addTime", return_time AS "returnTime", administrator AS "administrator", note AS "note"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.RecordBorrowResult" parameterType="com.lfxwkj.sur.model.params.RecordBorrowParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_record_borrow where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.RecordBorrowParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_record_borrow where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.RecordBorrowResult" parameterType="com.lfxwkj.sur.model.params.RecordBorrowParam">
+        SELECT a.`add_time` ADDTIME, a.`administrator`, a.`borrower`, a.`document_id` documentId, a.`id`, a.`note`, a.`return_time` returnTime, b.`name` administratorName, c.`sur_name` documentName
+        FROM `sur_record_borrow` a
+        LEFT JOIN `sys_user` b ON a.`administrator` = b.`user_id`
+        LEFT JOIN `sur_item_sub` c ON c.`id` = a.`document_id`
+        WHERE 1=1
+        <if test="paramCondition.id != null">
+            and a.id = #{paramCondition.id}
+        </if>
+        <if test="paramCondition.borrower != null and paramCondition.borrower != ''">
+            and a.borrower like CONCAT('%',#{paramCondition.borrower},'%')
+        </if>
+        <if test="paramCondition.documentName != null and paramCondition.documentName != ''">
+            and c.`sur_name` like CONCAT('%',#{paramCondition.documentName},'%')
+        </if>
+        <if test="paramCondition.startTime != null">
+            and a.add_time > #{paramCondition.startTime}
+            and a.add_time &lt; #{paramCondition.endTime}
+        </if>
+        order by a.return_time desc
+    </select>
+
+    <select id="getDetail" resultType="com.lfxwkj.sur.model.result.RecordBorrowResult">
+        SELECT a.`add_time` ADDTIME, a.`administrator`, a.`borrower`, a.`document_id` documentId, a.`id`, a.`note`, a.`return_time` returnTime, b.`name` administratorName, c.`sur_name` documentName
+        FROM `sur_record_borrow` a
+        LEFT JOIN `sys_user` b ON a.`administrator` = b.`user_id`
+        LEFT JOIN `sur_item_sub` c ON c.`id` = a.`document_id`
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.RecordBorrowParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_record_borrow where 1 = 1
+    </select>
+
+</mapper>

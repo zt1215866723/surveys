@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.IndexMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.Index">
+        <id column="id" property="id" />
+        <result column="sub_id" property="subId" />
+        <result column="focus_id" property="focusId" />
+        <result column="nou_value" property="nouValue" />
+        <result column="str_value" property="strValue" />
+        <result column="state" property="state" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", sub_id AS "subId", focus_id AS "focusId", nou_value AS "nouValue", str_value AS "strValue", state AS "state"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.IndexResult" parameterType="com.lfxwkj.sur.model.params.IndexParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_index where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.IndexParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_index where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.IndexResult" parameterType="com.lfxwkj.sur.model.params.IndexParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_index where 1 = 1
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.IndexParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_index where 1 = 1
+    </select>
+
+</mapper>

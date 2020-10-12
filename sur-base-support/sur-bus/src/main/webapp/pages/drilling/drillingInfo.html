@@ -1,0 +1,58 @@
+@layout("/common/_container.html",{js:["/assets/drilling/drillingInfo.js"]}){
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">钻孔信息</li>
+                    <li>地层信息</li>
+                    <li>静探记录</li>
+                    <li>标贯记录</li>
+                    <li>水位记录</li>
+
+                    <li style="font-weight: bold">工程名称：<span id="itemName"></span></li>
+                    <li style="font-weight: bold">工程编号：<span id="itemCode"></span></li>
+                    <li style="font-weight: bold">钻孔编号：<span id="holeCode"></span></li>
+
+                    <button id="btnReturn" class="layui-btn icon-btn"><i class="layui-icon">&#xe65c;</i>返回</button>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-card">
+                            <div class="layui-card-body">
+                                <div class="row" id="projectInfo">
+                                    <label class="layui-col-lg3">钻孔类型：<span id="type"></span></label>
+                                    <label class="layui-col-lg3">横坐标：<span id="zkx"></span></label>
+                                    <label class="layui-col-lg3">纵坐标：<span id="zky"></span></label>
+                                    <label class="layui-col-lg3">孔口高程：<span id="zkbg"></span></label>
+                                    <label class="layui-col-lg3">孔口直径：<span id="zkzj"></span></label>
+                                    <label class="layui-col-lg3">勘探深度：<span id="depth"></span></label>
+                                    <label class="layui-col-lg3">开工日期：<span id="zkksrq"></span></label>
+                                    <label class="layui-col-lg3">竣工日期：<span id="zkzzrq"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <table class="layui-table" id="standardTable" lay-filter="standardTable">
+                        </table>
+                    </div>
+                    <div class="layui-tab-item">
+                        <table class="layui-table" id="staticTable" lay-filter="staticTable">
+                        </table>
+                    </div>
+                    <div class="layui-tab-item">
+                        <table class="layui-table" id="penetrationTable" lay-filter="penetrationTable">
+                        </table>
+                    </div>
+                    <div class="layui-tab-item">
+                        <table class="layui-table" id="waterTable" lay-filter="waterTable">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@}

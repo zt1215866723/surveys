@@ -1,0 +1,52 @@
+@layout("/common/_container.html",{js:["/assets/staticTest/staticTestChart.js"]}){
+
+<style>
+    html, body, .layui-row, .layui-col-md9, .layui-col-md3, .scroll, .filtrate {
+        height: 100%;
+    }
+
+    .layui-col-md9::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+    }
+
+    .scroll {
+        overflow: auto;
+        scrollbar-width: none; /* firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+        overflow-x: hidden;
+    }
+
+    .layui-col-md9, .layui-col-md3, .layui-col-md12 {
+        padding: 30px 20px;
+    }
+
+    .layui-col-md9 {
+        overflow: auto;
+        scrollbar-width: none; /* firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+        overflow-x: hidden;
+    }
+
+    .layui-col-md3 {
+        box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    }
+
+    .layui-form-checkbox span {
+        background-color: #999;
+    }
+
+    .layui-form-checked span, .layui-form-checked:hover span {
+        background-color: #5FB878;
+    }
+
+    .chart {
+        background: white;
+        border-radius: 10px;
+    }
+
+</style>
+<div id="main" class="chart" style="width: 100%;height:100%;"></div>
+<script type="text/javascript"
+        src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
+<script src="${ctxPath}/assets/common/libs/echarts/echarts.min.js?v=${constants.getReleaseVersion()}"></script>
+@}

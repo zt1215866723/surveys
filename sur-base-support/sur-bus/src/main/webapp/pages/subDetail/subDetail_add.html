@@ -1,0 +1,80 @@
+@layout("/common/_form.html",{js:["/assets/subDetail/subDetail_add.js"]}){
+
+<form class="layui-form" id="feedbackForm" lay-filter="feedbackForm" action="#">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-card-body">
+                <div class="layui-form-item layui-row" id="recordImgs">
+                    <input name="id" type="hidden"/>
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend>资料上传</legend>
+                        <div class="layui-upload" style="margin: 20px;padding: 20px;border-bottom: 1px solid #ccc;">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">编制人</label>
+                                <div class="layui-input-inline" style="width: 450px">
+                                    <input type="text" id="prepName" name="prepName" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">复核人</label>
+                                <div class="layui-input-inline" style="width: 450px">
+                                    <input type="text" id="revieName" name="revieName" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">审核人</label>
+                                <div class="layui-input-inline" style="width: 450px">
+                                    <input type="text" id="checkName" name="checkName" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">内容<span style="color: red;">*</span></label>
+                                <div class="layui-input-inline" style="width: 150px">
+                                    <select name="cataParentId" id="cataParentId" class="layui-select" lay-filter="cataParentId">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline" style="width: 250px">
+                                    <input type="hidden" id="cataName" name="cataName">
+                                    <select name="cataId" id="cataId" class="layui-select" lay-verify="required" required lay-filter="cataId">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">页数</label>
+                                <div class="layui-input-inline" style="width: 450px">
+                                    <input type="number" id="pageNum" name="pageNum" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">描述</label>
+                                <div class="layui-input-inline" style="width: 450px">
+                                    <textarea id="fileDesc" name="fileDesc" placeholder="请输入描述" ay-verify="required" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                                <legend>上传文件</legend>
+                            </fieldset>
+                            <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
+                                <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+                            </div>
+                            <div class="layui-upload-drag" id="test10">
+                                <i class="layui-icon"></i>
+                                <p>点击上传，或将文件拖拽到此处</p>
+                                <div class="layui-hide" id="uploadDemoView">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-bottom text-center">
+        <button class="layui-btn" id="btnSubmit" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+        <button type="reset" class="layui-btn" ew-event="closeDialog">&emsp;取消&emsp;</button>
+    </div>
+</form>
+
+@}

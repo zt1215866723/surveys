@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.StaticTestMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.StaticTest">
+        <id column="id" property="id" />
+        <result column="item_id" property="itemId" />
+        <result column="hole_code" property="holeCode" />
+        <result column="depth" property="depth" />
+        <result column="jtlx" property="jtlx" />
+        <result column="length" property="length" />
+        <result column="jtbgrzl" property="jtbgrzl" />
+        <result column="jtztzl" property="jtztzl" />
+        <result column="jtcmz" property="jtcmz" />
+        <result column="jtmzb" property="jtmzb" />
+        <result column="jtkxyl" property="jtkxyl" />
+        <result column="cy" property="cy" />
+        <result column="jtbgrzlx" property="jtbgrzlx" />
+        <result column="jtbgrzltjx" property="jtbgrzltjx" />
+        <result column="jtztzlx" property="jtztzlx" />
+        <result column="jtztzltjx" property="jtztzltjx" />
+        <result column="jtcmzx" property="jtcmzx" />
+        <result column="jtcmztjx" property="jtcmztjx" />
+        <result column="jtmzbx" property="jtmzbx" />
+        <result column="jtmzbtjx" property="jtmzbtjx" />
+        <result column="jtkxylx" property="jtkxylx" />
+        <result column="jtkxyltjx" property="jtkxyltjx" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", item_id AS "itemId", hole_code AS "holeCode", depth AS "depth", jtlx AS "jtlx", length AS "length", jtbgrzl AS "jtbgrzl", jtztzl AS "jtztzl", jtcmz AS "jtcmz", jtmzb AS "jtmzb", jtkxyl AS "jtkxyl", cy AS "cy", jtbgrzlx AS "jtbgrzlx", jtbgrzltjx AS "jtbgrzltjx", jtztzlx AS "jtztzlx", jtztzltjx AS "jtztzltjx", jtcmzx AS "jtcmzx", jtcmztjx AS "jtcmztjx", jtmzbx AS "jtmzbx", jtmzbtjx AS "jtmzbtjx", jtkxylx AS "jtkxylx", jtkxyltjx AS "jtkxyltjx"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.StaticTestResult" parameterType="com.lfxwkj.sur.model.params.StaticTestParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_static_test where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.StaticTestParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_static_test where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.StaticTestResult" parameterType="com.lfxwkj.sur.model.params.StaticTestParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_static_test where 1 = 1
+        <if test="paramCondition.holeCode != null and paramCondition.holeCode != ''">
+            and hole_code = #{paramCondition.holeCode}
+        </if>
+        <if test="paramCondition.itemId != null">
+            and item_id = #{paramCondition.itemId}
+        </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.StaticTestParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_static_test where 1 = 1
+    </select>
+
+</mapper>
