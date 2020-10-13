@@ -53,7 +53,8 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
     // 搜索按钮点击事件
     $('#btnSearch').click(function () {
         var queryData = {
-            holeCode:$("#holeCode").val()
+            holeCode:$("#holeCode").val(),
+            type:$("#type").val()
         };
         table.reload(Item.tableId, {
             where: queryData, page: {curr: 1}
@@ -68,8 +69,8 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
     // 项目定位按钮点击事件
     $('#projectMap').click(function () {
         func.open({
-            title: '定位',
-            content: Feng.ctxPath + '/item/detailMap?xaxis=' + result.data.xaxis +'&yaxis=' + result.data.yaxis,
+            title: result.data.itemName+'定位',
+            content: Feng.ctxPath + '/item/detailMap?xaxis=' + result.data.xaxis +'&yaxis=' + result.data.yaxis +'&itemName=' + encodeURI(encodeURI(result.data.itemName)),
             tableId: Item.tableId
         });
     });

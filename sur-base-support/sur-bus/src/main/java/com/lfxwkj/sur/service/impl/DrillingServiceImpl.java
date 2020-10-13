@@ -12,9 +12,12 @@ import com.lfxwkj.sur.model.result.DrillingResult;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lfxwkj.sur.model.result.DrillingVo;
 import com.lfxwkj.sur.service.DrillingService;
+import com.lfxwkj.sur.util.CoordinatesUtil;
+import com.lfxwkj.sur.util.GPSConverterUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -103,7 +106,26 @@ public class DrillingServiceImpl extends ServiceImpl<DrillingMapper, Drilling> i
      */
     @Override
     public List<DrillingVo> selectDrillingByItemId(DrillingParam drillingParam) {
-        return this.baseMapper.selectDrillingByItemId(drillingParam);
+        List<DrillingVo> drillingVos = this.baseMapper.selectDrillingByItemId(drillingParam);
+        //坐标转换
+        for (DrillingVo d: drillingVos) {
+            //格式化double类型数据，不用科学计数法表示
+            DecimalFormat df = new DecimalFormat("0");
+            String format = df.format(d.getZkx());
+            //判断坐标是什么坐标系的
+            if ( format.length() == 8 || format.length() == 6) {
+                //xian 80 guass kruger 3degree zone 39 (也就是说X轴坐标是39开头小数点前是八位的)
+                //xian 80 6度分带中央经线117E (也就是说X轴坐标是小数点前是六位的)
+                double[] doubles = CoordinatesUtil.GaussToBL(d.getZkx(), d.getZky());
+                String s = GPSConverterUtils.changgeXY(String.valueOf(doubles[0]), String.valueOf(doubles[1]));
+                String[] split = s.split(",");
+                d.setXaxis(split[0]);
+                d.setYaxis(split[1]);
+            }else{
+                //X轴坐标开头4位代表以项目中的一个点为基准，无法转换为经纬度，不在地图中显示
+            }
+        }
+        return drillingVos;
     }
 
 }

@@ -68,11 +68,11 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
     var info = new Array(); //存放提示信息窗口对象的数组
     tempData.forEach(function (item,index) {
         xmPoint[index] = new window.BMap.Point(item.xaxis,item.yaxis); //循环生成新的地图点
-        var myIcon1 = new BMap.Icon("/assets/item/celiang.png", new BMap.Size(24,24));
-        var myIcon2 = new BMap.Icon("/assets/item/diji.png", new BMap.Size(24,24));
-        var myIcon3 = new BMap.Icon("/assets/item/jikeng.png", new BMap.Size(24,24));
-        var myIcon4 = new BMap.Icon("/assets/item/kancha.png", new BMap.Size(24,24));
-        var myIcon5 = new BMap.Icon("/assets/item/qita.png", new BMap.Size(24,24));
+        var myIcon1 = new BMap.Icon("/assets/picture/celiang.png", new BMap.Size(24,24));
+        var myIcon2 = new BMap.Icon("/assets/picture/diji.png", new BMap.Size(24,24));
+        var myIcon3 = new BMap.Icon("/assets/picture/jikeng.png", new BMap.Size(24,24));
+        var myIcon4 = new BMap.Icon("/assets/picture/kancha.png", new BMap.Size(24,24));
+        var myIcon5 = new BMap.Icon("/assets/picture/qita.png", new BMap.Size(24,24));
         if (item.type == 1303502789608460289) {
             var xmLabel = new window.BMap.Label(item.itemName, { offset: new window.BMap.Size(20, -10) });
             xmLabel.setStyle({
@@ -156,7 +156,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             "<p class='map-card-p'>钻孔数量：<span style=''>25 个</span></p>" +
             "<p class='map-card-p'>档案位置：<span style='color: red;'>档案室内某柜子</span></p>" +
             "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>"+
-            "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold' target='_blank' href='/drilling/drillingMap?itemId="+item.id+"' >查看项目钻孔</a></div>" +
+            "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold'  href='/drilling/drillingMap?itemId="+item.id+"&xaxis="+item.xaxis+"&yaxis="+item.yaxis+"' >查看项目钻孔</a></div>" +
             "<div style='width: 34% '><a style='color: #1668ff;font-weight: bold' target='_blank' href='/item/document?itemId="+item.id+"' >进入工程文档</a></div>" +
             "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold' id='lookTJ' >查看项目统计</a></div>" +
             "</div>"+

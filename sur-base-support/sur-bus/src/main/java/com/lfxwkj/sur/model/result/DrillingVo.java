@@ -2,8 +2,6 @@ package com.lfxwkj.sur.model.result;
 
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * @ClassName:DrillingVo
  * @Description:地图上点击某个工程查询该工程的钻孔信息
@@ -29,4 +27,33 @@ public class DrillingVo {
      */
     private Double depth;
 
+    /**
+     * 孔口高程(m)
+     */
+    private Double zkbg;
+
+    /**
+     * 钻孔直径(m)
+     */
+    private Double zkzj;
+
+    /**
+     * 转换前经度
+     */
+    private Double zkx;
+
+    /**
+     * 转换前纬度
+     */
+    private Double zky;
+
+    /**
+     * 转换后经度
+     */
+    private String xaxis;
+
+    /**
+     * 转换后纬度
+     */
+    private String yaxis;
 }

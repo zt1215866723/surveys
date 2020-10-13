@@ -12,40 +12,40 @@ public class CoordinatesUtil {
     public static double[] GaussToBL(double X, double Y)//, double *longitude, double *latitude)
 
     {
-        int ProjNo; int ZoneWide; //带宽
+        int ProjNo; //带宽
         double[] output = new double[2];
-        double longitude1,latitude1, longitude0, X0,Y0, xval,yval;//latitude0,
-        double e1,e2,f,a, ee, NN, T,C, M, D,R,u,fai, iPI;
+        double longitude1, latitude1, longitude0, X0, Y0, xval, yval;//latitude0,
+        double e1, e2, f, a, ee, NN, T, C, M, D, R, u, fai, iPI;
         iPI = 0.0174532925199433; //3.1415926535898/180.0;
 //        a = 6378245.0; f = 1.0/298.3; //54年北京坐标系参数
-        a=6378140.0; f=1/298.257; //80年西安坐标系参数
-        ZoneWide = 3; //6度带宽
-            ProjNo = (int)(X/1000000L) ; //查找带号
-        longitude0 = (ProjNo-1) * ZoneWide + ZoneWide / 2;
-        longitude0 = longitude0 * iPI ; //中央经线
-
-        X0 = ProjNo*1000000L+500000L;
+        a = 6378140.0;
+        f = 1 / 298.257; //80年西安坐标系参数
+        ProjNo = (int) (X / 1000000L); //查找带号
+//        longitude0 = (ProjNo-1) * ZoneWide + ZoneWide / 2;
+        longitude0 = 117 * iPI; //中央经线 (中央子午线117)
+        X0 = ProjNo * 1000000L + 500000L;
         Y0 = 0;
-        xval = X-X0; yval = Y-Y0; //带内大地坐标
-        e2 = 2*f-f*f;
-        e1 = (1.0-Math.sqrt(1-e2))/(1.0+Math.sqrt(1-e2));
-        ee = e2/(1-e2);
+        xval = X - X0;
+        yval = Y - Y0; //带内大地坐标
+        e2 = 2 * f - f * f;
+        e1 = (1.0 - Math.sqrt(1 - e2)) / (1.0 + Math.sqrt(1 - e2));
+        ee = e2 / (1 - e2);
         M = yval;
-        u = M/(a*(1-e2/4-3*e2*e2/64-5*e2*e2*e2/256));
-        fai = u+(3*e1/2-27*e1*e1*e1/32)*Math.sin(2*u)+(21*e1*e1/16-55*e1*e1*e1*e1/32)*Math.sin(
-                4*u)
-                +(151*e1*e1*e1/96)*Math.sin(6*u)+(1097*e1*e1*e1*e1/512)*Math.sin(8*u);
-        C = ee*Math.cos(fai)*Math.cos(fai);
-        T = Math.tan(fai)*Math.tan(fai);
-        NN = a/Math.sqrt(1.0-e2*Math.sin(fai)*Math.sin(fai));
-        R = a*(1-e2)/Math.sqrt((1-e2*Math.sin(fai)*Math.sin(fai))*(1-e2*Math.sin(fai)*Math.sin(fai))*(1-e2*Math.sin
-                (fai)*Math.sin(fai)));
-        D = xval/NN;
+        u = M / (a * (1 - e2 / 4 - 3 * e2 * e2 / 64 - 5 * e2 * e2 * e2 / 256));
+        fai = u + (3 * e1 / 2 - 27 * e1 * e1 * e1 / 32) * Math.sin(2 * u) + (21 * e1 * e1 / 16 - 55 * e1 * e1 * e1 * e1 / 32) * Math.sin(
+                4 * u)
+                + (151 * e1 * e1 * e1 / 96) * Math.sin(6 * u) + (1097 * e1 * e1 * e1 * e1 / 512) * Math.sin(8 * u);
+        C = ee * Math.cos(fai) * Math.cos(fai);
+        T = Math.tan(fai) * Math.tan(fai);
+        NN = a / Math.sqrt(1.0 - e2 * Math.sin(fai) * Math.sin(fai));
+        R = a * (1 - e2) / Math.sqrt((1 - e2 * Math.sin(fai) * Math.sin(fai)) * (1 - e2 * Math.sin(fai) * Math.sin(fai)) * (1 - e2 * Math.sin
+                (fai) * Math.sin(fai)));
+        D = xval / NN;
         //计算经度(Longitude) 纬度(Latitude)
-        longitude1 = longitude0+(D-(1+2*T+C)*D*D*D/6+(5-2*C+28*T-3*C*C+8*ee+24*T*T)*D
-                *D*D*D*D/120)/Math.cos(fai);
-        latitude1 = fai -(NN*Math.tan(fai)/R)*(D*D/2-(5+3*T+10*C-4*C*C-9*ee)*D*D*D*D/24
-                +(61+90*T+298*C+45*T*T-256*ee-3*C*C)*D*D*D*D*D*D/720);
+        longitude1 = longitude0 + (D - (1 + 2 * T + C) * D * D * D / 6 + (5 - 2 * C + 28 * T - 3 * C * C + 8 * ee + 24 * T * T) * D
+                * D * D * D * D / 120) / Math.cos(fai);
+        latitude1 = fai - (NN * Math.tan(fai) / R) * (D * D / 2 - (5 + 3 * T + 10 * C - 4 * C * C - 9 * ee) * D * D * D * D / 24
+                + (61 + 90 * T + 298 * C + 45 * T * T - 256 * ee - 3 * C * C) * D * D * D * D * D * D / 720);
         //转换为度 DD
         output[0] = longitude1 / iPI;
         output[1] = latitude1 / iPI;
@@ -53,6 +53,7 @@ public class CoordinatesUtil {
         //*longitude = longitude1 / iPI;
         //*latitude = latitude1 / iPI;
     }
+
     //由经纬度反算成高斯投影坐标
     public static void GaussToBLToGauss(double longitude, double latitude) {
         int ProjNo = 0;
@@ -95,7 +96,8 @@ public class CoordinatesUtil {
     }
 
     public static void main(String[] args) {
-        double[] doubles = GaussToBL(39496049.73, 4417041.98);
+//        double[] doubles = GaussToBL(498734.05, 4402396.82);
+        double[] doubles = GaussToBL(39476600.326, 4377225.956);
         System.out.println(doubles[0]);
         System.out.println(doubles[1]);
     }

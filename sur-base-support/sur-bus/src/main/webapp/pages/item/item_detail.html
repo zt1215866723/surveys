@@ -24,7 +24,15 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <input id="holeCode" class="layui-input" type="text" placeholder="钻孔编号" autocomplete="off" />
+                                <input id="holeCode" class="layui-input" type="text" placeholder="请输入钻孔编号" autocomplete="off" />
+                            </div>
+                            <div class="layui-inline">
+                                <select id="type" class="layui-input" type="text" placeholder="类型" lay-search="">
+                                    <option value="">请选择钻孔类型</option>
+                                    <option value="鉴别孔">鉴别孔</option>
+                                    <option value="取土标贯钻孔">取土标贯钻孔</option>
+                                    <option value="静力触探试验孔">静力触探试验孔</option>
+                                </select>
                             </div>
                             <div class="layui-inline">
                                 <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>

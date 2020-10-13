@@ -61,6 +61,10 @@
         <result column="hole_code" property="holeCode" />
         <result column="type" property="type" />
         <result column="depth" property="depth" />
+        <result column="zkx" property="zkx" />
+        <result column="zky" property="zky" />
+        <result column="zkbg" property="zkbg" />
+        <result column="zkzj" property="zkzj" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -90,6 +94,9 @@
         <if test="paramCondition.holeCode != null and paramCondition.holeCode != '' ">
             AND hole_code = #{paramCondition.holeCode}
         </if>
+        <if test="paramCondition.type != null and paramCondition.type != '' ">
+            AND type = #{paramCondition.type}
+        </if>
         order by CAST( hole_code AS SIGNED)
     </select>
 
@@ -111,7 +118,11 @@
         SELECT
             hole_code,
             type,
-            depth
+            depth,
+            zkbg,
+            zkzj,
+            zkx,
+            zky
         FROM
             lz_drilling
         WHERE
