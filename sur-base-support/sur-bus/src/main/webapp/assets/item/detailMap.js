@@ -8,7 +8,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
     var map = new BMap.Map("allmap");
     if(Feng.getUrlParam("xaxis") != '' && Feng.getUrlParam("yaxis") != ''){
         var point = new BMap.Point(Feng.getUrlParam("xaxis"),Feng.getUrlParam("yaxis"));
-        var myIcon = new BMap.Icon("/assets/item/local.png", new BMap.Size(36,70));
+        var myIcon = new BMap.Icon("/assets/picture/local.png", new BMap.Size(36,70));
         var marker = new BMap.Marker(point,{icon:myIcon});  // 创建标注
         map.addOverlay(marker);
         console.log( decodeURI(decodeURI(Feng.getUrlParam("itemName"))))

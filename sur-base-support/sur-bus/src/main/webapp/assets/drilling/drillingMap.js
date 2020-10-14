@@ -55,9 +55,9 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
     var info = new Array(); //存放提示信息窗口对象的数组
     tempData.forEach(function (item,index) {
         xmPoint[index] = new window.BMap.Point(item.xaxis,item.yaxis); //循环生成新的地图点
-        var myIcon1 = new BMap.Icon("/assets/item/celiang.png", new BMap.Size(24,24));
-        var myIcon2 = new BMap.Icon("/assets/item/diji.png", new BMap.Size(24,24));
-        var myIcon3 = new BMap.Icon("/assets/item/jikeng.png", new BMap.Size(24,24));
+        var myIcon1 = new BMap.Icon("/assets/picture/celiang.png", new BMap.Size(24,24));
+        var myIcon2 = new BMap.Icon("/assets/picture/diji.png", new BMap.Size(24,24));
+        var myIcon3 = new BMap.Icon("/assets/picture/jikeng.png", new BMap.Size(24,24));
         if (item.type == "鉴别孔") {
             var xmLabel = new window.BMap.Label(item.holeCode, { offset: new window.BMap.Size(20, -10) });
             xmLabel.setStyle({
@@ -104,14 +104,10 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         var sContent =
             "<div style='width: 300px;height: 300px;position:relative'>"+
             "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>"+item.itemName+"</h4>" +
-            "<p class='map-card-p' style=''>项目编号："+item.itemCode+"</p>" +
-            "<p class='map-card-p'>项目类型："+item.typeName+"</p>" +
-            "<p class='map-card-p'>项目地址："+item.location+"</p>" +
-            "<p class='map-card-p'>起止时间：<span>"+item.beginDate+" 至 "+item.endDate+"</span></p>" +
-            "<p class='map-card-p'>项目负责人："+item.head+"</p>" +
-            "<div style='width: 300px;height: 1px;border-top:1px dashed #333333;margin: 10px 0px'></div>"+
-            "<p class='map-card-p'>钻孔数量：<span style=''>25 个</span></p>" +
-            "<p class='map-card-p'>档案位置：<span style='color: red;'>档案室内某柜子</span></p>" +
+            "<p class='map-card-p'>钻孔编号："+item.holeCode+"</p>" +
+            "<p class='map-card-p'>钻孔类型："+item.type+"</p>" +
+            "<p class='map-card-p'>孔口高程(m)："+item.zkbg+"</p>" +
+            "<p class='map-card-p'>勘探深度(m)："+item.depth+"</p>" +
             "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>"+
             "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold' target='_blank' href='/item/document?itemId="+item.id+"' >查看项目钻孔</a></div>" +
             "<div style='width: 34% '><a style='color: #1668ff;font-weight: bold' target='_blank' href='/item/document?itemId="+item.id+"' >进入工程文档</a></div>" +
@@ -122,9 +118,6 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
 
         addInfo(info[index],xmMarker[index]);
     })
-    for (var i = 0; i < tempData.length; i ++) {
-        addInfo(info[index],xmMarker[index]);
-    }
     function addInfo(info,xmMarker){
         xmMarker.addEventListener("click", function(){this.openInfoWindow(info);});
     }

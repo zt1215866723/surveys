@@ -65,6 +65,7 @@
         <result column="zky" property="zky" />
         <result column="zkbg" property="zkbg" />
         <result column="zkzj" property="zkzj" />
+        <result column="itemName" property="itemName" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -116,19 +117,21 @@
     </select>
     <select id="selectDrillingByItemId" resultMap="BaseResultMap1">
         SELECT
-            hole_code,
-            type,
-            depth,
-            zkbg,
-            zkzj,
-            zkx,
-            zky
+            d.hole_code,
+            d.type,
+            d.depth,
+            d.zkbg,
+            d.zkzj,
+            d.zkx,
+            d.zky,
+            i.item_name as itemName
         FROM
-            lz_drilling
+            lz_drilling d
+            LEFT JOIN sur_item i on d.item_id = i.id
         WHERE
-            item_id = #{paramCondition.itemId}
+            d.item_id = #{paramCondition.itemId}
             <if test="paramCondition.holeCode != null">
-                AND CONCAT( hole_code, type ) like CONCAT('%',#{paramCondition.holeCode},'%')
+                AND CONCAT( d.hole_code, type ) like CONCAT('%',#{paramCondition.holeCode},'%')
             </if>
     </select>
 

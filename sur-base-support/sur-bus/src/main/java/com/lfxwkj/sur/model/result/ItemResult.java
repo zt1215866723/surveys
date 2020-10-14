@@ -97,4 +97,8 @@ public class ItemResult implements Serializable {
      */
     private Date endDate;
 
+    /**
+     * 钻孔数量
+     */
+    private Integer zkCount;
 }

@@ -499,7 +499,13 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
      */
     @Override
     public List<ItemResult> getItemOnTheMap(ItemParam itemParam) {
-        return this.baseMapper.getItemOnTheMap(itemParam);
+        List<ItemResult> itemOnTheMap = this.baseMapper.getItemOnTheMap(itemParam);
+        //查钻孔数量
+//        QueryWrapper<Drilling> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("item_id",item)
+//        drillingMapper.selectCount();
+        //查文件存放位置
+        return itemOnTheMap;
     }
 
     /**

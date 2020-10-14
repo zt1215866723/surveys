@@ -5,18 +5,47 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
     var admin = layui.admin;
     var laydate = layui.laydate;
 
+    // 图例的展开与隐藏
+    var flag=1;
+    $('#rightArrow').click(function(){
+        if(flag==1){
+            $("#floatDivBoxs").animate({right: '-200px'},300);
+            $(this).animate({right: '10px'},300);
+            $(this).css('background-position','-39px 0');
+            flag=0;
+        }else{
+            $("#floatDivBoxs").animate({right: '0'},300);
+            $(this).animate({right: '200px'},300);
+            $(this).css('background-position','0px 0');
+            flag=1;
+        }
+    });
 
     //项目数据列表
     var tempData=  [];
 // 百度地图API功能
-    var map = new BMap.Map("allmap");    // 创建Map实例
+    var map = new BMap.Map("allmap", {enableMapClick:false});    // 创建Map实例
     map.centerAndZoom(new BMap.Point(116.719041,39.518128), 14);  // 初始化地图,设置中心点坐标和地图级别
     var point = new BMap.Point(116.719041,39.518088);
-    var myIcon = new BMap.Icon("/assets/item/local.png", new BMap.Size(36,70));
+    var myIcon = new BMap.Icon("/assets/picture/local.png", new BMap.Size(36,70));
     var marker = new BMap.Marker(point,{icon:myIcon});  // 创建标注
     map.addOverlay(marker);
     var label = new BMap.Label("勘察院测绘处", {
         offset: new BMap.Size(15, -25)
+    });
+    //消除底图兴趣点标记
+    map.setMapStyle({
+        styleJson:[
+            {
+                "elementType": "labels.icon",
+                "stylers": {
+                    "weight": "8",
+                    "lightness": -70,
+                    "saturation": 1,
+                    "visibility": "off"
+                }
+            }
+        ]
     });
     label.setStyle({
         color: '#ffffff',
@@ -44,12 +73,12 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         async : false,
         success: function (data) {
             tempData = data.data
-            console.log(data.data)
         }
     });
 
-// 搜索按钮点击事件
-    $('#btnSearch').click(function () {
+    //搜索按钮点击事件
+    $('#search').click(function(){
+        map.centerAndZoom(new BMap.Point(116.719041,39.518128), 14);
         $.ajax({
             url: Feng.ctxPath + "/item/getItemOnTheMap",
             data:{
@@ -58,10 +87,55 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             dataType: 'json',
             type: 'post',
             success: function (data) {
-                tempData = data.data
+                tempData = data.data;
+                $("#searchList").empty();
+                var iContent1,iContent2,iContent3;
+                if (data.data.length != 0){
+                    data.data.forEach(function (item,index) {
+                        iContent1 =
+                            "<div class='searchItem' onclick='dianji("+JSON.stringify(item)+")'>" +
+                            "<div style='float: left'>";
+                        if (item.type == 1303502789608460289) {
+                            iContent2 =
+                                "<img src='/assets/picture/kancha.png'>" ;
+                        } else if (item.type == 1303502842829983746) {
+                            iContent2 =
+                                "<img src='/assets/picture/diji.png'>" ;
+                        } else if (item.type == 1303502895028097025) {
+                            iContent2 =
+                                "<img src='/assets/picture/celiang.png'>" ;
+                        } else if (item.type == 1303502953022738433) {
+                            iContent2 =
+                                "<img src='/assets/picture/jikeng.png'>" ;
+                        } else{
+                            iContent2 =
+                                "<img src='/assets/picture/qita.png'>" ;
+                        }
+                        iContent3 =
+                            "</div>" +
+                            "<div style='float: left;padding:0 5px 0 10px;width: 230px'>" +
+                            "<strong style='margin-left: 5px;line-height: 25px'>项目名称："+item.itemName+"</strong>" +
+                            " <p style='line-height: 20px;font-size: 0.8rem '>项目编号："+item.itemCode+"</p>" +
+                            " <p style='line-height: 20px;font-size: 0.8rem '>项目类型："+item.typeName+"</p>" +
+                            " <p style='line-height: 20px;font-size: 0.8rem '>负责人："+item.head+"</p>" +
+                            " <p style='line-height: 20px;font-size: 0.8rem '>地址："+item.location+"</p>" +
+                            "</div>" +
+                            "</div>";
+                        $("#searchList").append(iContent1+iContent2+iContent3);
+                    })
+                } else {
+                    <!--搜索结果为空-->
+                    iContent =
+                        "<div style='margin-top: 20px;text-align: center'>"+
+                        "<p> 没有找到匹配的项目！</p>" +
+                        "</div>";
+                }
+
+                $("#searchList").css('display','block');
             }
         });
-    });
+        
+    })
 
     var xmPoint= new Array(); //存放标注点经纬信息的数组
     var xmMarker = new Array(); //存放标注点对象的数组
@@ -171,4 +245,33 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
     function addInfo(info,xmMarker){
         xmMarker.addEventListener("click", function(){this.openInfoWindow(info);});
     }
+
+    //点击工程搜索结果
+    window.dianji =function(item){
+        console.log(item)
+        //根据点击的项目Id获取经纬度
+        //在这里写调接口
+        //根据经纬度定位中心点
+        var point = new BMap.Point(item.xaxis, item.yaxis);
+        map.centerAndZoom(point, 19);
+        var opts =
+            "<div style='width: 300px;height: 300px;position:relative'>"+
+            "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>"+item.itemName+"</h4>" +
+            "<p class='map-card-p' style=''>项目编号："+item.itemCode+"</p>" +
+            "<p class='map-card-p'>项目类型："+item.typeName+"</p>" +
+            "<p class='map-card-p'>项目地址："+item.location+"</p>" +
+            "<p class='map-card-p'>起止时间：<span>"+item.beginDate.slice(0,10)+" 至 "+item.endDate.slice(0,10)+"</span></p>" +
+            "<p class='map-card-p'>项目负责人："+item.head+"</p>" +
+            "<div style='width: 300px;height: 1px;border-top:1px dashed #333333;margin: 10px 0px'></div>"+
+            "<p class='map-card-p'>钻孔数量：<span style=''>25 个</span></p>" +
+            "<p class='map-card-p'>档案位置：<span style='color: red;'>档案室内某柜子</span></p>" +
+            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>"+
+            "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold'  href='/drilling/drillingMap?itemId="+item.id+"&xaxis="+item.xaxis+"&yaxis="+item.yaxis+"' >查看项目钻孔</a></div>" +
+            "<div style='width: 34% '><a style='color: #1668ff;font-weight: bold' target='_blank' href='/item/document?itemId="+item.id+"' >进入工程文档</a></div>" +
+            "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold' id='lookTJ' >查看项目统计</a></div>" +
+            "</div>"+
+            "</div>";
+        var infoWindow = new BMap.InfoWindow(opts);
+        map.openInfoWindow(infoWindow, point);
+    };
 });

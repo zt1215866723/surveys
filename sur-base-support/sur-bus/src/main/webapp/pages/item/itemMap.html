@@ -15,20 +15,89 @@
         ::-webkit-scrollbar-thumb:hover {background-color: #3cc23e}
         ::-webkit-scrollbar-thumb:active {background-color:#00aff0}
 
+        .searchItem{
+            width: 280px;
+            cursor:pointer;
+            height: auto;
+            display: inline-block;
+            padding: 13px 12px;
+        }
     </style>
     <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=GXPDLcpdfGRaZ42n5TgQW6DIwftiTN8E"></script>
 <!-- 正文开始 -->
-<div class="layui-fluid">
+<div class="layui-fluid" >
     <div class="map-top-card" style="height: 45px;background-color: #ffffff;position: absolute;left:20px;top: 20px;z-index: 1000;font-size: 0.8rem;line-height: 40px;padding: 0 20px;box-shadow:0 0 5px #6f6f6f ">
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <input style="height: 30px" id="nickName" name="nickName" class="layui-input" placeholder="输入工程"/>
+                <input style="height: 30px" name="nickName" id="nickName" class="layui-input" autocomplete=off placeholder="工程名称/工程编号/负责人"/>
             </div>
         </div>
         <div class="layui-inline">&emsp;
-            <button style="height: 30px;line-height: 30px" class="layui-btn icon-btn" id="btnSearch" lay-filter="userTbSearch" lay-submit>
+            <button id="search" style="height: 30px;line-height: 30px" class="layui-btn icon-btn" lay-filter="userTbSearch" lay-submit>
                 <i class="layui-icon">&#xe615;</i>搜索
             </button>
+        </div>
+    </div>
+    <div id="searchList" style="display: none; width: 296px;height: 400px;overflow-x: hidden; margin-left: 10px; background-color: #ffffff;position: absolute;top: 75px;z-index: 1000;box-shadow:0 0 5px #6f6f6f;overflow-y: scroll;font-size: 0.8rem;">
+<!--        &lt;!&ndash;搜索结果为空&ndash;&gt;-->
+<!--        <div style="margin-top: 20px;text-align: center">-->
+<!--            <p> 没有找到匹配的项目！</p>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;搜索结果不为空&ndash;&gt;-->
+<!--        <div style="margin: 15px 10px;width:280px;height: 90px;cursor:pointer;" class="searchItem">-->
+<!--            <div style="float: left">-->
+<!--                <img src="../../img/kancha.png">-->
+<!--            </div>-->
+<!--            <div style="float: left;padding:0 5px 0 10px;width: 230px">-->
+<!--                <strong style="margin-left: 5px;line-height: 25px">杭州义桥</strong>-->
+<!--                <p style="line-height: 20px;font-size: 0.8rem ">项目类型：饮用水源地</p>-->
+<!--                <p style="line-height: 20px;font-size: 0.8rem">站点属性：入河口</p>-->
+<!--                <p style="line-height: 20px;font-size: 0.8rem">地址：沙家浜风景区昆承湖</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div style="margin: 15px 10px;width:280px;height: 90px;cursor:pointer;">-->
+<!--            <div style="float: left">-->
+<!--                <img src="../../img/jikeng.png">-->
+<!--            </div>-->
+<!--            <div style="float: left;padding:0 5px 0 10px;width: 230px">-->
+<!--                <strong style="margin-left: 5px;line-height: 25px">杭州义桥</strong>-->
+<!--                <p style="line-height: 20px;font-size: 0.8rem ">站点类型：饮用水源地饮用水源地饮用水源地</p>-->
+<!--                <p style="line-height: 20px;font-size: 0.8rem">站点属性：入河口</p>-->
+<!--                <p style="line-height: 20px;font-size: 0.8rem">地址：沙家浜风景区昆承湖</p>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+    <style>
+        #rightArrow{width:39px;height:35px;background:url("/assets/picture/button.jpg") no-repeat;position:fixed;right:210px; bottom:125px;z-index:999;}
+        #rightArrow a{display:block;height:35px;}
+        #floatDivBoxs{position:fixed;z-index:999;}
+    </style>
+    <div id="rightArrow"><a href="javascript:;" title="图例"></a></div>
+    <div id="floatDivBoxs" style="width: 200px;height: 150px;background-color: #ffffff;bottom:10px;right: 10px;z-index: 1000;box-shadow:0 0 5px #6f6f6f ">
+        <div style="margin: 10px">
+            <strong>点位类型</strong>
+        </div>
+        <div class="layui-row" style="margin: 10px 10px 10px 20px">
+            <div class="layui-col-xs6" style="line-height: 30px">
+                <img src="/assets/picture/celiang.png">
+                <span style="font-size: 0.8rem;">测量</span>
+            </div>
+            <div class="layui-col-xs6" style="line-height: 30px" >
+                <img src="/assets/picture/jikeng.png">
+                <span style="font-size: 0.8rem;">基坑</span>
+            </div>
+            <div class="layui-col-xs6" style="line-height: 30px">
+                <img src="/assets/picture/kancha.png">
+                <span style="font-size: 0.8rem;">勘察</span>
+            </div>
+            <div class="layui-col-xs6" style="line-height: 30px">
+                <img src="/assets/picture/diji.png">
+                <span style="font-size: 0.8rem;">地基</span>
+            </div>
+            <div class="layui-col-xs6" style="line-height: 30px">
+                <img src="/assets/picture/qita.png">
+                <span style="font-size: 0.8rem;">其它</span>
+            </div>
         </div>
     </div>
     <div id="allmap"></div>

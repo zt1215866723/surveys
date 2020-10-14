@@ -56,4 +56,9 @@ public class DrillingVo {
      * 转换后纬度
      */
     private String yaxis;
+
+    /**
+     * 项目名称
+     */
+    private String itemName;
 }

@@ -66,7 +66,7 @@
     </select>
 
     <select id="getTree" resultType="com.lfxwkj.sur.base.pojo.node.LayuiTreeNode">
-        SELECT max(a.cata_id) id,max(a.sub_id) pid,max(a.cata_name) title
+        SELECT max(a.cata_id) id,b.parent_id pid,max(a.cata_name) title
         FROM `sur_sub_detail` a
         left join sys_dict b on a.cata_id = b.dict_id
         where sub_id = #{subId}

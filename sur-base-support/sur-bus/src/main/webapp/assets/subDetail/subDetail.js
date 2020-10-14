@@ -24,14 +24,16 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
             data: data,
             click: function(obj){
                 console.log(obj.data); //得到当前点击的节点数据
-                console.log(obj.state); //得到当前节点的展开状态：open、close、normal
-                console.log(obj.elem); //得到当前节点元素
+                // console.log(obj.state); //得到当前节点的展开状态：open、close、normal
+                // console.log(obj.elem); //得到当前节点元素
                 var queryData = {
-                    subId:subId
+                    subId:subId,
+                    cataId:''
                 };
                 if(obj.data.children.length==0){
                     queryData.cataId = obj.data.id;
                 }
+                console.log(queryData)
                 SubDetail.search(queryData);
             },
             onlyIconControl: true
@@ -64,6 +66,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
      * 查询
      */
     SubDetail.search = function (queryData) {
+        console.log(queryData)
         table.reload(SubDetail.tableId, {
             where: queryData, page: {curr: 1}
         });

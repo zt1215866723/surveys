@@ -133,15 +133,43 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
 
     @Override
     public List<LayuiTreeNode> getTree(Long subId) {
-        List<LayuiTreeNode> layuiTreeNodeList = new ArrayList<>();
         ItemSub itemSub = itemSubMapper.selectById(subId);
-        layuiTreeNodeList = this.baseMapper.getTree(subId);
+        Long itemType = itemSub.getItemType();
+        List<LayuiTreeNode> layuiTreeNodeList = this.baseMapper.getTree(subId);
         LayuiTreeNode layuiTreeNode = new LayuiTreeNode();
-        layuiTreeNode.setTitle(itemSub.getSurName());
-        layuiTreeNode.setId(subId);
+        //查內容
+        List<Long> dicts = new ArrayList<>();
+        if(itemType.equals(1303502789608460289L)){
+            dicts.add(1303502318252576770L);
+            dicts.add(1303502422384562178L);
+            dicts.add(1305779332963622913L);
+        }else if(itemType.equals(1303502842829983746L)){
+            dicts.add(1303502378092711938L);
+            dicts.add(1303513218468532226L);
+        }else if(itemType.equals(1303502895028097025L)){
+            dicts.add(1303513860343844865L);
+            dicts.add(1303513360223424513L);
+        }else if(itemType.equals(1303502953022738433L)){
+            dicts.add(1303513766580178945L);
+            dicts.add(1303513282544914434L);
+        }
+        QueryWrapper<Dict> dictQueryWrapper = new QueryWrapper<>();
+        dictQueryWrapper.in("dict_id", dicts);
+        List<Dict> dicts1 = dictMapper.selectList(dictQueryWrapper);
+        layuiTreeNode.setTitle("报告");
+        layuiTreeNode.setId(1L);
         layuiTreeNode.setPid(-1L);
         layuiTreeNode.setSpread(true);
         layuiTreeNodeList.add(layuiTreeNode);
+        for (Dict d: dicts1) {
+            LayuiTreeNode layuiTreeNode1 = new LayuiTreeNode();
+
+            layuiTreeNode1.setTitle(d.getName());
+            layuiTreeNode1.setId(d.getDictId());
+            layuiTreeNode1.setPid(1L);
+            layuiTreeNode1.setSpread(true);
+            layuiTreeNodeList.add(layuiTreeNode1);
+        }
         return layuiTreeNodeList;
     }
 
