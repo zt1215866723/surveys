@@ -64,10 +64,6 @@ public class ItemSubServiceImpl extends ServiceImpl<ItemSubMapper, ItemSub> impl
         param.setAddUser(user.getId());
         param.setState(0);
         ItemSub entity = getEntity(param);
-        //获取项目大类
-        Item item = itemMapper.selectById(param.getItemId());
-        Dict dict = dictMapper.selectById(item.getType());
-        entity.setItemType(dict.getParentId());
         this.save(entity);
         for(Map.Entry<Long, String> entry : param.getFocus().entrySet()){
             if(!entry.getValue().equals("")){

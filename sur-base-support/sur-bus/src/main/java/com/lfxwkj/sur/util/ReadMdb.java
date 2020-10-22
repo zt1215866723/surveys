@@ -9,6 +9,9 @@ import java.util.*;
 import java.util.Date;
 import java.util.concurrent.Future;
 
+/**
+ * 读取access数据库数据
+ */
 @Component
 public class ReadMdb {
 

@@ -72,6 +72,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         type: 'post',
         async : false,
         success: function (data) {
+            console.log(data)
             tempData = data.data
         }
     });

@@ -1,0 +1,124 @@
+@layout("/common/_container.html",{js:["/assets/item/index.js"]}){
+<style>
+    html, body, .layui-row, .layui-col-md9, .layui-col-md3, .scroll, .filtrate {
+        height: 100%;
+    }
+
+    .layui-col-md9::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+    }
+
+    .scroll {
+        overflow: auto;
+        scrollbar-width: none; /* firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+        overflow-x: hidden;
+    }
+
+    .layui-col-md9, .layui-col-md3, .layui-col-md12 {
+        padding: 30px 20px;
+    }
+
+    .layui-col-md9 {
+        overflow: auto;
+        scrollbar-width: none; /* firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+        overflow-x: hidden;
+    }
+
+    .layui-col-md3 {
+        box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    }
+
+    .layui-form-checkbox span {
+        background-color: #999;
+    }
+
+    .layui-form-checked span, .layui-form-checked:hover span {
+        background-color: #5FB878;
+    }
+
+    .chart {
+        background: white;
+        border-radius: 10px;
+    }
+
+</style>
+<div class="layui-row">
+    <div class="layui-row layui-col-lg12">
+        <div class="layui-card" style="height: 675px;">
+            <div class="layui-card-header">
+                <h6 class="m-b-0 float-left">项目看板</h6>
+            </div>
+            <div class="layui-card-body" style="overflow-y: auto;">
+                <div class="layui-row">
+                    <div class="layui-row layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-body">
+                                <div id="itemChart" class="chart" style="width: 100%;height:100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-row layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-body">
+                                <div id="zkChart" class="chart" style="width: 100%;height:100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-row layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-body">
+                                <div class="layui-form toolbar">
+                                    <div class="layui-form-item">
+                                        <div class="layui-inline">
+                                            <input id="itemName" class="layui-input" type="text" placeholder="请输入项目名称"
+                                                   autocomplete="off"/>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <input id="itemCode" class="layui-input" type="text" placeholder="请输入项目编号"
+                                                   autocomplete="off"/>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <input id="location" class="layui-input" type="text" placeholder="请输入项目地点"
+                                                   autocomplete="off"/>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <select id="type" class="layui-input" type="text" placeholder="类型"
+                                                    lay-search="" autocomplete="off">
+                                                <option value="">请选择项目类型</option>
+                                            </select>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <select id="progress" class="layui-input" type="text" placeholder="进度"
+                                                    autocomplete="off">
+                                                <option value="">请选择项目进度</option>
+                                            </select>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="layui-table" id="itemTable" lay-filter="itemTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/html" id="tableBar">
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="document">工程文档</a>
+</script>
+<script type="text/javascript"
+        src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
+<script src="${ctxPath}/assets/common/libs/echarts/echarts.min.js?v=${constants.getReleaseVersion()}"></script>
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=GXPDLcpdfGRaZ42n5TgQW6DIwftiTN8E"></script>
+@}

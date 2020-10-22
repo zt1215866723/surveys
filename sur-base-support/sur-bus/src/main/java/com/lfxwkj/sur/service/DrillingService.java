@@ -9,6 +9,7 @@ import com.lfxwkj.sur.model.result.DrillingResult;
 import com.lfxwkj.sur.model.result.DrillingVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -84,4 +85,5 @@ public interface DrillingService extends IService<Drilling> {
      */
     List<DrillingVo> selectDrillingByItemId(DrillingParam drillingParam);
 
+    List<Map<String, String>> drillingECharts();
 }

@@ -97,7 +97,7 @@ public class CoordinatesUtil {
 
     public static void main(String[] args) {
 //        double[] doubles = GaussToBL(498734.05, 4402396.82);
-        double[] doubles = GaussToBL(39476600.326, 4377225.956);
+        double[] doubles = GaussToBL(498784.48, 4402280.4);
         System.out.println(doubles[0]);
         System.out.println(doubles[1]);
     }

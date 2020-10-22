@@ -7,7 +7,6 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
     var tree = layui.tree;
 
     var subId = Feng.getUrlParam("subId");
-    var surName = Feng.getUrlParam("surName");
     var itemType = Feng.getUrlParam("itemType");
 
     /**

@@ -22,13 +22,49 @@
     <div class="map-top-card" style="height: 45px;background-color: #ffffff;position: absolute;left:20px;top: 20px;z-index: 1000;font-size: 0.8rem;line-height: 40px;padding: 0 20px;box-shadow:0 0 5px #6f6f6f ">
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <input style="height: 30px" id="nickName" name="nickName" class="layui-input" placeholder="输入工程"/>
+                <input style="height: 30px" id="nickName" name="nickName" class="layui-input" placeholder="钻孔编号/钻孔类型"/>
             </div>
         </div>
         <div class="layui-inline">&emsp;
             <button style="height: 30px;line-height: 30px" class="layui-btn icon-btn" id="btnSearch" lay-filter="userTbSearch" lay-submit>
                 <i class="layui-icon">&#xe615;</i>搜索
             </button>
+        </div>
+        <div class="layui-inline">
+            <button style="height: 30px;line-height: 30px" class="layui-btn icon-btn" id="btnBack" lay-filter="userTbSearch" lay-submit>
+                <i class="layui-icon">&#xe65c;</i>返回
+            </button>
+        </div>
+    </div>
+    <div id="searchList" style="display: none; width: 296px;height: 400px;overflow-x: hidden; margin-left: 10px; background-color: #ffffff;position: absolute;top: 75px;z-index: 1000;box-shadow:0 0 5px #6f6f6f;overflow-y: scroll;font-size: 0.8rem;">
+    </div>
+    <style>
+        #rightArrow{width:39px;height:35px;background:url("/assets/picture/button.jpg") no-repeat;position:fixed;right:210px; bottom:125px;z-index:999;}
+        #rightArrow a{display:block;height:35px;}
+        #floatDivBoxs{position:fixed;z-index:999;}
+    </style>
+    <div id="rightArrow"><a href="javascript:;" title="图例"></a></div>
+    <div id="floatDivBoxs" style="width: 200px;height: 150px;background-color: #ffffff;bottom:10px;right: 10px;z-index: 1000;box-shadow:0 0 5px #6f6f6f ">
+        <div style="margin: 10px">
+            <strong>钻孔类型</strong>
+        </div>
+        <div class="layui-row" style="margin: 10px 10px 10px 20px">
+            <div class="layui-col-xs6" style="line-height: 30px">
+                <img src="/assets/picture/celiang.png">
+                <span style="font-size: 0.8rem;">鉴别孔</span>
+            </div>
+            <div class="layui-col-xs6" style="line-height: 30px" >
+                <img src="/assets/picture/jikeng.png">
+                <span style="font-size: 0.8rem;">取土标贯钻孔</span>
+            </div>
+            <div class="layui-col-xs6" style="line-height: 30px">
+                <img src="/assets/picture/kancha.png">
+                <span style="font-size: 0.8rem;">取土试样钻孔</span>
+            </div>
+            <div class="layui-col-xs6" style="line-height: 30px">
+                <img src="/assets/picture/diji.png">
+                <span style="font-size: 0.8rem;">静力触探试验孔</span>
+            </div>
         </div>
     </div>
     <div id="allmap"></div>

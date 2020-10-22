@@ -1,9 +1,15 @@
-layui.use(['table', 'admin', 'ax', 'func'], function () {
+layui.use(['table', 'admin', 'ax', 'func','form'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
     var func = layui.func;
+    var form = layui.form;
+
+    // 设置全局变量以保存选中行信息
+    let ids = new Array();
+    // 保存当前页全部数据id，点击全选时使用
+    let tableIds = new Array();
 
     /**
      * 勘探点数据表管理
@@ -112,15 +118,18 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
 
 
     /**
-     * 导出excel按钮
+     * 生成钻孔柱状图对比
      */
     Drilling.exportExcel = function () {
-        var checkRows = table.checkStatus(Drilling.tableId);
-        if (checkRows.data.length === 0) {
-            Feng.error("请选择要导出的数据");
-        } else {
-            table.exportFile(tableResult.config.id, checkRows.data, 'xls');
-        }
+        //选中的钻孔Id的集合
+        console.log(ids)
+    };
+
+    /**
+     * 生成静力触探图对比
+     */
+    Drilling.exportExcel = function () {
+        console.log(ids)
     };
 
     /**
@@ -150,6 +159,60 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
         height: "full-158",
         cellMinWidth: 100,
         cols: Drilling.initColumn()
+        , done: function (res) {
+        // 设置当前页全部数据id到全局变量
+        tableIds = res.data.map(function (value) {
+            return value.id;
+        });
+        // 设置当前页选中项
+        $.each(res.data, function (idx, val) {
+            if (ids.indexOf(val.id) > -1) {
+                val["LAY_CHECKED"] = 'true';
+                //找到对应数据改变勾选样式，呈现出选中效果
+                let index = val['LAY_TABLE_INDEX'];
+                $('tr[data-index=' + index + '] input[type="checkbox"]').click();
+                form.render('checkbox'); //刷新checkbox选择框渲染
+            }
+        });
+        // 获取表格勾选状态，全选中时设置全选框选中
+        let checkStatus = table.checkStatus('test');
+        if (checkStatus.isAll) {
+            $('.layui-table-header th[data-field="0"] input[type="checkbox"]').prop('checked', true);
+            form.render('checkbox'); //刷新checkbox选择框渲染
+        }
+    }
+});
+
+    // 监听勾选事件
+    table.on('checkbox(' + Drilling.tableId + ')', function (obj) {
+        if (obj.checked == true) {
+            if (obj.type == 'one') {
+                ids.push(obj.data.id);
+            } else {
+                for (let i = 0; i < tableIds.length; i++) {
+                    //当全选之前选中了部分行进行判断，避免重复
+                    if (ids.indexOf(tableIds[i]) == -1) {
+                        ids.push(tableIds[i]);
+                    }
+                }
+            }
+        } else {
+            if (obj.type == 'one') {
+                let i = ids.length;
+                while (i--) {
+                    if (ids[i] == obj.data.id) {
+                        ids.splice(i, 1);
+                    }
+                }
+            } else {
+                let i = ids.length;
+                while (i--) {
+                    if (tableIds.indexOf(ids[i]) != -1) {
+                        ids.splice(i, 1);
+                    }
+                }
+            }
+        }
     });
 
     // 搜索按钮点击事件

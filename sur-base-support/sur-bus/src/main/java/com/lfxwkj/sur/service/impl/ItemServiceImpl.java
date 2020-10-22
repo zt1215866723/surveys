@@ -15,6 +15,8 @@ import com.lfxwkj.sur.model.result.ItemResult;
 import com.lfxwkj.sur.model.result.SubDetailResult;
 import com.lfxwkj.sur.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lfxwkj.sur.sys.modular.system.entity.Dict;
+import com.lfxwkj.sur.sys.modular.system.service.DictService;
 import com.lfxwkj.sur.util.AsyncResult;
 import com.lfxwkj.sur.util.ReadMdb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +78,8 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     private StaticTestService staticTestService;
     @Autowired
     private WaterLevelService waterLevelService;
+    @Autowired
+    private DictService dictService;
     @Autowired
     private ReadMdb readMdb;
 
@@ -147,14 +151,53 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     @Override
     @Transactional(timeout=300)
     public ResponseData synchronous(Long itemId, int isDataCover, int isItemCover){
+        //查询理正数据库文件存放位置
         SubDetailResult subDetailResult = subDetailMapper.getSynchronousFile(itemId);
-        Item item = this.baseMapper.selectById(itemId);
         if(subDetailResult == null){
             return ResponseData.error(1,"请先上传理勘察正备份库文件");
         }
+        //覆盖
+        if(isDataCover == 1){
+            //删除当前工程下的所有理正数据
+            QueryWrapper<Drilling> drillingQueryWrapper = new QueryWrapper<>();
+            drillingQueryWrapper.eq("item_id", itemId);
+            drillingMapper.delete(drillingQueryWrapper);
+            QueryWrapper<Line> lineQueryWrapper = new QueryWrapper<>();
+            lineQueryWrapper.eq("item_id", itemId);
+            lineMapper.delete(lineQueryWrapper);
+            QueryWrapper<Standard> standardQueryWrapper = new QueryWrapper<>();
+            standardQueryWrapper.eq("item_id", itemId);
+            standardMapper.delete(standardQueryWrapper);
+            QueryWrapper<StandardFormation> standardFormationQueryWrapper = new QueryWrapper<>();
+            standardFormationQueryWrapper.eq("item_id", itemId);
+            standardFormationMapper.delete(standardFormationQueryWrapper);
+            QueryWrapper<StandardPenetration> standardPenetrationQueryWrapper = new QueryWrapper<>();
+            standardPenetrationQueryWrapper.eq("item_id", itemId);
+            standardPenetrationMapper.delete(standardPenetrationQueryWrapper);
+            QueryWrapper<StaticTest> staticTestQueryWrapper = new QueryWrapper<>();
+            staticTestQueryWrapper.eq("item_id", itemId);
+            staticTestMapper.delete(staticTestQueryWrapper);
+            QueryWrapper<WaterLevel> waterLevelQueryWrapper = new QueryWrapper<>();
+            waterLevelQueryWrapper.eq("item_id", itemId);
+            waterLevelMapper.delete(waterLevelQueryWrapper);
+        }else {
+            //根据数据库中钻孔表数据判断是否已经导入过理正数据
+            QueryWrapper<Drilling> drillingWrapper = new QueryWrapper<>();
+            drillingWrapper.eq("item_id", itemId);
+            List<Drilling> drillings = drillingMapper.selectList(drillingWrapper);
+            if(drillings.size() > 0){
+                return ResponseData.error(4, "该工程下已导入理正数据，是否覆盖？");
+            }
+        }
+        //查询项目信息
+        Item item = this.baseMapper.selectById(itemId);
+        //将所有表的时间格式化
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        //暂定同步（钻孔，静探，标贯，土层，水位，工程，抛线，土层标准）
         String[] tableNames = {"z_ZuanKong", "z_y_JingTan", "z_y_BiaoGuan", "z_g_TuCeng", "z_g_ShuiWei", "x_GongCheng", "p_PouXian", "g_STuCengGC"};
         try{
+            //读取access数据库数据
+            //开始
             Map<String, List<Map>> data = new HashMap<>();
             Map<String, Future<List<Map>>> lsitFuture = new HashMap<>();
             for (String table : tableNames) {
@@ -164,53 +207,29 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
             for (Map.Entry<String, Future<List<Map>>> entry : lsitFuture.entrySet()) {
                 data.put(entry.getKey(), entry.getValue().get());
             }
+            //结束！
+            //工程表数据同步
             List<Map> projectData = data.get("x_GongCheng");
-            if(isItemCover == 1){
-                item.setItemName((String)projectData.get(0).get("GCMC"));
-                item.setItemCode((String)projectData.get(0).get("GCBH"));
-                this.baseMapper.updateById(item);
-            }
             if(projectData.size() == 0){
                 return ResponseData.error(2, "备份库中没有工程信息，请检查理正数据。");
-            }else{
-                if((!projectData.get(0).get("GCMC").equals(item.getItemName()) || !projectData.get(0).get("GCBH").equals(item.getItemCode())) && isItemCover==0){
-                    return ResponseData.error(3, "备份库中工程名或工程编号与当前信息不一致，是否覆盖？");
-                }
             }
-            if(isDataCover == 1){
-                //删除当前工程下的所有理正数据
-                QueryWrapper<Drilling> drillingQueryWrapper = new QueryWrapper<>();
-                drillingQueryWrapper.eq("item_id", itemId);
-                drillingMapper.delete(drillingQueryWrapper);
-                QueryWrapper<Line> lineQueryWrapper = new QueryWrapper<>();
-                lineQueryWrapper.eq("item_id", itemId);
-                lineMapper.delete(lineQueryWrapper);
-                QueryWrapper<Standard> standardQueryWrapper = new QueryWrapper<>();
-                standardQueryWrapper.eq("item_id", itemId);
-                standardMapper.delete(standardQueryWrapper);
-                QueryWrapper<StandardFormation> standardFormationQueryWrapper = new QueryWrapper<>();
-                standardFormationQueryWrapper.eq("item_id", itemId);
-                standardFormationMapper.delete(standardFormationQueryWrapper);
-                QueryWrapper<StandardPenetration> standardPenetrationQueryWrapper = new QueryWrapper<>();
-                standardPenetrationQueryWrapper.eq("item_id", itemId);
-                standardPenetrationMapper.delete(standardPenetrationQueryWrapper);
-                QueryWrapper<StaticTest> staticTestQueryWrapper = new QueryWrapper<>();
-                staticTestQueryWrapper.eq("item_id", itemId);
-                staticTestMapper.delete(staticTestQueryWrapper);
-                QueryWrapper<WaterLevel> waterLevelQueryWrapper = new QueryWrapper<>();
-                waterLevelQueryWrapper.eq("item_id", itemId);
-                waterLevelMapper.delete(waterLevelQueryWrapper);
-            }
-            QueryWrapper<Drilling> drillingQueryWrapper = new QueryWrapper<>();
-            drillingQueryWrapper.eq("item_id", itemId);
-            List<Drilling> drillings = drillingMapper.selectList(drillingQueryWrapper);
-            if(drillings.size() > 0){
-                return ResponseData.error(4, "该工程下已导入理正数据，是否覆盖？");
-            }
+//            else{
+//
+//                if((!projectData.get(0).get("GCMC").equals(item.getItemName()) || !projectData.get(0).get("GCBH").equals(item.getItemCode())) && isItemCover==0){
+//
+//                    return ResponseData.error(3, "备份库中工程名或工程编号与当前信息不一致，是否覆盖？");
+//                }
+//            }
+//            if(isItemCover == 1){
+//                item.setItemName((String)projectData.get(0).get("GCMC"));
+//                item.setItemCode((String)projectData.get(0).get("GCBH"));
+//                this.baseMapper.updateById(item);
+//            }
             for(Map.Entry<String, List<Map>> entry : data.entrySet()){
                 String tableName = entry.getKey();
                 List<Map> tableData = entry.getValue();
                 if(tableName.equals("z_ZuanKong")){
+                    //同步钻孔信息
                     List<Drilling> drillings1 = new ArrayList<>();
                     for(Map map : tableData){
                         Drilling drilling = new Drilling();
@@ -245,7 +264,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                         drilling.setZkpzdqyxsd(map.get("ZKPZDQYXSD")==null ? null:new BigDecimal((String)map.get("ZKPZDQYXSD")).doubleValue());
                         drilling.setBz(map.get("BZ")==null ? null:(String)map.get("BZ"));
                         drilling.setZksc(map.get("ZKSC")==null ? null:Integer.parseInt(String.valueOf(map.get("ZKSC"))));
-                        drilling.setZkh(map.get("ZKH")==null ? null:Integer.parseInt(String.valueOf(map.get("ZKH"))));
+                        drilling.setZkh(map.get("ZKH")==null ? null:(String)map.get("ZKH"));
                         drilling.setZkv(map.get("ZKV")==null ? null:Integer.parseInt(String.valueOf(map.get("ZKV"))));
                         drilling.setZkyhzs(map.get("ZKYHZS")==null ? null:(String)map.get("ZKYHZS"));
                         drilling.setSxdj(map.get("SXDJ")==null ? null:Integer.parseInt(String.valueOf(map.get("SXDJ"))));
@@ -269,6 +288,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                     }
                     drillingService.saveBatch(drillings1);
                 }else if(tableName.equals("z_y_JingTan")){
+                    //同步静探信息
                     List<StaticTest> staticTests = new ArrayList<>();
                     for(Map map : tableData){
                         StaticTest staticTest = new StaticTest();
@@ -297,6 +317,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                     }
                     staticTestService.saveBatch(staticTests);
                 }else if(tableName.equals("z_y_BiaoGuan")){
+                    //同步标贯信息
                     List<StandardPenetration> standardPenetrations = new ArrayList<>();
                     for(Map map : tableData){
                         StandardPenetration standardPenetration = new StandardPenetration();
@@ -321,6 +342,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                     }
                     standardPenetrationService.saveBatch(standardPenetrations);
                 }else if(tableName.equals("z_g_TuCeng")){
+                    //同步土层信息
                     List<Standard> standards = new ArrayList<>();
                     for(Map map : tableData){
                         Standard standard = new Standard();
@@ -381,6 +403,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                     }
                     standardService.saveBatch(standards);
                 }else if(tableName.equals("z_g_ShuiWei")){
+                    //同步水位信息
                     List<WaterLevel> waterLevels = new ArrayList<>();
                     for(Map map : tableData){
                         WaterLevel waterLevel = new WaterLevel();
@@ -398,6 +421,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                     }
                     waterLevelService.saveBatch(waterLevels);
                 }else if(tableName.equals("p_PouXian")){
+                    //同步剖线信息
                     List<Line> lines = new ArrayList<>();
                     for(Map map : tableData){
                         Line line = new Line();
@@ -425,6 +449,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                     }
                     lineService.saveBatch(lines);
                 }else if(tableName.equals("g_STuCengGC")){
+                    //同步图层标准信息
                     List<StandardFormation> standardFormations = new ArrayList<>();
                     for(Map map : tableData){
                         StandardFormation standardFormation = new StandardFormation();
@@ -517,5 +542,30 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     @Override
     public ItemResult getItemDetail(Long id) {
         return this.baseMapper.getItemDetail(id);
+    }
+
+    /**
+     * @Description  ：首页工程echarts图
+     * @methodName   : itemECharts
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    @Override
+    public List<Map<String, String>> itemECharts() {
+        List<Map<String, String>> result = new ArrayList<>();
+        //查一下几类工程
+        List<Dict> dicts = dictService.listDicts(1303502589535965185l);
+        //分类查数量
+        for (Dict d: dicts) {
+            //查询每个类型有多少项目
+            String count = this.baseMapper.getCountByType(d.getDictId());
+            Map<String,String> a = new HashMap<>();
+            a.put("name",d.getName());
+            a.put("id",d.getDictId().toString());
+            a.put("value",count);
+            result.add(a);
+        }
+        return result;
     }
 }

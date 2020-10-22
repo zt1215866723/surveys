@@ -127,6 +127,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'laydate', 'form'], function () {
             };
             Feng.confirm("是否删除?", operation);
         } else if (layEvent === 'check') {
+            console.log(data.itemType)
             layer.open({
                 type: 2,
                 area: ['100%', '100%'],

@@ -1,6 +1,7 @@
 package com.lfxwkj.sur.service.impl;
 
 import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageFactory;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -117,15 +118,48 @@ public class DrillingServiceImpl extends ServiceImpl<DrillingMapper, Drilling> i
                 //xian 80 guass kruger 3degree zone 39 (也就是说X轴坐标是39开头小数点前是八位的)
                 //xian 80 6度分带中央经线117E (也就是说X轴坐标是小数点前是六位的)
                 double[] doubles = CoordinatesUtil.GaussToBL(d.getZkx(), d.getZky());
-                String s = GPSConverterUtils.changgeXY(String.valueOf(doubles[0]), String.valueOf(doubles[1]));
-                String[] split = s.split(",");
-                d.setXaxis(split[0]);
-                d.setYaxis(split[1]);
+//                String s = GPSConverterUtils.changgeXY(String.valueOf(doubles[0]), String.valueOf(doubles[1]));
+//                String[] split = s.split(",");
+                d.setXaxis(String.valueOf(doubles[0]));
+                d.setYaxis(String.valueOf(doubles[1]));
             }else{
                 //X轴坐标开头4位代表以项目中的一个点为基准，无法转换为经纬度，不在地图中显示
             }
         }
         return drillingVos;
+    }
+
+    /**
+     * @Description  ：首页钻孔echarts图
+     * @methodName   : drillingECharts
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    @Override
+    public List<Map<String, String>> drillingECharts() {
+        List<Map<String, String>> result = new ArrayList<>();
+        QueryWrapper<Drilling> queryWrapper1 = new QueryWrapper<>();
+        Map<String,String> a0 = new HashMap<>();
+        a0.put("name","鉴别孔");
+        a0.put("value",this.baseMapper.selectCount(queryWrapper1.eq("type","鉴别孔")).toString());
+        result.add(a0);
+        QueryWrapper<Drilling> queryWrapper2 = new QueryWrapper<>();
+        Map<String,String> a20 = new HashMap<>();
+        a20.put("name","静力触探试验孔");
+        a20.put("value",this.baseMapper.selectCount(queryWrapper2.eq("type","静力触探试验孔")).toString());
+        result.add(a20);
+        QueryWrapper<Drilling> queryWrapper3 = new QueryWrapper<>();
+        Map<String,String> a40 = new HashMap<>();
+        a40.put("name","取土标贯钻孔");
+        a40.put("value",this.baseMapper.selectCount(queryWrapper3.eq("type","取土标贯钻孔")).toString());
+        result.add(a40);
+        QueryWrapper<Drilling> queryWrapper4 = new QueryWrapper<>();
+        Map<String,String> a60 = new HashMap<>();
+        a60.put("name","取土试样钻孔");
+        a60.put("value",this.baseMapper.selectCount(queryWrapper4.eq("type","取土试样钻孔")).toString());
+        result.add(a60);
+        return result;
     }
 
 }

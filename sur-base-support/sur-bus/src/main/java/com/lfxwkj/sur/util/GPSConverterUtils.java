@@ -29,7 +29,7 @@ public class GPSConverterUtils {
         double lat = 39.52859194181185;
         double lon = 116.72784199889544;
         System.out.println("haha");
-            String aaa=changgeXY("116.72446964734068", "39.52798390319742");
+            String aaa=changgeXY("116.7259409189861", "39.52751442826429");
             System.out.println(aaa);
     }
 

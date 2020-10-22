@@ -177,7 +177,7 @@ public class DrillingParam implements Serializable, BaseValidatingParam {
 
     private Integer zksc;
 
-    private Integer zkh;
+    private String zkh;
 
     private Integer zkv;
 

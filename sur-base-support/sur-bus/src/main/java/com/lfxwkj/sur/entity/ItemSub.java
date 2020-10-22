@@ -33,12 +33,6 @@ public class ItemSub implements Serializable {
     private Long itemId;
 
     /**
-     * 勘察种类
-     */
-    @TableField("item_type")
-    private Long itemType;
-
-    /**
      * 勘察号
      */
     @TableField("sur_num")
@@ -186,14 +180,6 @@ public class ItemSub implements Serializable {
         this.itemId = itemId;
     }
 
-    public Long getItemType() {
-        return itemType;
-    }
-
-    public void setItemType(Long itemType) {
-        this.itemType = itemType;
-    }
-
     public String getSurNum() {
         return surNum;
     }
@@ -319,7 +305,6 @@ public class ItemSub implements Serializable {
         return "ItemSub{" +
         "id=" + id +
         ", itemId=" + itemId +
-        ", itemType=" + itemType +
         ", surNum=" + surNum +
         ", surLevel=" + surLevel +
         ", surStage=" + surStage +

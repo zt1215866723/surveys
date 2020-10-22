@@ -64,4 +64,6 @@ public interface ItemMapper extends BaseMapper<Item> {
     List<ItemResult> getItemOnTheMap(@Param("paramCondition") ItemParam itemParam);
 
     ItemResult getItemDetail(@Param("paramCondition") Long id);
+
+    String getCountByType(@Param("paramCondition")Long dictId);
 }

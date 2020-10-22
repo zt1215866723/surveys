@@ -63,8 +63,8 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
                     var url = Feng.ctxPath + '/item/itemDetail?id=' + d.id;
                     return '<a style="color: #01AAED;" href="' + url + '">' + d.itemName + '</a>';
                 }},
+            {field: 'itemCode', title: '项目编号',align:'center'},
             {field: 'typeName', title: '项目类型',align:'center'},
-            {field: 'processName', title: '项目进度',align:'center'},
             {field: 'location', title: '项目地点',align:'center'},
             {field: 'head',  title: '项目负责人',align:'center'},
             {field: 'beginDate', title: '开始日期',align:'center', templet: function(d){
@@ -73,6 +73,7 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
             {field: 'endDate', title: '结束日期',align:'center', templet: function(d){
                     return d.endDate == ""? "":d.endDate.slice(0,10);
             }},
+            {field: 'processName', title: '项目进度',align:'center'},
             {align: 'center', toolbar: '#tableBar', title: '操作', width:270}
         ]]
     });
@@ -81,6 +82,7 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
     $('#btnSearch').click(function () {
         var queryData = {
             itemName:$("#itemName").val(),
+            itemCode:$("#itemCode").val(),
             location: $("#location").val(),
             type: $("#type").val(),
             progress: $("#progress").val()
@@ -156,7 +158,7 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
     });
 
     function synchronous(itemId, isDataCover, isItemCover){
-        var prompt= layer.msg('文件读取中...', {
+        var prompt= layer.msg('文件同步中...', {
             icon: 16,
             shade: 0.2,
             time: false

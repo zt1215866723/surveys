@@ -15,7 +15,6 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
 
     var ajax = new $ax(Feng.ctxPath + "/item/getItemDetail?id=" + Feng.getUrlParam("id"));
     var result = ajax.start();
-    console.log(result)
     $('#itemCode').html(result.data.itemCode);
     $('#itemName').html(result.data.itemName);
     $('#head').html(result.data.head);
@@ -37,7 +36,7 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
             itemId : Feng.getUrlParam("id")
         },
         height: "full-158",
-        limit: 90,
+        limit: 10,
         cols: [[
             {field: 'holeCode', sort: true, title: '钻孔编号'},
             {field: 'type', sort: true, title: '钻孔类型'},
@@ -46,7 +45,7 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
             {field: 'zkbg', sort: true, title: '孔口高程(m)'},
             {field: 'depth', sort: true, title: '勘探深度(m)'},
             {field: 'zkzj', sort: true, title: '钻孔直径(mm)'},
-            {align: 'center', toolbar: '#tableBar', title: '操作'}
+            {align: 'center', toolbar: '#tableBar', title: '操作',width:270}
         ]]
     });
 
@@ -83,6 +82,12 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
             location.href = "/drilling/drillingDetail?id=" + data.id
         } else if (layEvent === 'histogram') {
             location.href = "/item/itemDetail?id=" + data.id
+        } else if (layEvent === 'edit') {
+            func.open({
+                title: '修改钻孔',
+                content: Feng.ctxPath + '/drilling/edit?id=' + data.id,
+                tableId: Item.tableId
+            });
         }
     });
 });

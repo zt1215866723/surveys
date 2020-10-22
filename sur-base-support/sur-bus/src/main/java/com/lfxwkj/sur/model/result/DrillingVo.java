@@ -61,4 +61,9 @@ public class DrillingVo {
      * 项目名称
      */
     private String itemName;
+
+    /**
+     * 项目Id
+     */
+    private Long itemId;
 }

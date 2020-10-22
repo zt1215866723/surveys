@@ -9,6 +9,7 @@ import com.lfxwkj.sur.model.result.ItemResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -103,4 +104,6 @@ public interface ItemService extends IService<Item> {
      * @Date 2020-09-23
      */
     ItemResult getItemDetail(Long id);
+
+    List<Map<String, String>> itemECharts();
 }

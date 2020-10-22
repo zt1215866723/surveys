@@ -11,7 +11,6 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         var myIcon = new BMap.Icon("/assets/picture/local.png", new BMap.Size(36,70));
         var marker = new BMap.Marker(point,{icon:myIcon});  // 创建标注
         map.addOverlay(marker);
-        console.log( decodeURI(decodeURI(Feng.getUrlParam("itemName"))))
         var label = new BMap.Label(decodeURI(decodeURI(Feng.getUrlParam("itemName"))), {
             offset: new BMap.Size(15, -25)
         });

@@ -24,12 +24,11 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
                 console.log(obj.data); //得到当前点击的节点数据
                 console.log(obj.state); //得到当前节点的展开状态：open、close、normal
                 console.log(obj.elem); //得到当前节点元素
-                var queryData = {};
+                var queryData = {
+                    itemId:itemId,
+                    cataId:''
+                };
                 if(obj.data.children.length==0){
-                    queryData.subId = null;
-                    queryData.cataId = obj.data.id;
-                }else{
-                    queryData.cataId = null;
                     queryData.subId = obj.data.id;
                 }
                 SubDetail.search(queryData);
@@ -65,17 +64,6 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
     SubDetail.search = function (queryData) {
         table.reload(SubDetail.tableId, {
             where: queryData, page: {curr: 1}
-        });
-    };
-
-    /**
-     * 弹出添加对话框
-     */
-    SubDetail.openAddDlg = function () {
-        func.open({
-            title: '添加文档的目录详情。',
-            content: Feng.ctxPath + '/subDetail/add',
-            tableId: SubDetail.tableId
         });
     };
 

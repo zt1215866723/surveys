@@ -66,6 +66,7 @@
         <result column="zkbg" property="zkbg" />
         <result column="zkzj" property="zkzj" />
         <result column="itemName" property="itemName" />
+        <result column="itemId" property="itemId" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -124,15 +125,17 @@
             d.zkzj,
             d.zkx,
             d.zky,
-            i.item_name as itemName
+            i.item_name as itemName,
+            i.id as itemId
         FROM
             lz_drilling d
             LEFT JOIN sur_item i on d.item_id = i.id
         WHERE
             d.item_id = #{paramCondition.itemId}
             <if test="paramCondition.holeCode != null">
-                AND CONCAT( d.hole_code, type ) like CONCAT('%',#{paramCondition.holeCode},'%')
+                AND CONCAT( d.hole_code, d.type ) like CONCAT('%',#{paramCondition.holeCode},'%')
             </if>
+        order by CAST( hole_code AS SIGNED)
     </select>
 
 </mapper>

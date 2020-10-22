@@ -45,7 +45,7 @@
     </select>
 
     <select id="customPageList" resultType="com.lfxwkj.sur.model.result.ItemSubResult" parameterType="com.lfxwkj.sur.model.params.ItemSubParam">
-        SELECT a.*, d.`item_name`, b.name levelName, c.name stageName
+        SELECT a.*, d.`item_name`,d.type itemType, b.name levelName, c.name stageName
         FROM `sur_item_sub` a
         LEFT JOIN sys_dict b on a.sur_level = b.dict_id
         LEFT JOIN sys_dict c on a.sur_stage = c.dict_id

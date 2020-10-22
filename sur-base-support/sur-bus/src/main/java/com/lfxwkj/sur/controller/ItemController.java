@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -257,6 +258,31 @@ public class ItemController extends BaseController {
     @RequestMapping("/detailMap")
     public String detailMap() {
         return PREFIX + "/detailMap.html";
+    }
+
+    /**
+     * 跳转到主页
+     *
+     *  @author zt
+     *      * @Date 2020-09-22
+     */
+    @RequestMapping("/index")
+    public String itemIndex() {
+        return PREFIX + "/index.html";
+    }
+
+    /**
+     * @Description  ：首页工程echarts图
+     * @methodName   : itemECharts
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    @ResponseBody
+    @RequestMapping("/itemECharts")
+    public ResponseData itemECharts() {
+        List<Map<String,String>> result = itemService.itemECharts();
+        return ResponseData.success(result);
     }
 }
 

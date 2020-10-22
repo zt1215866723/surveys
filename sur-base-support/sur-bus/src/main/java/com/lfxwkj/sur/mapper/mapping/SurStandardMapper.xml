@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.SurStandardMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.SurStandard">
+        <id column="id" property="id" />
+        <result column="item_id" property="itemId" />
+        <result column="main_code" property="mainCode" />
+        <result column="secondary_code" property="secondaryCode" />
+        <result column="third_code" property="thirdCode" />
+        <result column="tcdzsd" property="tcdzsd" />
+        <result column="tcdzcy" property="tcdzcy" />
+        <result column="type" property="type" />
+        <result column="name" property="name" />
+        <result column="tcymc" property="tcymc" />
+        <result column="tcys" property="tcys" />
+        <result column="tcmsd" property="tcmsd" />
+        <result column="tcsid" property="tcsid" />
+        <result column="tcksx" property="tcksx" />
+        <result column="tchyd" property="tchyd" />
+        <result column="tcjyx" property="tcjyx" />
+        <result column="tcfhcd" property="tcfhcd" />
+        <result column="tcysqx" property="tcysqx" />
+        <result column="tcysqj" property="tcysqj" />
+        <result column="tckwcf" property="tckwcf" />
+        <result column="tcjggz" property="tcjggz" />
+        <result column="tcbhw" property="tcbhw" />
+        <result column="tcqw" property="tcqw" />
+        <result column="tcms" property="tcms" />
+        <result column="tcztx" property="tcztx" />
+        <result column="tcjycd" property="tcjycd" />
+        <result column="tcpl" property="tcpl" />
+        <result column="tcjlfy" property="tcjlfy" />
+        <result column="tcjljj" property="tcjljj" />
+        <result column="tcpxjd" property="tcpxjd" />
+        <result column="tcqttz" property="tcqttz" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", item_id AS "itemId", main_code AS "mainCode", secondary_code AS "secondaryCode", third_code AS "thirdCode", tcdzsd AS "tcdzsd", tcdzcy AS "tcdzcy", type AS "type", name AS "name", tcymc AS "tcymc", tcys AS "tcys", tcmsd AS "tcmsd", tcsid AS "tcsid", tcksx AS "tcksx", tchyd AS "tchyd", tcjyx AS "tcjyx", tcfhcd AS "tcfhcd", tcysqx AS "tcysqx", tcysqj AS "tcysqj", tckwcf AS "tckwcf", tcjggz AS "tcjggz", tcbhw AS "tcbhw", tcqw AS "tcqw", tcms AS "tcms", tcztx AS "tcztx", tcjycd AS "tcjycd", tcpl AS "tcpl", tcjlfy AS "tcjlfy", tcjljj AS "tcjljj", tcpxjd AS "tcpxjd", tcqttz AS "tcqttz"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.SurStandardResult" parameterType="com.lfxwkj.sur.model.params.SurStandardParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_standard where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.SurStandardParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_standard where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.SurStandardResult" parameterType="com.lfxwkj.sur.model.params.SurStandardParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_standard where 1 = 1
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.SurStandardParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sur_standard where 1 = 1
+    </select>
+
+</mapper>

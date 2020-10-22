@@ -22,6 +22,7 @@ import com.lfxwkj.sur.sys.modular.system.entity.Dict;
 import com.lfxwkj.sur.sys.modular.system.mapper.DictMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -61,9 +62,16 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
     }
 
     @Override
+    @Transactional
     public void delete(SubDetailParam param){
         param.setState(1);
         this.update(param);
+        SubDetail byId = this.getById(param.getId());
+        ItemSub itemSub = itemSubMapper.selectById(byId.getSubId());
+        Item item = itemMapper.selectById(itemSub.getItemId());
+        String fileName = "D:\\勘察文档\\" + item.getItemName() + "\\" + itemSub.getSurName();
+        File file = new File(fileName);
+            file.delete();
     }
 
     @Override
@@ -96,6 +104,9 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
         ItemSub itemSub = itemSubMapper.selectById(subId);
         Item item = itemMapper.selectById(itemSub.getItemId());
         String folder = "D:\\勘察文档\\" + item.getItemName() + "\\" + itemSub.getSurName();
+        folder = folder.replaceAll("& #40;","(");
+        folder = folder.replaceAll("& #41;",")");
+        folder = folder.replaceAll("& #39;","'");
         File localFile = new File(folder, file.getOriginalFilename());
         //判断文件是否已经存在
         if (localFile.exists()) {
@@ -134,7 +145,8 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
     @Override
     public List<LayuiTreeNode> getTree(Long subId) {
         ItemSub itemSub = itemSubMapper.selectById(subId);
-        Long itemType = itemSub.getItemType();
+        Item item = itemMapper.selectById(itemSub.getItemId());
+        Long itemType = item.getType();
         List<LayuiTreeNode> layuiTreeNodeList = this.baseMapper.getTree(subId);
         LayuiTreeNode layuiTreeNode = new LayuiTreeNode();
         //查內容
@@ -156,7 +168,7 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
         QueryWrapper<Dict> dictQueryWrapper = new QueryWrapper<>();
         dictQueryWrapper.in("dict_id", dicts);
         List<Dict> dicts1 = dictMapper.selectList(dictQueryWrapper);
-        layuiTreeNode.setTitle("报告");
+        layuiTreeNode.setTitle(itemSub.getSurName());
         layuiTreeNode.setId(1L);
         layuiTreeNode.setPid(-1L);
         layuiTreeNode.setSpread(true);

@@ -176,7 +176,7 @@ public class DrillingResult implements Serializable {
 
     private Integer zksc;
 
-    private Integer zkh;
+    private String zkh;
 
     private Integer zkv;
 

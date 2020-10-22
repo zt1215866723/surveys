@@ -210,7 +210,7 @@ public class Drilling implements Serializable {
     private Integer zksc;
 
     @TableField("zkh")
-    private Integer zkh;
+    private String zkh;
 
     @TableField("zkv")
     private Integer zkv;
@@ -568,12 +568,13 @@ public class Drilling implements Serializable {
         this.zksc = zksc;
     }
 
-    public Integer getZkh() {
+    public String getZkh() {
         return zkh;
     }
 
-    public void setZkh(Integer zkh) {
+    public Drilling setZkh(String zkh) {
         this.zkh = zkh;
+        return this;
     }
 
     public Integer getZkv() {

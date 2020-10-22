@@ -66,6 +66,9 @@
         <if test="paramCondition.itemName != null and paramCondition.itemName != ''">
             and a.item_name like CONCAT('%',#{paramCondition.itemName},'%')
         </if>
+        <if test="paramCondition.itemCode != null and paramCondition.itemCode != ''">
+            and a.item_code like CONCAT('%',#{paramCondition.itemCode},'%')
+        </if>
         <if test="paramCondition.location != null and paramCondition.location != ''">
             and a.location like CONCAT('%',#{paramCondition.location},'%')
         </if>
@@ -108,6 +111,14 @@
         <if test="paramCondition != null">
             and a.id = #{paramCondition}
         </if>
+    </select>
+    <select id="getCountByType" resultType="java.lang.String">
+        SELECT
+            count(*)
+        FROM
+            sur_item
+        WHERE
+            type = #{paramCondition}
     </select>
 
 </mapper>

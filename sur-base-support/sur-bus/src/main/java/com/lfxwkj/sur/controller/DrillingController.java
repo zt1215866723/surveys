@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -191,5 +192,19 @@ public class DrillingController extends BaseController {
     @RequestMapping("/drillingMap")
     public String drillingMap() {
         return PREFIX + "/drillingMap.html";
+    }
+
+    /**
+     * @Description  ：首页钻孔echarts图
+     * @methodName   : drillingECharts
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    @ResponseBody
+    @RequestMapping("/drillingECharts")
+    public ResponseData drillingECharts() {
+        List<Map<String,String>> result = drillingService.drillingECharts();
+        return ResponseData.success(result);
     }
 }
