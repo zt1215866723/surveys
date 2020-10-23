@@ -130,6 +130,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                         "<div style='margin-top: 20px;text-align: center'>"+
                         "<p> 没有找到匹配的项目！</p>" +
                         "</div>";
+                    $("#searchList").append(iContent);
                 }
 
                 $("#searchList").css('display','block');
@@ -228,8 +229,8 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             "<p class='map-card-p'>起止时间：<span>"+item.beginDate.slice(0,10)+" 至 "+item.endDate.slice(0,10)+"</span></p>" +
             "<p class='map-card-p'>项目负责人："+item.head+"</p>" +
             "<div style='width: 300px;height: 1px;border-top:1px dashed #333333;margin: 10px 0px'></div>"+
-            "<p class='map-card-p'>钻孔数量：<span style=''>25 个</span></p>" +
-            "<p class='map-card-p'>档案位置：<span style='color: red;'>档案室内某柜子</span></p>" +
+            // "<p class='map-card-p'>钻孔数量：<span style=''>25 个</span></p>" +
+            // "<p class='map-card-p'>档案位置：<span style='color: red;'>档案室内某柜子</span></p>" +
             "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>"+
             "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold'  href='/drilling/drillingMap?itemId="+item.id+"&xaxis="+item.xaxis+"&yaxis="+item.yaxis+"' >查看项目钻孔</a></div>" +
             "<div style='width: 34% '><a style='color: #1668ff;font-weight: bold' target='_blank' href='/item/document?itemId="+item.id+"' >进入工程文档</a></div>" +

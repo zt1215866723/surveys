@@ -4,69 +4,69 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.Drilling">
-        <id column="id" property="id" />
-        <result column="item_id" property="itemId" />
-        <result column="hole_code" property="holeCode" />
-        <result column="type" property="type" />
-        <result column="zkx" property="zkx" />
-        <result column="zky" property="zky" />
-        <result column="jzdd" property="jzdd" />
-        <result column="zkdh" property="zkdh" />
-        <result column="zklc" property="zklc" />
-        <result column="zkpil" property="zkpil" />
-        <result column="zkbg" property="zkbg" />
-        <result column="zkhsbg" property="zkhsbg" />
-        <result column="depth" property="depth" />
-        <result column="zktjsd" property="zktjsd" />
-        <result column="zkzj" property="zkzj" />
-        <result column="zkdclc" property="zkdclc" />
-        <result column="zkdcjj" property="zkdcjj" />
-        <result column="zkdcqsd" property="zkdcqsd" />
-        <result column="zkdczsd" property="zkdczsd" />
-        <result column="zkdcpm" property="zkdcpm" />
-        <result column="zkxn" property="zkxn" />
-        <result column="zksfcy" property="zksfcy" />
-        <result column="zkjyk" property="zkjyk" />
-        <result column="zkdxsw" property="zkdxsw" />
-        <result column="zktcjd" property="zktcjd" />
-        <result column="zkksrq" property="zkksrq" />
-        <result column="zkzzrq" property="zkzzrq" />
-        <result column="zkdj" property="zkdj" />
-        <result column="zkpztsdxs" property="zkpztsdxs" />
-        <result column="zkpzdqyxsd" property="zkpzdqyxsd" />
-        <result column="bz" property="bz" />
-        <result column="zksc" property="zksc" />
-        <result column="zkh" property="zkh" />
-        <result column="zkv" property="zkv" />
-        <result column="zkyhzs" property="zkyhzs" />
-        <result column="sxdj" property="sxdj" />
-        <result column="sxlx" property="sxlx" />
-        <result column="zkpzqs" property="zkpzqs" />
-        <result column="zkpzdj" property="zkpzdj" />
-        <result column="zkymchsl" property="zkymchsl" />
-        <result column="zkymcsxhsl" property="zkymcsxhsl" />
-        <result column="dtable" property="dtable" />
-        <result column="ysgcbh" property="ysgcbh" />
-        <result column="zkcolor" property="zkcolor" />
-        <result column="zkzbh" property="zkzbh" />
-        <result column="zkszff" property="zkszff" />
-        <result column="zkzjlx" property="zkzjlx" />
-        <result column="zkztdw" property="zkztdw" />
-        <result column="zkgdmc" property="zkgdmc" />
-        <result column="zkdmbg" property="zkdmbg" />
-        <result column="jyjcgc" property="jyjcgc" />
-        <result column="sortkey" property="sortkey" />
+        <id column="id" property="id"/>
+        <result column="item_id" property="itemId"/>
+        <result column="hole_code" property="holeCode"/>
+        <result column="type" property="type"/>
+        <result column="zkx" property="zkx"/>
+        <result column="zky" property="zky"/>
+        <result column="jzdd" property="jzdd"/>
+        <result column="zkdh" property="zkdh"/>
+        <result column="zklc" property="zklc"/>
+        <result column="zkpil" property="zkpil"/>
+        <result column="zkbg" property="zkbg"/>
+        <result column="zkhsbg" property="zkhsbg"/>
+        <result column="depth" property="depth"/>
+        <result column="zktjsd" property="zktjsd"/>
+        <result column="zkzj" property="zkzj"/>
+        <result column="zkdclc" property="zkdclc"/>
+        <result column="zkdcjj" property="zkdcjj"/>
+        <result column="zkdcqsd" property="zkdcqsd"/>
+        <result column="zkdczsd" property="zkdczsd"/>
+        <result column="zkdcpm" property="zkdcpm"/>
+        <result column="zkxn" property="zkxn"/>
+        <result column="zksfcy" property="zksfcy"/>
+        <result column="zkjyk" property="zkjyk"/>
+        <result column="zkdxsw" property="zkdxsw"/>
+        <result column="zktcjd" property="zktcjd"/>
+        <result column="zkksrq" property="zkksrq"/>
+        <result column="zkzzrq" property="zkzzrq"/>
+        <result column="zkdj" property="zkdj"/>
+        <result column="zkpztsdxs" property="zkpztsdxs"/>
+        <result column="zkpzdqyxsd" property="zkpzdqyxsd"/>
+        <result column="bz" property="bz"/>
+        <result column="zksc" property="zksc"/>
+        <result column="zkh" property="zkh"/>
+        <result column="zkv" property="zkv"/>
+        <result column="zkyhzs" property="zkyhzs"/>
+        <result column="sxdj" property="sxdj"/>
+        <result column="sxlx" property="sxlx"/>
+        <result column="zkpzqs" property="zkpzqs"/>
+        <result column="zkpzdj" property="zkpzdj"/>
+        <result column="zkymchsl" property="zkymchsl"/>
+        <result column="zkymcsxhsl" property="zkymcsxhsl"/>
+        <result column="dtable" property="dtable"/>
+        <result column="ysgcbh" property="ysgcbh"/>
+        <result column="zkcolor" property="zkcolor"/>
+        <result column="zkzbh" property="zkzbh"/>
+        <result column="zkszff" property="zkszff"/>
+        <result column="zkzjlx" property="zkzjlx"/>
+        <result column="zkztdw" property="zkztdw"/>
+        <result column="zkgdmc" property="zkgdmc"/>
+        <result column="zkdmbg" property="zkdmbg"/>
+        <result column="jyjcgc" property="jyjcgc"/>
+        <result column="sortkey" property="sortkey"/>
     </resultMap>
     <resultMap id="BaseResultMap1" type="com.lfxwkj.sur.model.result.DrillingVo">
-        <result column="hole_code" property="holeCode" />
-        <result column="type" property="type" />
-        <result column="depth" property="depth" />
-        <result column="zkx" property="zkx" />
-        <result column="zky" property="zky" />
-        <result column="zkbg" property="zkbg" />
-        <result column="zkzj" property="zkzj" />
-        <result column="itemName" property="itemName" />
-        <result column="itemId" property="itemId" />
+        <result column="hole_code" property="holeCode"/>
+        <result column="type" property="type"/>
+        <result column="depth" property="depth"/>
+        <result column="zkx" property="zkx"/>
+        <result column="zky" property="zky"/>
+        <result column="zkbg" property="zkbg"/>
+        <result column="zkzj" property="zkzj"/>
+        <result column="itemName" property="itemName"/>
+        <result column="itemId" property="itemId"/>
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -74,7 +74,8 @@
     </sql>
 
 
-    <select id="customList" resultType="com.lfxwkj.sur.model.result.DrillingResult" parameterType="com.lfxwkj.sur.model.params.DrillingParam">
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.DrillingResult"
+            parameterType="com.lfxwkj.sur.model.params.DrillingParam">
         select
         <include refid="Base_Column_List"/>
         from lz_drilling where 1 = 1
@@ -86,7 +87,8 @@
         from lz_drilling where 1 = 1
     </select>
 
-    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.DrillingResult" parameterType="com.lfxwkj.sur.model.params.DrillingParam">
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.DrillingResult"
+            parameterType="com.lfxwkj.sur.model.params.DrillingParam">
         select
         <include refid="Base_Column_List"/>
         from lz_drilling where 1 = 1
@@ -110,7 +112,7 @@
     <select id="selectDrillingByIds" resultType="com.lfxwkj.sur.model.result.DrillingResult">
         select * from lz_drilling where hole_code in (
         <foreach collection="strings" item="strings" separator=",">
-          #{strings}
+            #{strings}
         </foreach>
         )
         and item_id = #{itemId}
@@ -118,24 +120,64 @@
     </select>
     <select id="selectDrillingByItemId" resultMap="BaseResultMap1">
         SELECT
-            d.hole_code,
-            d.type,
-            d.depth,
-            d.zkbg,
-            d.zkzj,
-            d.zkx,
-            d.zky,
-            i.item_name as itemName,
-            i.id as itemId
+        d.hole_code,
+        d.type,
+        d.depth,
+        d.zkbg,
+        d.zkzj,
+        d.zkx,
+        d.zky,
+        i.item_name as itemName,
+        i.id as itemId
         FROM
-            lz_drilling d
-            LEFT JOIN sur_item i on d.item_id = i.id
+        lz_drilling d
+        LEFT JOIN sur_item i on d.item_id = i.id
         WHERE
-            d.item_id = #{paramCondition.itemId}
-            <if test="paramCondition.holeCode != null">
-                AND CONCAT( d.hole_code, d.type ) like CONCAT('%',#{paramCondition.holeCode},'%')
-            </if>
+        d.item_id = #{paramCondition.itemId}
+        <if test="paramCondition.holeCode != null">
+            AND CONCAT( d.hole_code, d.type ) like CONCAT('%',#{paramCondition.holeCode},'%')
+        </if>
         order by CAST( hole_code AS SIGNED)
+    </select>
+    <select id="selectExplorationPoints" resultType="com.lfxwkj.sur.model.result.DrillingVo">
+        SELECT
+        ROW_NUMBER() OVER ( ORDER BY CAST( d.hole_code AS SIGNED ) ) rowNum,
+        d.hole_code,
+        d.type,
+        d.depth,
+        d.zkbg,
+        d.zkx,
+        d.zky,
+        a.aCou as yz,
+        b.bCou as rd,
+        c.cCou as bg,
+        w.depth as ms,
+        CONVERT (
+        ABS( w.depth - d.zkbg ),
+        DECIMAL ( 10, 2 )) AS gc
+        FROM
+        lz_drilling d
+        LEFT JOIN ( SELECT count(*) aCou, hole_code, item_id FROM lz_sample WHERE qylx = 0 GROUP BY hole_code, item_id )
+        a ON d.hole_code = a.hole_code
+        AND d.item_id = a.item_id
+        LEFT JOIN ( SELECT count(*) bCou, hole_code, item_id FROM lz_sample WHERE qylx = 1 GROUP BY hole_code, item_id )
+        b ON d.hole_code = b.hole_code
+        AND d.item_id = b.item_id
+        LEFT JOIN ( SELECT count(*) cCou, hole_code, item_id FROM lz_standard_penetration GROUP BY hole_code, item_id )
+        c ON d.hole_code = c.hole_code
+        AND d.item_id = c.item_id
+        LEFT JOIN lz_water_level w ON d.hole_code = w.hole_code
+        AND d.item_id = w.item_id
+        WHERE
+        d.hole_code in (
+        <foreach collection="strings" item="strings" separator=",">
+            #{strings}
+        </foreach>
+        )
+        and d.item_id = #{itemId}
+        ORDER BY
+        CAST(
+        d.hole_code AS SIGNED)
     </select>
 
 </mapper>

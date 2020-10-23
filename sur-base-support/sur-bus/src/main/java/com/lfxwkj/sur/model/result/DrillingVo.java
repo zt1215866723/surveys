@@ -66,4 +66,22 @@ public class DrillingVo {
      * 项目Id
      */
     private Long itemId;
+
+    //原状样
+    private Integer yz;
+
+    //扰动样
+    private Integer rd;
+
+    //标贯数
+    private Integer bg;
+
+    //埋深（m）
+    private Double ms;
+
+    //高程（m）
+    private Double gc;
+
+    //序号
+    private Integer rowNum;
 }

@@ -70,4 +70,6 @@ public interface DrillingMapper extends BaseMapper<Drilling> {
      * @Date 2020-09-17
      */
     List<DrillingVo> selectDrillingByItemId(@Param("paramCondition") DrillingParam drillingParam);
+
+    List<Drilling> selectExplorationPoints(String[] strings, Long itemId);
 }

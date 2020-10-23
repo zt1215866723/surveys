@@ -86,4 +86,12 @@ public interface DrillingService extends IService<Drilling> {
     List<DrillingVo> selectDrillingByItemId(DrillingParam drillingParam);
 
     List<Map<String, String>> drillingECharts();
+
+    /**
+     * 选中多个钻孔查看‘勘探点一览表’
+     *
+     * @author 张童
+     * @Date 2020-10.22
+     */
+    List<Drilling> selectExplorationPoints(String holeCode,Long itemId);
 }

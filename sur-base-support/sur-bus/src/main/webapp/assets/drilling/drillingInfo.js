@@ -230,4 +230,49 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
         cellMinWidth: 100,
         cols: Water.initColumn()
     });
+
+    /**
+     * 取样数据表管理
+     */
+    var Sample = {
+        tableId: "sampleTable"
+    };
+
+    /**
+     * 初始化表格的列
+     */
+    Sample.initColumn = function () {
+        return [[
+            {field: 'qybh', sort: true, title: '取样编号'},
+            {field: 'qysd', sort: true, title: '取样顶深度(m)'},
+            {field: 'qyhd', sort: true, title: '取样长度(m)'},
+            {field: 'qydc', sort: true, title: '所在地层'},
+            {field: 'qylx', sort: true, title: '取样类型', templet: function (d) {
+                    if (d.qylx == 1){
+                        return "扰动样"
+                    }else if (d.qylx == 0){
+                        return "原状样"
+                    }
+                }},
+            {field: 'qyzlmd', sort: true, title: '质量密度ρ(g/cm^3)'},
+            {field: 'qybz', sort: true, title: '土粒比重Gs'},
+            {field: 'qyhsl', sort: true, title: '含水量ω(%)'},
+            {field: 'qyyx', sort: true, title: '液限ωL(%)'},
+            {field: 'qysx', sort: true, title: '塑限ωP(%)'}
+        ]];
+    };
+
+    // 渲染表格
+    var tableResult = table.render({
+        elem: '#' + Sample.tableId,
+        url: Feng.ctxPath + '/sample/list',
+        where: {
+            itemId : result.data.itemId,
+            holeCode : result.data.holeCode
+        },
+        page: true,
+        height: "full-158",
+        cellMinWidth: 100,
+        cols: Sample.initColumn()
+    });
 });

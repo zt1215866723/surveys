@@ -23,13 +23,12 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
             {field: 'depth', sort: true, title: '层底深度（米）'},
             {field: 'mainCode', sort: true, title: '主层编号'},
             {field: 'secondaryCode', sort: true, title: '亚层编号'},
-            {field: 'thirdCode', sort: true, title: '次亚层编号'},
             {field: 'tcdzsd', sort: true, title: '地质时代'},
             {field: 'tcdzcy', sort: true, title: '地质成因'},
-            {field: 'tcdchd', sort: true, title: '自然层厚度(m)'},
             {field: 'tchd', sort: true, title: '地层厚度(m)'},
             {field: 'type', sort: true, title: '岩土类别'},
-            {field: 'name', sort: true, title: '岩土名称'}
+            {field: 'name', sort: true, title: '岩土名称'},
+            {field: 'tcms', sort: true, title: '土层描述',width:300 }
             // {field: 'tcmdh', sort: true, title: '土名代号'},
             // {field: 'tcymc', sort: true, title: '亚岩土名称'},
             // {field: 'tcys', sort: true, title: '土层颜色'},

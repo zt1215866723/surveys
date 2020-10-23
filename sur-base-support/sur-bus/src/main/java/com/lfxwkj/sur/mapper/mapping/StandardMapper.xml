@@ -98,14 +98,35 @@
         from lz_standard where 1 = 1
     </select>
     <select id="selectStandardByIds" resultType="com.lfxwkj.sur.model.result.StandardResult">
-        select * from lz_standard where hole_code in (
+        SELECT
+        CONCAT( main_code, '-', secondary_code ) AS bh,
+        COUNT(*) zkSum,
+        CONCAT( MIN( depth ),'~',MAX( depth )) sdfw,
+        tcdzsd,
+        `name`,
+        tcdzcy,
+        tcms,
+        CONCAT(MIN( tchd ),'~',MAX( tchd )) hdfw,
+        CONVERT (AVG( tchd ),DECIMAL ( 10, 2 )) hdpj
+        FROM
+        lz_standard
+        WHERE 1=1
+        <if test="strings != null and strings != ''">
+        and hole_code in (
         <foreach collection="strings" item="strings" separator=",">
             #{strings}
         </foreach>
         )
-        and item_id = #{itemId}
-        order by CAST( hole_code AS SIGNED),
-        depth
+        </if>
+        <if test="itemId != null">
+            and item_id = #{itemId}
+        </if>
+        GROUP BY
+        bh
+        ORDER BY
+        CAST( main_code AS SIGNED ),
+        CAST( secondary_code AS SIGNED ),
+        CAST( third_code AS SIGNED )
     </select>
     <select id="selectStandardHistogram" resultType="com.lfxwkj.sur.model.result.StandardResult">
         select * from lz_standard where hole_code = #{holeCode}

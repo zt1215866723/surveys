@@ -286,4 +286,9 @@ public class StandardResult implements Serializable {
      */
     private String tcuserdefine3;
 
+    private String bh;
+    private String sdfw;
+    private String hdfw;
+    private String hdpj;
+    private Integer zkSum;
 }

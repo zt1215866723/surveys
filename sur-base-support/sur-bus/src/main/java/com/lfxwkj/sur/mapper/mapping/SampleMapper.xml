@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfxwkj.sur.mapper.SampleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.Sample">
+        <id column="id" property="id" />
+        <result column="item_id" property="itemId" />
+        <result column="hole_code" property="holeCode" />
+        <result column="qybh" property="qybh" />
+        <result column="qysd" property="qysd" />
+        <result column="qyhd" property="qyhd" />
+        <result column="qydc" property="qydc" />
+        <result column="qylx" property="qylx" />
+        <result column="qyzlmd" property="qyzlmd" />
+        <result column="qybz" property="qybz" />
+        <result column="qyhsl" property="qyhsl" />
+        <result column="qyyx" property="qyyx" />
+        <result column="qysx" property="qysx" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", item_id AS "itemId", hole_code AS "holeCode", qybh AS "qybh", qysd AS "qysd", qyhd AS "qyhd", qydc AS "qydc", qylx AS "qylx", qyzlmd AS "qyzlmd", qybz AS "qybz", qyhsl AS "qyhsl", qyyx AS "qyyx", qysx AS "qysx"
+    </sql>
+
+
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.SampleResult" parameterType="com.lfxwkj.sur.model.params.SampleParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_sample where 1 = 1
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.itemId != null and paramCondition.itemId != ''">
+                and item_id like CONCAT('%',#{paramCondition.itemId},'%')
+            </if>
+            <if test="paramCondition.holeCode != null and paramCondition.holeCode != ''">
+                and hole_code like CONCAT('%',#{paramCondition.holeCode},'%')
+            </if>
+            <if test="paramCondition.qybh != null and paramCondition.qybh != ''">
+                and qybh like CONCAT('%',#{paramCondition.qybh},'%')
+            </if>
+            <if test="paramCondition.qysd != null and paramCondition.qysd != ''">
+                and qysd like CONCAT('%',#{paramCondition.qysd},'%')
+            </if>
+            <if test="paramCondition.qyhd != null and paramCondition.qyhd != ''">
+                and qyhd like CONCAT('%',#{paramCondition.qyhd},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.SampleParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_sample where 1 = 1
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.itemId != null and paramCondition.itemId != ''">
+                and item_id like CONCAT('%',#{paramCondition.itemId},'%')
+            </if>
+            <if test="paramCondition.holeCode != null and paramCondition.holeCode != ''">
+                and hole_code like CONCAT('%',#{paramCondition.holeCode},'%')
+            </if>
+            <if test="paramCondition.qybh != null and paramCondition.qybh != ''">
+                and qybh like CONCAT('%',#{paramCondition.qybh},'%')
+            </if>
+            <if test="paramCondition.qysd != null and paramCondition.qysd != ''">
+                and qysd like CONCAT('%',#{paramCondition.qysd},'%')
+            </if>
+            <if test="paramCondition.qyhd != null and paramCondition.qyhd != ''">
+                and qyhd like CONCAT('%',#{paramCondition.qyhd},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="com.lfxwkj.sur.model.result.SampleResult" parameterType="com.lfxwkj.sur.model.params.SampleParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_sample where 1 = 1
+            <if test="paramCondition.holeCode != null and paramCondition.holeCode != ''">
+                and hole_code = #{paramCondition.holeCode}
+            </if>
+            <if test="paramCondition.itemId != null">
+                and item_id = #{paramCondition.itemId}
+            </if>
+            <if test="paramCondition.qybh != null and paramCondition.qybh != ''">
+                and qybh like CONCAT('%',#{paramCondition.qybh},'%')
+            </if>
+            <if test="paramCondition.qysd != null and paramCondition.qysd != ''">
+                and qysd like CONCAT('%',#{paramCondition.qysd},'%')
+            </if>
+            <if test="paramCondition.qyhd != null and paramCondition.qyhd != ''">
+                and qyhd like CONCAT('%',#{paramCondition.qyhd},'%')
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.SampleParam">
+        select
+        <include refid="Base_Column_List"/>
+        from lz_sample where 1 = 1
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.itemId != null and paramCondition.itemId != ''">
+                and item_id like CONCAT('%',#{paramCondition.itemId},'%')
+            </if>
+            <if test="paramCondition.holeCode != null and paramCondition.holeCode != ''">
+                and hole_code like CONCAT('%',#{paramCondition.holeCode},'%')
+            </if>
+            <if test="paramCondition.qybh != null and paramCondition.qybh != ''">
+                and qybh like CONCAT('%',#{paramCondition.qybh},'%')
+            </if>
+            <if test="paramCondition.qysd != null and paramCondition.qysd != ''">
+                and qysd like CONCAT('%',#{paramCondition.qysd},'%')
+            </if>
+            <if test="paramCondition.qyhd != null and paramCondition.qyhd != ''">
+                and qyhd like CONCAT('%',#{paramCondition.qyhd},'%')
+            </if>
+    </select>
+
+</mapper>

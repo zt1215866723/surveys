@@ -227,6 +227,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                         "<div style='margin-top: 20px;text-align: center'>" +
                         "<p> 没有找到匹配的项目！</p>" +
                         "</div>";
+                    $("#searchList").append(iContent);
                 }
 
                 $("#searchList").css('display', 'block');
@@ -258,7 +259,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>" +
             "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold' target='_blank' href='/item/document?itemId=" + item.id + "' >钻孔柱状图</a></div>" +
             "<div style='width: 34% '><a style='color: #1668ff;font-weight: bold' target='_blank' href='/item/document?itemId=" + item.id + "' >静探曲线图</a></div>" +
-            "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold' target='_blank' href='' >钻孔地层图</a></div>" +
+            "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold' target='_blank' href='/standard?itemIds=" + item.itemId + "&holeCode=" + item.holeCode + "' >钻孔地层信息</a></div>" +
             "</div>" +
             "</div>";
         var infoWindow = new BMap.InfoWindow(opts);

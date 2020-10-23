@@ -133,20 +133,20 @@ public class DrillingController extends BaseController {
         return this.drillingService.findPageBySpec(drillingParam);
     }
 
-    /**
-     * 选择多个勘探点查询列表
-     *
-     * @author 张童
-     * @Date 2020-09-15
-     */
-    @ResponseBody
-    @RequestMapping("/selectDrillingByIds")
-    public LayuiPageInfo selectDrillingByIds(String holeCode,Long itemId) {
-        List<DrillingResult> drillingResults = this.drillingService.selectDrillingByIds(holeCode,itemId);
-        LayuiPageInfo layuiPageInfo = new LayuiPageInfo();
-        layuiPageInfo.setData(drillingResults);
-        return layuiPageInfo;
-    }
+//    /**
+//     * 选择多个勘探点查询列表
+//     *
+//     * @author 张童
+//     * @Date 2020-09-15
+//     */
+//    @ResponseBody
+//    @RequestMapping("/selectDrillingByIds")
+//    public LayuiPageInfo selectDrillingByIds(String holeCode,Long itemId) {
+//        List<DrillingResult> drillingResults = this.drillingService.selectDrillingByIds(holeCode,itemId);
+//        LayuiPageInfo layuiPageInfo = new LayuiPageInfo();
+//        layuiPageInfo.setData(drillingResults);
+//        return layuiPageInfo;
+//    }
 
     /**
      * 跳转到主页面
@@ -206,5 +206,20 @@ public class DrillingController extends BaseController {
     public ResponseData drillingECharts() {
         List<Map<String,String>> result = drillingService.drillingECharts();
         return ResponseData.success(result);
+    }
+
+    /**
+     * 选中多个钻孔查看‘勘探点一览表’
+     *
+     * @author 张童
+     * @Date 2020-10.22
+     */
+    @RequestMapping("/selectExplorationPoints")
+    @ResponseBody
+    public LayuiPageInfo selectExplorationPoints(String holeCode,Long itemId) {
+        List<Drilling> drillingList = this.drillingService.selectExplorationPoints(holeCode,itemId);
+                LayuiPageInfo layuiPageInfo = new LayuiPageInfo();
+                layuiPageInfo.setData(drillingList);
+                return layuiPageInfo;
     }
 }

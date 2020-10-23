@@ -79,6 +79,8 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     @Autowired
     private WaterLevelService waterLevelService;
     @Autowired
+    private SampleService sampleService;
+    @Autowired
     private DictService dictService;
     @Autowired
     private ReadMdb readMdb;
@@ -194,7 +196,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
         //将所有表的时间格式化
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         //暂定同步（钻孔，静探，标贯，土层，水位，工程，抛线，土层标准）
-        String[] tableNames = {"z_ZuanKong", "z_y_JingTan", "z_y_BiaoGuan", "z_g_TuCeng", "z_g_ShuiWei", "x_GongCheng", "p_PouXian", "g_STuCengGC"};
+        String[] tableNames = {"z_ZuanKong", "z_y_JingTan", "z_y_BiaoGuan", "z_g_TuCeng", "z_g_ShuiWei", "x_GongCheng", "p_PouXian", "g_STuCengGC","z_c_quyang"};
         try{
             //读取access数据库数据
             //开始
@@ -486,6 +488,27 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                         standardFormations.add(standardFormation);
                     }
                     standardFormationService.saveBatch(standardFormations);
+                }else if(tableName.equals("z_c_quyang")){
+                    //同步试样取样信息
+                    List<Sample> samples = new ArrayList<>();
+                    for(Map map : tableData){
+                        Sample sample = new Sample();
+                        sample.setItemId(itemId);
+                        sample.setHoleCode(map.get("ZKBH")==null ? null:(String)map.get("ZKBH"));
+                        sample.setQybh(map.get("QYBH")==null ? null:(String)map.get("QYBH"));
+                        sample.setQysd(map.get("QYSD")==null ? null:new BigDecimal((String)map.get("QYSD")).floatValue());
+                        sample.setQyhd(map.get("QYHD")==null ? null:new BigDecimal((String)map.get("QYSD")).floatValue());
+                        sample.setQydc(map.get("QYDC")==null ? null:(String) map.get("QYDC"));
+                        sample.setQylx(map.get("QYLX")==null ? null:Integer.parseInt(String.valueOf(map.get("QYLX"))));
+                        sample.setQyzlmd(map.get("QYZLMD")==null ? null:new BigDecimal((String)map.get("QYZLMD")).floatValue());
+                        sample.setQybz(map.get("QYBZ")==null ? null:new BigDecimal((String)map.get("QYBZ")).floatValue());
+                        sample.setQyhsl(map.get("QYHSL")==null ? null:new BigDecimal((String)map.get("QYHSL")).floatValue());
+                        sample.setQyyx(map.get("QYYX")==null ? null:new BigDecimal((String)map.get("QYYX")).floatValue());
+                        sample.setQysx(map.get("QYSY")==null ? null:new BigDecimal((String)map.get("QYSY")).floatValue());
+
+                        samples.add(sample);
+                    }
+                    sampleService.saveBatch(samples);
                 }
             }
         }catch (Exception e){
