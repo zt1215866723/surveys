@@ -5,6 +5,7 @@ import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lfxwkj.sur.base.dict.SystemDict;
 import com.lfxwkj.sur.base.pojo.node.LayuiTreeNode;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageFactory;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
@@ -52,17 +53,20 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
     private DictMapper dictMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void add(SubDetailParam param){
-        param.setSaveUrl(param.getSaveUrl().replaceAll("& #40;","("));
-        param.setSaveUrl(param.getSaveUrl().replaceAll("& #41;",")"));
-        param.setSaveUrl(param.getSaveUrl().replaceAll("& #39;","'"));
-        SubDetail entity = getEntity(param);
-        entity.setState(0);
-        this.save(entity);
+        for(String saveUrl : param.getSaveUrl().split(",%,")){
+            saveUrl = saveUrl.replaceAll("& #40;","(").replaceAll("& #41;",")").replaceAll("& #39;","'");
+            SubDetail entity = getEntity(param);
+            entity.setState(0);
+            entity.setSaveUrl(saveUrl);
+            entity.setCataName(saveUrl.substring(saveUrl.lastIndexOf('\\') + 1,saveUrl.length()));
+            this.save(entity);
+        }
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void delete(SubDetailParam param){
         param.setState(1);
         this.update(param);
@@ -108,13 +112,19 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
         folder = folder.replaceAll("& #41;",")");
         folder = folder.replaceAll("& #39;","'");
         File localFile = new File(folder, file.getOriginalFilename());
-        //判断文件是否已经存在
-        if (localFile.exists()) {
-            return ResponseData.error(ResponseData.DEFAULT_ERROR_CODE, "文件名已存在。", localFile.getAbsolutePath());
-        }
         //判断文件父目录是否存在
         if (!localFile.getParentFile().exists()) {
             localFile.getParentFile().mkdirs();
+        }
+        String fileName = file.getOriginalFilename();
+        //后缀名
+        String fileTyle=fileName.substring(fileName.lastIndexOf("."),fileName.length());
+        //文件名（不带后缀）
+        String caselsh = fileName.substring(0,fileName.lastIndexOf("."));
+        //判断文件是否存在
+        while(localFile.exists()){
+            caselsh += "1";
+            localFile = new File(folder, caselsh + fileTyle);
         }
         file.transferTo(localFile);
         return ResponseData.success(localFile.getAbsolutePath());
@@ -150,32 +160,24 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
         List<LayuiTreeNode> layuiTreeNodeList = this.baseMapper.getTree(subId);
         LayuiTreeNode layuiTreeNode = new LayuiTreeNode();
         //查內容
-        List<Long> dicts = new ArrayList<>();
+        Long parentId = null;
         if(itemType.equals(1303502789608460289L)){
-            dicts.add(1303502318252576770L);
-            dicts.add(1303502422384562178L);
-            dicts.add(1305779332963622913L);
+            parentId = 1303502318252576770L;
         }else if(itemType.equals(1303502842829983746L)){
-            dicts.add(1303502378092711938L);
-            dicts.add(1303513218468532226L);
+            parentId = 1303502378092711938L;
         }else if(itemType.equals(1303502895028097025L)){
-            dicts.add(1303513860343844865L);
-            dicts.add(1303513360223424513L);
+            parentId = 1303513860343844865L;
         }else if(itemType.equals(1303502953022738433L)){
-            dicts.add(1303513766580178945L);
-            dicts.add(1303513282544914434L);
+            parentId = 1303513766580178945L;
         }
-        QueryWrapper<Dict> dictQueryWrapper = new QueryWrapper<>();
-        dictQueryWrapper.in("dict_id", dicts);
-        List<Dict> dicts1 = dictMapper.selectList(dictQueryWrapper);
+        List<Dict> dictList = dictMapper.likeParentIds(parentId);
         layuiTreeNode.setTitle(itemSub.getSurName());
         layuiTreeNode.setId(1L);
         layuiTreeNode.setPid(-1L);
         layuiTreeNode.setSpread(true);
         layuiTreeNodeList.add(layuiTreeNode);
-        for (Dict d: dicts1) {
+        for (Dict d: dictList) {
             LayuiTreeNode layuiTreeNode1 = new LayuiTreeNode();
-
             layuiTreeNode1.setTitle(d.getName());
             layuiTreeNode1.setId(d.getDictId());
             layuiTreeNode1.setPid(1L);
