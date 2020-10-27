@@ -127,18 +127,10 @@ layui.use(['table', 'admin', 'ax', 'func', 'laydate', 'form'], function () {
             };
             Feng.confirm("是否删除?", operation);
         } else if (layEvent === 'check') {
-            console.log(data.itemType)
             layer.open({
                 type: 2,
                 area: ['100%', '100%'],
-                content: Feng.ctxPath + '/subDetail?subId=' + data.id + '&itemType=' + data.itemType + '&surName=' + data.surName
-            });
-        } else if (layEvent === 'upload') {
-            layer.open({
-                type: 2,
-                title: data.surName,
-                area: ['60%', '75%'],
-                content: Feng.ctxPath + '/subDetail/add?subId=' + data.id + '&itemType=' + data.itemType
+                content: Feng.ctxPath + '/subDetail?subId=' + data.id + '&surName=' + data.surName
             });
         } else if (layEvent === 'borrow') {
             layer.open({
