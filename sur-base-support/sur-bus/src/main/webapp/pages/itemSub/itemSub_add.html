@@ -5,102 +5,173 @@
         <div class="layui-card">
             <div class="layui-card-header">基本信息</div>
             <div class="layui-card-body">
-                <div class="layui-form-item layui-row">
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">所属工程<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <select name="itemId"  id="itemId" lay-verify="required" lay-filter="itemId" lay-search="">
-                                <option value=""></option>
-                            </select>
+                <div class="layui-row">
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">所属工程<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <select name="itemId" id="itemId" lay-verify="required" lay-filter="itemId"
+                                        lay-search="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">文档名<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="surName" name="surName" placeholder="请输入文档名称" autocomplete="off" type="text" class="layui-input" lay-verify="required" required/>
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">文档名<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="surName" name="surName" placeholder="请输入文档名称" autocomplete="off" type="text"
+                                       class="layui-input" lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">来源</label>
-                        <div class="layui-input-block">
-                            <input type="radio" name="isForeign" value=0 title="本单位" checked>
-                            <input type="radio" name="isForeign" value=1 title="外单位">
+                </div>
+                <div class="layui-row">
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">来源</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="isForeign" value=0 title="本单位" checked>
+                                <input type="radio" name="isForeign" value=1 title="外单位">
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">位置</label>
-                        <div class="layui-input-block">
-                            <input id="location" name="location" placeholder="请输入纸质文档存放位置" autocomplete="off" type="text" class="layui-input"/>
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">勘察号</label>
+                            <div class="layui-input-block">
+                                <input id="surNum" name="surNum" placeholder="请输入勘察号" autocomplete="off" type="text"
+                                       class="layui-input"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">勘察号</label>
-                        <div class="layui-input-block">
-                            <input id="surNum" name="surNum" placeholder="请输入勘察号" autocomplete="off" type="text" class="layui-input"/>
+                </div>
+                <div class="layui-row">
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">资质等级</label>
+                            <div class="layui-input-block">
+                                <select name="surLevel" id="surLevel" lay-search="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">资质等级</label>
-                        <div class="layui-input-block">
-                            <select name="surLevel"  id="surLevel" lay-search="">
-                                <option value=""></option>
-                            </select>
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">勘察阶段</label>
+                            <div class="layui-input-block">
+                                <select name="surStage" id="surStage" lay-search="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">勘察阶段</label>
-                        <div class="layui-input-block">
-                            <select name="surStage"  id="surStage" lay-search="">
-                                <option value=""></option>
-                            </select>
+                </div>
+                <div class="layui-row">
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">完成日期<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="writeTime" name="writeTime" autocomplete="off" class="layui-input"
+                                       type="text" placeholder="完成日期" lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">完成日期<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="writeTime" name="writeTime" autocomplete="off" class="layui-input" type="text" placeholder="完成日期" lay-verify="required" required/>
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">编写人<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="writeName" name="writeName" placeholder="请输入编写人" type="text"
+                                       class="layui-input" lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">编写人<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="writeName" name="writeName" placeholder="请输入编写人" type="text" class="layui-input" lay-verify="required" required/>
+                </div>
+                <div class="layui-row">
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">复核人</label>
+                            <div class="layui-input-block">
+                                <input id="reviewName" name="reviewName" placeholder="请输入复核人" type="text"
+                                       class="layui-input"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">复核人</label>
-                        <div class="layui-input-block">
-                            <input id="reviewName" name="reviewName" placeholder="请输入复核人" type="text" class="layui-input"/>
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">审核人</label>
+                            <div class="layui-input-block">
+                                <input id="checkName" name="checkName" placeholder="请输入审核人" type="text"
+                                       class="layui-input"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">审核人</label>
-                        <div class="layui-input-block">
-                            <input id="checkName" name="checkName" placeholder="请输入审核人" type="text" class="layui-input"/>
+                </div>
+                <div class="layui-row">
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">审定人</label>
+                            <div class="layui-input-block">
+                                <input id="examName" name="examName" placeholder="请输入审定人" type="text"
+                                       class="layui-input"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">审定人</label>
-                        <div class="layui-input-block">
-                            <input id="examName" name="examName" placeholder="请输入审定人" type="text" class="layui-input"/>
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">负责人</label>
+                            <div class="layui-input-block">
+                                <input id="chargeName" name="chargeName" placeholder="请输入工程负责人" type="text"
+                                       class="layui-input"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">负责人</label>
-                        <div class="layui-input-block">
-                            <input id="chargeName" name="chargeName" placeholder="请输入工程负责人" type="text" class="layui-input"/>
+                </div>
+                <div class="layui-row">
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">总工程师</label>
+                            <div class="layui-input-block">
+                                <input id="enginName" name="enginName" placeholder="请输入总工程师" type="text"
+                                       class="layui-input"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">总工程师</label>
-                        <div class="layui-input-block">
-                            <input id="enginName" name="enginName" placeholder="请输入总工程师" type="text" class="layui-input"/>
+                    <div class=" layui-col-xs6">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">法人</label>
+                            <div class="layui-input-block">
+                                <input id="legalName" name="legalName" placeholder="请输入法定代表人" type="text"
+                                       class="layui-input"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">法人</label>
-                        <div class="layui-input-block">
-                            <input id="legalName" name="legalName" placeholder="请输入法定代表人" type="text" class="layui-input"/>
+                </div>
+                <div class="layui-row">
+                    <div class=" layui-col-xs12">
+                        <div class="layui-form-item">
+
+                            <label class="layui-form-label">位置</label>
+                            <div class="layui-input-block">
+                                <input id="location" name="location" placeholder="请输入纸质文档存放位置" autocomplete="off"
+                                       type="text" class="layui-input"/>
+                            </div>
                         </div>
                     </div>
                 </div>
