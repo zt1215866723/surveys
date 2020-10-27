@@ -5,10 +5,11 @@ import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lfxwkj.sur.base.dict.SystemDict;
+import cn.hutool.system.SystemUtil;
 import com.lfxwkj.sur.base.pojo.node.LayuiTreeNode;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageFactory;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
+import com.lfxwkj.sur.config.FileUploadConfig;
 import com.lfxwkj.sur.entity.Item;
 import com.lfxwkj.sur.entity.ItemSub;
 import com.lfxwkj.sur.entity.SubDetail;
@@ -52,6 +53,9 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
     @Autowired
     private DictMapper dictMapper;
 
+    @Autowired
+    private FileUploadConfig fileUploadConfig;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(SubDetailParam param){
@@ -69,13 +73,14 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
     @Transactional(rollbackFor = Exception.class)
     public void delete(SubDetailParam param){
         param.setState(1);
-        this.update(param);
-        SubDetail byId = this.getById(param.getId());
-        ItemSub itemSub = itemSubMapper.selectById(byId.getSubId());
+        this.removeById(param);
+        SubDetail subDetail = this.getById(param.getId());
+        ItemSub itemSub = itemSubMapper.selectById(subDetail.getSubId());
         Item item = itemMapper.selectById(itemSub.getItemId());
-        String fileName = "D:\\勘察文档\\" + item.getItemName() + "\\" + itemSub.getSurName();
-        File file = new File(fileName);
-            file.delete();
+        String savePath = getFilePath();
+        savePath = savePath + item.getItemName() + "\\" + itemSub.getSurName() + "\\" + subDetail.getCataName();
+        File file = new File(savePath);
+        file.delete();
     }
 
     @Override
@@ -103,15 +108,24 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
         return LayuiPageFactory.createPageInfo(page);
     }
 
+    private String getFilePath(){
+        String savePath;
+        if (SystemUtil.getOsInfo().isWindows()) {
+            savePath = fileUploadConfig.getWindows();
+        } else {
+            savePath = fileUploadConfig.getLinux();
+        }
+        return savePath;
+    }
+
     @Override
     public ResponseData fileUpload(MultipartFile file, Long subId) throws IOException {
         ItemSub itemSub = itemSubMapper.selectById(subId);
         Item item = itemMapper.selectById(itemSub.getItemId());
-        String folder = "D:\\勘察文档\\" + item.getItemName() + "\\" + itemSub.getSurName();
-        folder = folder.replaceAll("& #40;","(");
-        folder = folder.replaceAll("& #41;",")");
-        folder = folder.replaceAll("& #39;","'");
-        File localFile = new File(folder, file.getOriginalFilename());
+        String savePath = getFilePath();
+        savePath = savePath + item.getItemName() + "\\" + itemSub.getSurName();
+        savePath = savePath.replaceAll("& #40;","(").replaceAll("& #41;",")").replaceAll("& #39;","'");
+        File localFile = new File(savePath, file.getOriginalFilename());
         //判断文件父目录是否存在
         if (!localFile.getParentFile().exists()) {
             localFile.getParentFile().mkdirs();
@@ -124,7 +138,7 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
         //判断文件是否存在
         while(localFile.exists()){
             caselsh += "1";
-            localFile = new File(folder, caselsh + fileTyle);
+            localFile = new File(savePath, caselsh + fileTyle);
         }
         file.transferTo(localFile);
         return ResponseData.success(localFile.getAbsolutePath());
