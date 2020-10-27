@@ -113,7 +113,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        if(queryData.cataId == ''){
+        if(queryData.cataId == '' || queryData.cataId == -1){
             layer.msg('请从左侧选择需要上传的内容。');
             return false;
         }
