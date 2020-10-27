@@ -46,19 +46,6 @@ layui.use(['table', 'admin', 'ax', 'form', 'func'], function () {
         }
     });
 
-    //合同图表点击
-    myChart1.on('click', function (params) {
-        console.log(params)
-
-        // 搜索按钮点击事件
-            var queryData = {
-                type: params.data.id
-            };
-            table.reload(Item.tableId, {
-                where: queryData, page: {curr: 1}
-            });
-    });
-
     //钻孔簡介
     $.ajax({
         url: Feng.ctxPath + "/drilling/drillingECharts",
@@ -106,75 +93,125 @@ layui.use(['table', 'admin', 'ax', 'form', 'func'], function () {
         tableId: "itemTable"
     };
 
-    //获取进度的下拉框
-    $.ajax({
-        url: Feng.ctxPath + "/dict/listDicts",
-        data:{
-            dictTypeId : '1303593897935896578'
-        },
-        dataType: 'json',
-        type: 'post',
-        success: function (data) {
-            $.each(data.data, function (index, item) {
-                $('#progress').append(new Option(item.name, item.dictId));
-            });
-            form.render("select");
-        }
-    });
-
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Item.tableId,
         url: Feng.ctxPath + '/item/list',
-        page: true
-        ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            title: '提示'
-            ,layEvent: 'LAYTABLE_TIPS'
-            ,icon: 'layui-icon-tips'
-        }],
-        height: "full-158",
-        limit: 10,
+        page: true,
+        height: "285px",
+        limit: 5,
         cols: [[
             {field: 'itemName', title: '项目名称',align:'center',width:250},
             {field: 'itemCode', title: '项目编号',align:'center'},
             {field: 'typeName', title: '项目类型',align:'center'},
-            {field: 'location', title: '项目地点',align:'center'},
-            {field: 'head',  title: '项目负责人',align:'center'},
             {field: 'beginDate', title: '开始日期',align:'center', templet: function(d){
                     return d.beginDate == ""? "":d.beginDate.slice(0,10);
                 }},
-            {field: 'endDate', title: '结束日期',align:'center', templet: function(d){
-                    return d.endDate == ""? "":d.endDate.slice(0,10);
-                }},
-            {field: 'processName', title: '项目进度',align:'center'},
-            {align: 'center', toolbar: '#tableBar', title: '操作'}
+            {field: 'processName', title: '项目进度',align:'center'}
         ]]
     });
 
-    // 搜索按钮点击事件
-    $('#btnSearch').click(function () {
-        var queryData = {
-            itemName:$("#itemName").val(),
-            itemCode:$("#itemCode").val(),
-            location: $("#location").val(),
-            type: $("#type").val(),
-            progress: $("#progress").val()
-        };
-        table.reload(Item.tableId, {
-            where: queryData, page: {curr: 1}
-        });
+    //地图
+    var map = echarts.init(document.getElementById('map'));
+    var mapO = {
+        title : {
+            text: '区域工程统计',
+            textStyle:{
+                color:"#fff"
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b}<br/>{c}'
+        },
+        visualMap: {
+            min: 800,
+            max: 10000,
+            text:['High','Low'],
+            realtime: false,
+            calculable: true,
+            inRange: {
+                color: ['lightskyblue','yellow', 'orangered']
+            },
+            textStyle:{
+                color:'#fff'
+            }
+        },
+        series: {
+            left:'25%',
+            top:'10%',
+            zoom:1,
+            name: 'langfang',
+            type: 'map',
+            mapType: 'hebei',
+            label: {
+                normal:{
+                    show:true,
+                    textStyle:{
+                        color:'#fff',
+                        fontSize:13
+                    }
+                },
+                emphasis: {
+                    show: true,
+                    textStyle:{
+                        color:'#fff',
+                        fontSize:13
+                    }
+                }
+            },
+            itemStyle: {
+                borderWidth:1,
+                borderColor:'#fff',
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: 'dodgerblue'
+                },
+                emphasis: {
+                    areaColor: '#0f0'
+                }
+            },
+        }
+    };
+    // map.setOption(mapO);
+    // $.ajaxSettings.async = false;
+    $.getJSON('/assets/item/langfang.json', function(data){
+        echarts.registerMap( 'hebei', data);
+        var mapData = [];
+        for( var i=0;i<data.features.length;i++ ){
+            mapData.push({
+                    name:data.features[i].properties.name,
+                    value:0
+
+                })
+        }
+        //AJAX获取城市区域的工程数量统计
+        $.ajax({
+            url:Feng.ctxPath + '/item/getList',
+            method:"post",
+            success:function (data) {
+
+                $.each(data.data,function (index,item) {
+                    // 百度地图API功能
+                    var point = new BMap.Point(item.xaxis,item.yaxis);
+                    var gc = new BMap.Geocoder();
+                    gc.getLocation(point, function(rs){
+                        var addComp = rs.addressComponents;
+                        $.each(mapData,function (index1,item1) {
+                            // console.log(addComp.district)
+                            // console.log(item1.name)
+                            if (addComp.district === item1.name) {
+                                // console.log(item1.value)
+                                item1.value++
+                                // console.log(item1.value)
+                            }
+                        })
+                        mapO.series.data = mapData
+                        map.setOption(mapO,true);
+                    });
+                })
+            }
+        })
     });
 
-    // 工具条点击事件
-    table.on('tool(' + Item.tableId + ')', function (obj) {
-        var data = obj.data;
-        var layEvent = obj.event;
-        if (layEvent === 'document') {
-            layer.open({
-                type: 2,
-                area: ['100%', '100%'],
-                content: Feng.ctxPath + '/item/document?itemId=' + data.id
-            });
-        }
-    });
 });
