@@ -4,7 +4,6 @@
 var SurStandardInfoDlg = {
     data: {
         id: "",
-        itemId: "",
         mainCode: "",
         secondaryCode: "",
         thirdCode: "",

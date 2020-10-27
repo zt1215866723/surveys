@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.SurStandard">
         <id column="id" property="id" />
-        <result column="item_id" property="itemId" />
+<!--        <result column="item_id" property="itemId" />-->
         <result column="main_code" property="mainCode" />
         <result column="secondary_code" property="secondaryCode" />
         <result column="third_code" property="thirdCode" />
@@ -39,7 +39,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id AS "id", item_id AS "itemId", main_code AS "mainCode", secondary_code AS "secondaryCode", third_code AS "thirdCode", tcdzsd AS "tcdzsd", tcdzcy AS "tcdzcy", type AS "type", name AS "name", tcymc AS "tcymc", tcys AS "tcys", tcmsd AS "tcmsd", tcsid AS "tcsid", tcksx AS "tcksx", tchyd AS "tchyd", tcjyx AS "tcjyx", tcfhcd AS "tcfhcd", tcysqx AS "tcysqx", tcysqj AS "tcysqj", tckwcf AS "tckwcf", tcjggz AS "tcjggz", tcbhw AS "tcbhw", tcqw AS "tcqw", tcms AS "tcms", tcztx AS "tcztx", tcjycd AS "tcjycd", tcpl AS "tcpl", tcjlfy AS "tcjlfy", tcjljj AS "tcjljj", tcpxjd AS "tcpxjd", tcqttz AS "tcqttz"
+        id AS "id", main_code AS "mainCode", secondary_code AS "secondaryCode", third_code AS "thirdCode", tcdzsd AS "tcdzsd", tcdzcy AS "tcdzcy", type AS "type", name AS "name", tcymc AS "tcymc", tcys AS "tcys", tcmsd AS "tcmsd", tcsid AS "tcsid", tcksx AS "tcksx", tchyd AS "tchyd", tcjyx AS "tcjyx", tcfhcd AS "tcfhcd", tcysqx AS "tcysqx", tcysqj AS "tcysqj", tckwcf AS "tckwcf", tcjggz AS "tcjggz", tcbhw AS "tcbhw", tcqw AS "tcqw", tcms AS "tcms", tcztx AS "tcztx", tcjycd AS "tcjycd", tcpl AS "tcpl", tcjlfy AS "tcjlfy", tcjljj AS "tcjljj", tcpxjd AS "tcpxjd", tcqttz AS "tcqttz"
     </sql>
 
 

@@ -29,6 +29,9 @@ public class SurStandardServiceImpl extends ServiceImpl<SurStandardMapper, SurSt
 
     @Override
     public void add(SurStandardParam param){
+        if(param.getThirdCode().equals("")){             //为次亚层提供默认值
+            param.setThirdCode("0");
+        }
         SurStandard entity = getEntity(param);
         this.save(entity);
     }

@@ -10,8 +10,8 @@ import java.math.BigDecimal;
  * 所有工程土层标准
  * </p>
  *
- * @author 张童
- * @since 2020-10-22
+ * @author 王南翔
+ * @since 2020-10-23
  */
 @Data
 public class SurStandardResult implements Serializable {
@@ -23,11 +23,6 @@ public class SurStandardResult implements Serializable {
      * 主键
      */
     private Long id;
-
-    /**
-     * 工程id
-     */
-    private Long itemId;
 
     /**
      * 主层编号

@@ -14,42 +14,30 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
 
     /**
      * 初始化表格的列
+     * 修改：2020年10月23日 王南翔
      */
     SurStandard.initColumn = function () {
         return [[
-            {type: 'checkbox'},
-            {field: 'id', hide: true, title: '主键'},
-            {field: 'itemId', sort: true, title: '工程id'},
-            {field: 'mainCode', sort: true, title: '主层编号'},
-            {field: 'secondaryCode', sort: true, title: '亚层编号'},
-            {field: 'thirdCode', sort: true, title: '次亚层编号'},
-            {field: 'tcdzsd', sort: true, title: '地质时代'},
-            {field: 'tcdzcy', sort: true, title: '地质成因'},
-            {field: 'type', sort: true, title: '岩土类别'},
-            {field: 'name', sort: true, title: '岩土名称'},
-            {field: 'tcymc', sort: true, title: '亚岩土名称'},
-            {field: 'tcys', sort: true, title: '土层颜色'},
-            {field: 'tcmsd', sort: true, title: '密实度'},
-            {field: 'tcsid', sort: true, title: '湿度'},
-            {field: 'tcksx', sort: true, title: '可塑性'},
-            {field: 'tchyd', sort: true, title: '浑圆度'},
-            {field: 'tcjyx', sort: true, title: '均匀性'},
-            {field: 'tcfhcd', sort: true, title: '风化程度'},
-            {field: 'tcysqx', sort: true, title: '岩层倾向(度)'},
-            {field: 'tcysqj', sort: true, title: '岩层倾角(度)'},
-            {field: 'tckwcf', sort: true, title: '矿物成分'},
-            {field: 'tcjggz', sort: true, title: '结构构造'},
-            {field: 'tcbhw', sort: true, title: '包含物'},
-            {field: 'tcqw', sort: true, title: '气味'},
-            {field: 'tcms', sort: true, title: '土层描述'},
-            {field: 'tcztx', sort: true, title: '完整程度'},
-            {field: 'tcjycd', sort: true, title: '坚硬程度'},
-            {field: 'tcpl', sort: true, title: '破碎程度'},
-            {field: 'tcjlfy', sort: true, title: '节理发育'},
-            {field: 'tcjljj', sort: true, title: '节理间距(cm)'},
-            {field: 'tcpxjd', sort: true, title: '视倾角(度)'},
-            {field: 'tcqttz', sort: true, title: '其他特征'},
-            {align: 'center', toolbar: '#tableBar', title: '操作'}
+            {title: '地层序号', width: 100, align: "center", templet: '#numbers'},
+            {title: '地层编号', width: 100, align: "center", templet: function(d){
+                    //组装地层编号数据  格式:"主层编号-亚层编号-次亚层编号"
+                    let data = ""
+                    data += d.mainCode ? d.mainCode : ""
+                    data += d.secondaryCode ? "-" + d.secondaryCode : ""
+                    data += d.thirdCode && d.thirdCode !== "0" ? "-" + d.thirdCode : ""
+                    return data
+                }
+            },
+            {field: 'mainCode', title: '主层', width: 100, align: "center", sort: true},
+            {field: 'secondaryCode', title: '亚层', width: 100, align:" center", sort: true},
+            {field: 'thirdCode',title: '次亚层', width: 100, align: "center", sort: true, templet:function (d) {
+                    return (d.thirdCode && d.thirdCode !== "0") ? d.thirdCode : ""
+                }
+            },
+            {field: 'tcdzsd', title: '地质时代', width: 100,align: "center", sort: true},
+            {field: 'tcdzcy', title: '地质成因', width: 100,align: "center", sort: true},
+            {field: 'tcms', title: '地层描述', sort: true},
+            {align: 'center', title: '操作', width: 150, toolbar: '#tableBar'}
         ]];
     };
 

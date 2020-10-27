@@ -11,8 +11,8 @@ import java.io.Serializable;
  * 所有工程土层标准
  * </p>
  *
- * @author 张童
- * @since 2020-10-22
+ * @author 王南翔
+ * @since 2020-10-23
  */
 @TableName("sur_standard")
 public class SurStandard implements Serializable {
@@ -24,12 +24,6 @@ public class SurStandard implements Serializable {
      */
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-
-    /**
-     * 工程id
-     */
-    @TableField("item_id")
-    private Long itemId;
 
     /**
      * 主层编号
@@ -212,14 +206,6 @@ public class SurStandard implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
     }
 
     public String getMainCode() {
@@ -458,7 +444,6 @@ public class SurStandard implements Serializable {
     public String toString() {
         return "SurStandard{" +
         "id=" + id +
-        ", itemId=" + itemId +
         ", mainCode=" + mainCode +
         ", secondaryCode=" + secondaryCode +
         ", thirdCode=" + thirdCode +
