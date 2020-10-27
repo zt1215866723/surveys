@@ -72,8 +72,7 @@ public class SubDetailServiceImpl extends ServiceImpl<SubDetailMapper, SubDetail
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(SubDetailParam param){
-        param.setState(1);
-        this.removeById(param);
+        this.removeById(param.getId());
         SubDetail subDetail = this.getById(param.getId());
         ItemSub itemSub = itemSubMapper.selectById(subDetail.getSubId());
         Item item = itemMapper.selectById(itemSub.getItemId());
