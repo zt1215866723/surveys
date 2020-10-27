@@ -1,6 +1,10 @@
 server:
-  port: 8899
+  port: 8081
   max-http-header-size: 40960
+
+file-upload-path:
+  windows: D:\tempFilePath\
+  linux: /tmp/tempFilePath
 
 beetl:
   resource-auto-check: true         #热加载beetl模板，开发时候用
