@@ -266,9 +266,9 @@ public class ItemController extends BaseController {
      *  @author zt
      *      * @Date 2020-09-22
      */
-    @RequestMapping("/index")
+    @RequestMapping("/workplace")
     public String itemIndex() {
-        return PREFIX + "/index.html";
+        return PREFIX + "/workplace.html";
     }
 
     /**

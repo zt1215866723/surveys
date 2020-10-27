@@ -7,7 +7,6 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
     var tree = layui.tree;
 
     var subId = Feng.getUrlParam("subId");
-    var itemType = Feng.getUrlParam("itemType");
 
     /**
      * 文档的目录详情。管理
@@ -16,26 +15,23 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
         tableId: "subDetailTable"
     };
 
+    var queryData = {
+        subId:subId,
+        cataId:''
+    };
     // 初始化树
     var ajax = new $ax(Feng.ctxPath + "/subDetail/getTree", function (data) {
         tree.render({
             elem: '#tree',
             data: data,
+            accordion: true,
+            onlyIconControl: true,
             click: function(obj){
-                console.log(obj.data); //得到当前点击的节点数据
-                // console.log(obj.state); //得到当前节点的展开状态：open、close、normal
-                // console.log(obj.elem); //得到当前节点元素
-                var queryData = {
-                    subId:subId,
-                    cataId:''
-                };
                 if(obj.data.children.length==0){
                     queryData.cataId = obj.data.id;
                 }
-                console.log(queryData)
                 SubDetail.search(queryData);
-            },
-            onlyIconControl: true
+            }
         });
     }, function (data) {
     });
@@ -50,13 +46,13 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
      */
     SubDetail.initColumn = function () {
         return [[
-            {field: 'cataName', title: '内容'},
-            {field: 'remarks', title: '描述'},
-            {field: 'pageNum', title: '页数'},
-            {field: 'saveUrl', title: '存放路径'},
-            {field: 'prepName', title: '编制人'},
-            {field: 'revieName', title: '复核人'},
-            {field: 'checkName', title: '审核人'},
+            {field: 'cataName', title: '文件名'},
+            {field: 'saveUrl', title: '保存路径'},
+            // {field: 'remarks', title: '描述'},
+            // {field: 'pageNum', title: '页数'},
+            // {field: 'prepName', title: '编制人'},
+            // {field: 'revieName', title: '复核人'},
+            // {field: 'checkName', title: '审核人'},
             {align: 'center', toolbar: '#tableBar', title: '操作', width:250}
         ]];
     };
@@ -65,7 +61,6 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
      * 查询
      */
     SubDetail.search = function (queryData) {
-        console.log(queryData)
         table.reload(SubDetail.tableId, {
             where: queryData, page: {curr: 1}
         });
@@ -118,10 +113,14 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
+        if(queryData.cataId == '' || queryData.cataId == -1){
+            layer.msg('请从左侧选择需要上传的内容。');
+            return false;
+        }
         layer.open({
             type: 2,
             area: ['60%', '75%'],
-            content: Feng.ctxPath + '/subDetail/add?subId=' + subId + '&itemType=' + itemType
+            content: Feng.ctxPath + '/subDetail/add?subId=' + subId + '&cataId=' + queryData.cataId
         });
     });
 

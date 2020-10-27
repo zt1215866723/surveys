@@ -7,30 +7,15 @@ layui.use(['upload','form', 'admin', 'ax', 'element'], function () {
     var upload =layui.upload;
 
     var subId =  Feng.getUrlParam("subId");
-    var itemType =  Feng.getUrlParam("itemType");
+    var cataId =  Feng.getUrlParam("cataId");
 
     //文件存储路径
-    var saveUrl = '';
+    let saveUrl = new Set()
     //文件上传结果
     var isSuccess = '';
     //是否选择了文件
     var isSelected = 0;
 
-    //选择内容
-    $.ajax({
-        url: Feng.ctxPath + "/subDetail/getCatas",
-        data:{
-            itemType : itemType
-        },
-        dataType: 'json',
-        type: 'post',
-        success: function (data) {
-            $.each(data.data, function (index, item) {
-                $('#cataParentId').append(new Option(item.name, item.dictId));
-            });
-            form.render("select");
-        }
-    });
 
     form.on('select(cataParentId)', function (data){
         $("#cataId").empty();
@@ -63,13 +48,12 @@ layui.use(['upload','form', 'admin', 'ax', 'element'], function () {
         ,data: {
             subId : subId
         }
+        ,multiple:true
         ,accept: 'file'
         ,auto: false
         ,bindAction: btnSubmit
-        // ,exts: 'file'
         ,before: function(obj){
             isSelected = 1;
-            saveUrl = '';
             isSuccess = '';
             layer.msg('文件上传中...', {
                 icon: 16,
@@ -84,12 +68,11 @@ layui.use(['upload','form', 'admin', 'ax', 'element'], function () {
         ,done: function(res){
             layer.close(layer.msg());
             if(res.success){
-                layer.msg('上传成功');
-                console.log(res);
-                saveUrl = res.data;
+                saveUrl.add(res.data);
                 isSuccess = 1;
             }else{
                 layer.msg(res.message);
+                saveUrl.clear();
                 isSuccess = 0;
                 return false;
             }
@@ -115,8 +98,8 @@ layui.use(['upload','form', 'admin', 'ax', 'element'], function () {
     var judage = function(data){
         if(isSuccess == 1){
             data.field.subId = subId;
-            data.field.saveUrl = saveUrl;
-            console.log(saveUrl);
+            data.field.saveUrl = [...saveUrl].join(",%,");
+            data.field.cataId = cataId;
             //添加
             $.ajax({
                 url: Feng.ctxPath + "/subDetail/addItem",

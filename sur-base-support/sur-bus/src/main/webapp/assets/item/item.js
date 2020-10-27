@@ -7,13 +7,13 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
     var layer = layui.layer;
 
     /**
-     * 项目表管理
+     * 工程表管理
      */
     var Item = {
         tableId: "itemTable"
     };
 
-    //获取项目类型的下拉框
+    //获取工程类型的下拉框
     $.ajax({
         url: Feng.ctxPath + "/dict/listDicts",
         data:{
@@ -59,21 +59,21 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
         height: "full-158",
         limit: 20,
         cols: [[
-            {field: 'itemName', title: '项目名称',align:'center',width:250, templet: function (d) {
+            {field: 'itemName', title: '工程名称',align:'center',width:250, templet: function (d) {
                     var url = Feng.ctxPath + '/item/itemDetail?id=' + d.id;
                     return '<a style="color: #01AAED;" href="' + url + '">' + d.itemName + '</a>';
                 }},
-            {field: 'itemCode', title: '项目编号',align:'center'},
-            {field: 'typeName', title: '项目类型',align:'center'},
-            {field: 'location', title: '项目地点',align:'center'},
-            {field: 'head',  title: '项目负责人',align:'center'},
+            {field: 'itemCode', title: '工程编号',align:'center'},
+            {field: 'typeName', title: '工程类型',align:'center'},
+            {field: 'location', title: '工程地点',align:'center'},
+            {field: 'head',  title: '工程负责人',align:'center'},
             {field: 'beginDate', title: '开始日期',align:'center', templet: function(d){
                     return d.beginDate == ""? "":d.beginDate.slice(0,10);
             }},
             {field: 'endDate', title: '结束日期',align:'center', templet: function(d){
                     return d.endDate == ""? "":d.endDate.slice(0,10);
             }},
-            {field: 'processName', title: '项目进度',align:'center'},
+            {field: 'processName', title: '工程进度',align:'center'},
             {align: 'center', toolbar: '#tableBar', title: '操作', width:270}
         ]]
     });
@@ -118,7 +118,7 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
         func.open({
-            title: '添加项目',
+            title: '添加工程',
             content: Feng.ctxPath + '/item/add',
             tableId: Item.tableId
         });
@@ -130,7 +130,7 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
         var layEvent = obj.event;
         if (layEvent === 'edit') {
             func.open({
-                title: '修改项目',
+                title: '修改工程',
                 content: Feng.ctxPath + '/item/edit?id=' + data.id,
                 tableId: Item.tableId
             });
