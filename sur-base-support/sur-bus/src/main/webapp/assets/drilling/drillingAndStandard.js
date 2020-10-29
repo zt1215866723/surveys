@@ -20,7 +20,7 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
     Drilling.initColumn = function () {
         return [
             [
-                {field: 'rowNum',align:'center', title: '序号', rowspan: 2},
+                // {field: 'rowNum',align:'center', title: '序号', rowspan: 2},
                 {field: 'holeCode',align:'center', title: '钻孔编号', rowspan: 2, totalRowText: '合计'},
                 {field: 'type',align:'center', title: '钻孔类型', rowspan: 2},
                 {field: 'depth',align:'center', title: '钻孔深度(m)', rowspan: 2, totalRow: true},

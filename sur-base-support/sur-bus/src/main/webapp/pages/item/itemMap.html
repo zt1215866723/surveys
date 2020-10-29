@@ -1,105 +1,175 @@
 @layout("/common/_container.html",{js:["/assets/item/itemMap.js"]}){
 
 <style type="text/css">
-        html,body{width: 100%;height: 100%; margin:0;font-family:"微软雅黑";overflow: hidden}
-        .layui-fluid{width:98%;height: 97%;padding: 10px}
-        #allmap{width:100%;height:100%;}
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        font-family: "微软雅黑";
+        overflow: hidden
+    }
 
-        p{margin-left:5px; font-size:14px;}
-        p{margin-left:5px; font-size:14px;}
-        .map-card-p{margin:0;line-height:2;font-size:13px;text-indent:1em;color: #333333}
-        .map-top-card span{ color: #CF1900; }
-        ::-webkit-scrollbar{width:5px;}
-        ::-webkit-scrollbar-track{background-color: #dbddeb;}
-        ::-webkit-scrollbar-thumb{background-color:#00aff0;}
-        ::-webkit-scrollbar-thumb:hover {background-color: #3cc23e}
-        ::-webkit-scrollbar-thumb:active {background-color:#00aff0}
+    .layui-fluid {
+        width: 98%;
+        height: 97%;
+        padding: 10px
+    }
 
-        .searchItem{
-            width: 280px;
-            cursor:pointer;
-            height: auto;
-            display: inline-block;
-            padding: 13px 7px 13px 7px;
-        }
-        .searchItem:hover{
-            background-color: #def6ff;
-        }
-    </style>
-    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=GXPDLcpdfGRaZ42n5TgQW6DIwftiTN8E"></script>
+    #allmap {
+        width: 100%;
+        height: 100%;
+    }
+
+    p {
+        margin-left: 5px;
+        font-size: 14px;
+    }
+
+    p {
+        margin-left: 5px;
+        font-size: 14px;
+    }
+
+    .map-card-p {
+        margin: 0;
+        line-height: 2;
+        font-size: 13px;
+        text-indent: 1em;
+        color: #333333
+    }
+
+    .map-top-card span {
+        color: #CF1900;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: #dbddeb;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #00aff0;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #3cc23e
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+        background-color: #00aff0
+    }
+
+    .searchItem {
+        width: 280px;
+        cursor: pointer;
+        height: auto;
+        display: inline-block;
+        padding: 13px 7px 13px 7px;
+    }
+
+    .searchItem:hover {
+        background-color: #def6ff;
+    }
+</style>
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=GXPDLcpdfGRaZ42n5TgQW6DIwftiTN8E"></script>
 <!-- 正文开始 -->
-<div class="layui-fluid" >
-    <div class="map-top-card" style="height: 45px;background-color: #ffffff;position: absolute;left:20px;top: 20px;z-index: 1000;font-size: 0.8rem;line-height: 40px;padding: 0 20px;box-shadow:0 0 5px #6f6f6f ">
+<div class="layui-fluid">
+    <div class="map-top-card" style="position: absolute;left:20px;top: 20px;z-index: 1000;font-size: 0.8rem; ">
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <input style="height: 30px" name="nickName" id="nickName" class="layui-input" autocomplete=off placeholder="工程名称/工程编号/负责人"/>
+                <input style="height: 30px;width: 200px" name="nickName" id="nickName" onclick="sousuo()"
+                       class="layui-input" autocomplete=off placeholder="工程名称/工程编号/工程地址"/>
             </div>
         </div>
         <div class="layui-inline">&emsp;
-            <button id="search" style="height: 30px;line-height: 30px" class="layui-btn icon-btn" lay-filter="userTbSearch" lay-submit>
+            <button id="search" style="height: 30px;line-height: 30px" class="layui-btn icon-btn"
+                    lay-filter="userTbSearch" lay-submit>
                 <i class="layui-icon">&#xe615;</i>搜索
             </button>
         </div>
     </div>
-    <div id="searchList" style="display: none; width: 296px;height: 400px;overflow-x: hidden; margin-left: 10px; background-color: #ffffff;position: absolute;top: 75px;z-index: 1000;box-shadow:0 0 5px #6f6f6f;overflow-y: scroll;font-size: 0.8rem;">
-<!--        &lt;!&ndash;搜索结果为空&ndash;&gt;-->
-<!--        <div style="margin-top: 20px;text-align: center">-->
-<!--            <p> 没有找到匹配的项目！</p>-->
-<!--        </div>-->
-<!--        &lt;!&ndash;搜索结果不为空&ndash;&gt;-->
-<!--        <div style="margin: 15px 10px;width:280px;height: 90px;cursor:pointer;" class="searchItem">-->
-<!--            <div style="float: left">-->
-<!--                <img src="../../img/kancha.png">-->
-<!--            </div>-->
-<!--            <div style="float: left;padding:0 5px 0 10px;width: 230px">-->
-<!--                <strong style="margin-left: 5px;line-height: 25px">杭州义桥</strong>-->
-<!--                <p style="line-height: 20px;font-size: 0.8rem ">项目类型：饮用水源地</p>-->
-<!--                <p style="line-height: 20px;font-size: 0.8rem">站点属性：入河口</p>-->
-<!--                <p style="line-height: 20px;font-size: 0.8rem">地址：沙家浜风景区昆承湖</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div style="margin: 15px 10px;width:280px;height: 90px;cursor:pointer;">-->
-<!--            <div style="float: left">-->
-<!--                <img src="../../img/jikeng.png">-->
-<!--            </div>-->
-<!--            <div style="float: left;padding:0 5px 0 10px;width: 230px">-->
-<!--                <strong style="margin-left: 5px;line-height: 25px">杭州义桥</strong>-->
-<!--                <p style="line-height: 20px;font-size: 0.8rem ">站点类型：饮用水源地饮用水源地饮用水源地</p>-->
-<!--                <p style="line-height: 20px;font-size: 0.8rem">站点属性：入河口</p>-->
-<!--                <p style="line-height: 20px;font-size: 0.8rem">地址：沙家浜风景区昆承湖</p>-->
-<!--            </div>-->
-<!--        </div>-->
+    <div id="selectList"
+         style="display:none;width: 266px;height: 182px;padding:15px;overflow: hidden; margin-left: 10px; background-color: #ffffff;position: absolute;top: 62px;z-index: 1000;box-shadow:0 0 5px #6f6f6f;overflow-y: scroll;font-size: 0.8rem;">
+        <form class='layui-form' action=''>
+            <div class='layui-form-item'>
+                <strong style='line-height: 20px;font-size: 0.8rem '>工程类型</strong><br>
+                <input type='checkbox' class='typeItem' lay-filter='switchType' lay-skin='primary'
+                       value='1303502895028097025' title='测量工程'>
+                <input type='checkbox' class='typeItem' lay-filter='switchType' lay-skin='primary'
+                       value='1303502789608460289' title='勘察工程'>
+                <input type='checkbox' class='typeItem' lay-filter='switchType' lay-skin='primary'
+                       value='1303502953022738433' title='基坑工程'>
+                <input type='checkbox' class='typeItem' lay-filter='switchType' lay-skin='primary'
+                       value='1303502842829983746' title='地基处理'>
+            </div>
+            <div class='layui-form-item'>
+                <strong style='line-height: 20px;font-size: 0.8rem '>工程进度</strong><br>
+                <input type='checkbox' class='planItem' lay-filter='switchPlan' lay-skin='primary'
+                       value='1303594236575612929' title='签订合同'>
+                <input type='checkbox' class='planItem' lay-filter='switchPlan' lay-skin='primary'
+                       value='1303594301717348354' title='进场实施'>
+                <input type='checkbox' class='planItem' lay-filter='switchPlan' lay-skin='primary'
+                       value='1303594357925216257' title='报告完成'>
+                <input type='checkbox' class='planItem' lay-filter='switchPlan' lay-skin='primary'
+                       value='1303594444642451458' title='验槽'>
+                <input type='checkbox' class='planItem' lay-filter='switchPlan' lay-skin='primary'
+                       value='1303594532169187329' title='竣工'>
+            </div>
+        </form>
+    </div>
+    <div id="searchList"
+         style="display: none; width: 296px;height: 370px;overflow-x: hidden; margin-left: 10px; background-color: #ffffff;position: absolute;top: 280px;z-index: 1000;box-shadow:0 0 5px #6f6f6f;overflow-y: scroll;font-size: 0.8rem;">
     </div>
     <style>
-        #rightArrow{width:39px;height:35px;background:url("/assets/picture/button.jpg") no-repeat;position:fixed;right:210px; bottom:125px;z-index:999;}
-        #rightArrow a{display:block;height:35px;}
-        #floatDivBoxs{position:fixed;z-index:999;}
+        #rightArrow {
+            width: 39px;
+            height: 35px;
+            background: url("/assets/picture/button.jpg") no-repeat;
+            position: fixed;
+            right: 210px;
+            bottom: 125px;
+            z-index: 999;
+        }
+
+        #rightArrow a {
+            display: block;
+            height: 35px;
+        }
+
+        #floatDivBoxs {
+            position: fixed;
+            z-index: 999;
+        }
     </style>
     <div id="rightArrow"><a href="javascript:;" title="图例"></a></div>
-    <div id="floatDivBoxs" style="width: 200px;height: 150px;background-color: #ffffff;bottom:10px;right: 10px;z-index: 1000;box-shadow:0 0 5px #6f6f6f ">
+    <div id="floatDivBoxs"
+         style="width: 200px;height: 150px;background-color: #ffffff;bottom:10px;right: 10px;z-index: 1000;box-shadow:0 0 5px #6f6f6f ">
         <div style="margin: 10px">
-            <strong>点位类型</strong>
+            <strong>工程类型</strong>
         </div>
         <div class="layui-row" style="margin: 10px 10px 10px 20px">
             <div class="layui-col-xs6" style="line-height: 30px">
                 <img src="/assets/picture/celiang.png">
-                <span style="font-size: 0.8rem;">测量</span>
+                <span style="font-size: 0.8rem;">测量工程</span>
             </div>
-            <div class="layui-col-xs6" style="line-height: 30px" >
+            <div class="layui-col-xs6" style="line-height: 30px">
                 <img src="/assets/picture/jikeng.png">
-                <span style="font-size: 0.8rem;">基坑</span>
+                <span style="font-size: 0.8rem;">基坑工程</span>
             </div>
             <div class="layui-col-xs6" style="line-height: 30px">
                 <img src="/assets/picture/kancha.png">
-                <span style="font-size: 0.8rem;">勘察</span>
+                <span style="font-size: 0.8rem;">勘察工程</span>
             </div>
             <div class="layui-col-xs6" style="line-height: 30px">
                 <img src="/assets/picture/diji.png">
-                <span style="font-size: 0.8rem;">地基</span>
+                <span style="font-size: 0.8rem;">地基处理</span>
             </div>
-            <div class="layui-col-xs6" style="line-height: 30px">
+            <div class="layui-col-xs6" style="line-height: 30px" id="qtgc">
                 <img src="/assets/picture/qita.png">
-                <span style="font-size: 0.8rem;">其它</span>
+                <span style="font-size: 0.8rem;">其它工程</span>
             </div>
         </div>
     </div>

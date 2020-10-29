@@ -141,7 +141,7 @@
     </select>
     <select id="selectExplorationPoints" resultType="com.lfxwkj.sur.model.result.DrillingVo">
         SELECT
-        ROW_NUMBER() OVER ( ORDER BY CAST( d.hole_code AS SIGNED ) ) rowNum,
+--         ROW_NUMBER() OVER ( ORDER BY CAST( d.hole_code AS SIGNED ) ) rowNum,
         d.hole_code,
         d.type,
         d.depth,

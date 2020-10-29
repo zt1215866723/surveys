@@ -74,6 +74,14 @@ public class ItemParam implements Serializable, BaseValidatingParam {
 
     private Date endDate;
 
+    private String itemTypes;
+
+    private String itemPlans;
+
+    private String[] typeArray;
+
+    private String[] planArray;
+
     @Override
     public String checkParam() {
         return null;

@@ -93,7 +93,21 @@
         left join sys_dict c on a.type = c.dict_id
         where a.state != 1
         <if test="paramCondition.itemName != null and paramCondition.itemName != ''">
-            and concat(a.item_name,a.item_code,head) like concat('%',#{paramCondition.itemName},'%')
+            and concat(a.item_name,a.item_code,location) like concat('%',#{paramCondition.itemName},'%')
+        </if>
+        <if test="paramCondition.typeArray != null and paramCondition.typeArray != ''">
+            and a.type in (
+            <foreach collection="paramCondition.typeArray" item="itemType" separator=",">
+                #{itemType}
+            </foreach>
+            )
+        </if>
+        <if test="paramCondition.planArray != null and paramCondition.planArray != ''">
+            and a.progress in (
+            <foreach collection="paramCondition.planArray" item="itemPlan" separator=",">
+                #{itemPlan}
+            </foreach>
+            )
         </if>
         order by a.id desc
     </select>

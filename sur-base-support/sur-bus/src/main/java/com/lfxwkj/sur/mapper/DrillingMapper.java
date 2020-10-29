@@ -71,5 +71,5 @@ public interface DrillingMapper extends BaseMapper<Drilling> {
      */
     List<DrillingVo> selectDrillingByItemId(@Param("paramCondition") DrillingParam drillingParam);
 
-    List<Drilling> selectExplorationPoints(String[] strings, Long itemId);
+    List<Drilling> selectExplorationPoints(@Param("strings")String[] strings, @Param("itemId")Long itemId);
 }
