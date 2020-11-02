@@ -22,7 +22,7 @@ public class DrillingType implements Serializable {
     /**
      * 主键
      */
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -42,7 +42,6 @@ public class DrillingType implements Serializable {
      */
     @TableField("status")
     private Integer status;
-
 
     public Long getId() {
         return id;

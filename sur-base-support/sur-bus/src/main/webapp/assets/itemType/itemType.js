@@ -21,7 +21,7 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
             {field: 'id', hide: true, title: '主键'},
             {field: 'name', sort: true, title: '名称'},
             {field: 'url', sort: true, title: '图例存储路径'},
-            {field: 'status', sort: true, title: '状态0启用1删除2禁用'},
+            {field: 'status', sort: true, title: '状态'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };

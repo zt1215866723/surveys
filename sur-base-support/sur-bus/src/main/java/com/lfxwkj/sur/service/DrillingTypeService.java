@@ -66,4 +66,5 @@ public interface DrillingTypeService extends IService<DrillingType> {
      */
      LayuiPageInfo findPageBySpec(DrillingTypeParam param);
 
+     String convertFileToBase64(String imgPath);
 }

@@ -15,9 +15,17 @@
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">图例存储路径<span style="color: red;">*</span></label>
+                        <label class="layui-form-label">图例<span style="color: red;">*</span></label>
+                        <button type="button" class="layui-btn" id="imgUpload">上传图片</button>
+                        <div>
+                            <input id="url" name="url" type="hidden" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">预览</label>
                         <div class="layui-input-block">
-                            <input id="url" name="url" placeholder="请输入图例存储路径" type="text" class="layui-input" lay-verify="required" required/>
+                            <img class="layui-upload-img" id="preview">
+                            <p id="retry"></p>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
