@@ -220,24 +220,22 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         map.addOverlay(xmMarker[index]);
 
         xmMarker[index].setLabel(xmLabel);
-        var sContent =
+        var sContent1 =
             "<div style='width: 200px;height: 150px;position:relative'>" +
             "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>" + item.itemName + "</h4>" +
             "<p class='map-card-p' style=''>项目编号：" + item.itemCode + "</p>" +
             "<p class='map-card-p'>项目类型：" + item.typeName + "</p>" +
-            // "<p class='map-card-p'>项目地址："+item.location+"</p>" +
-            // "<p class='map-card-p'>起止时间：<span>"+item.beginDate.slice(0,10)+" 至 "+item.endDate.slice(0,10)+"</span></p>" +
-            // "<p class='map-card-p'>项目负责人："+item.head+"</p>" +
-            // "<div style='width: 300px;height: 1px;border-top:1px dashed #333333;margin: 10px 0px'></div>"+
-            // "<p class='map-card-p'>钻孔数量：<span style=''>25 个</span></p>" +
-            // "<p class='map-card-p'>档案位置：<span style='color: red;'>档案室内某柜子</span></p>" +
-            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>" +
-            "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>" +
-            // "<div style='width: 34% '><a style='color: #1668ff;font-weight: bold' target='_blank' href='/item/document?itemId="+item.id+"' >进入工程文档</a></div>" +
-            // "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold' id='lookTJ' >查看项目统计</a></div>" +
+            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>" ;
+        var sContent2='';
+        if (item.type == 1303502789608460289){
+            //勘察工程才有钻孔信息！！！
+            sContent2 =
+                "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>" ;
+        }
+        var sContent3 =
             "</div>" +
             "</div>";
-        info[index] = new window.BMap.InfoWindow(sContent); // 创建信息窗口对象
+        info[index] = new window.BMap.InfoWindow(sContent1+sContent2+sContent3); // 创建信息窗口对象
 
         addInfo(info[index], xmMarker[index]);
     })
@@ -257,43 +255,27 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         //根据经纬度定位中心点
         var point = new BMap.Point(item.xaxis, item.yaxis);
         map.centerAndZoom(point, 19);
-        var opts =
+        var opts1 =
             "<div style='width: 200px;height: 150px;position:relative'>" +
             "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>" + item.itemName + "</h4>" +
             "<p class='map-card-p' style=''>项目编号：" + item.itemCode + "</p>" +
             "<p class='map-card-p'>项目类型：" + item.typeName + "</p>" +
-            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>" +
-            "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>" +
+            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>" ;
+        var opts2='';
+        if (item.type == 1303502789608460289){
+            //勘察工程才有钻孔信息！！！
+            opts2 =
+                "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>" ;
+        }
+        var opts3 =
             "</div>" +
             "</div>";
-        var infoWindow = new BMap.InfoWindow(opts);
+        var infoWindow = new BMap.InfoWindow(opts1+opts2+opts3);
         map.openInfoWindow(infoWindow, point);
     };
     //点击工程搜索结果
     window.sousuo = function () {
-        // $("#selectList").empty();
-        // var iContent;
-        // iContent =
-        //     "<form class='layui-form' action=''>" +
-        //     "<div class='layui-form-item'>" +
-        //     "<strong style='line-height: 20px;font-size: 0.8rem '>工程类型</strong><br>" +
-        //     "<input type='checkbox' class='typeItem' lay-filter='switchType' lay-skin='primary' value='1303502895028097025'  title='测量工程'>" +
-        //     "<input type='checkbox' class='typeItem' lay-filter='switchType' lay-skin='primary' value='1303502789608460289'  title='勘察工程'>" +
-        //     "<input type='checkbox' class='typeItem' lay-filter='switchType' lay-skin='primary' value='1303502953022738433'  title='基坑工程'>" +
-        //     "<input type='checkbox' class='typeItem' lay-filter='switchType' lay-skin='primary' value='1303502842829983746'  title='地基处理'>" +
-        //     "</div>" +
-        //     "<div class='layui-form-item'>" +
-        //     "<strong style='line-height: 20px;font-size: 0.8rem '>工程进度</strong><br>" +
-        //     "<input type='checkbox' class='planItem' lay-filter='switchPlan' lay-skin='primary' value='1303594236575612929'  title='签订合同'>" +
-        //     "<input type='checkbox' class='planItem' lay-filter='switchPlan' lay-skin='primary' value='1303594301717348354'  title='进场实施'>" +
-        //     "<input type='checkbox' class='planItem' lay-filter='switchPlan' lay-skin='primary' value='1303594357925216257'  title='报告完成'>" +
-        //     "<input type='checkbox' class='planItem' lay-filter='switchPlan' lay-skin='primary' value='1303594444642451458'  title='验槽'>" +
-        //     "<input type='checkbox' class='planItem' lay-filter='switchPlan' lay-skin='primary' value='1303594532169187329'  title='竣工'>" +
-        //     "</div>" +
-        //     "</form>"
-        // $("#selectList").append(iContent);
         $("#selectList").css('display', 'block');
-        // form.render()
     };
 
     //监听多选框点击事件  主要是通过 lay-filter="switchTest"  来监听

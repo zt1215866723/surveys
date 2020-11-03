@@ -4,48 +4,52 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lfxwkj.sur.entity.Item">
-        <id column="id" property="id" />
-        <result column="item_code" property="itemCode" />
-        <result column="item_name" property="itemName" />
-        <result column="location" property="location" />
-        <result column="remarks" property="remarks" />
-        <result column="state" property="state" />
-        <result column="xaxis" property="xaxis" />
-        <result column="yaxis" property="yaxis" />
-        <result column="type" property="type" />
-        <result column="begin_date" property="beginDate" />
-        <result column="end_date" property="endDate" />
-        <result column="head" property="head" />
-        <result column="progress" property="progress" />
-        <result column="processName" property="processName" />
-        <result column="typeName" property="typeName" />
+        <id column="id" property="id"/>
+        <result column="item_code" property="itemCode"/>
+        <result column="item_name" property="itemName"/>
+        <result column="location" property="location"/>
+        <result column="remarks" property="remarks"/>
+        <result column="state" property="state"/>
+        <result column="xaxis" property="xaxis"/>
+        <result column="yaxis" property="yaxis"/>
+        <result column="type" property="type"/>
+        <result column="begin_date" property="beginDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="is_foreign" property="isForeign"/>
+        <result column="is_show" property="isShow"/>
+        <result column="coor_system" property="coorSystem"/>
+        <result column="head" property="head"/>
+        <result column="progress" property="progress"/>
     </resultMap>
 
     <resultMap id="resultMap" type="com.lfxwkj.sur.model.result.ItemResult">
-        <id column="id" property="id" />
-        <result column="item_code" property="itemCode" />
-        <result column="item_name" property="itemName" />
-        <result column="location" property="location" />
-        <result column="remarks" property="remarks" />
-        <result column="state" property="state" />
-        <result column="xaxis" property="xaxis" />
-        <result column="yaxis" property="yaxis" />
-        <result column="type" property="type" />
-        <result column="begin_date" property="beginDate" />
-        <result column="end_date" property="endDate" />
-        <result column="head" property="head" />
-        <result column="progress" property="progress" />
-        <result column="processName" property="processName" />
-        <result column="typeName" property="typeName" />
+        <id column="id" property="id"/>
+        <result column="item_code" property="itemCode"/>
+        <result column="item_name" property="itemName"/>
+        <result column="location" property="location"/>
+        <result column="remarks" property="remarks"/>
+        <result column="state" property="state"/>
+        <result column="xaxis" property="xaxis"/>
+        <result column="yaxis" property="yaxis"/>
+        <result column="type" property="type"/>
+        <result column="begin_date" property="beginDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="is_foreign" property="isForeign"/>
+        <result column="is_show" property="isShow"/>
+        <result column="coor_system" property="coorSystem"/>
+        <result column="head" property="head"/>
+        <result column="progress" property="progress"/>
+        <result column="processName" property="processName"/>
+        <result column="typeName" property="typeName"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id AS "id", item_code AS "itemCode", item_name AS "itemName", location AS "location", remarks AS "remarks", state AS "state", xaxis AS "xaxis", yaxis AS "yaxis"
+        id AS "id", item_code AS "itemCode", item_name AS "itemName", location AS "location", remarks AS "remarks", state AS "state", xaxis AS "xaxis", yaxis AS "yaxis", is_foreign as "isForeign", is_show as "isShow",coor_system as "coorSystem"
     </sql>
 
-
-    <select id="customList" resultType="com.lfxwkj.sur.model.result.ItemResult" parameterType="com.lfxwkj.sur.model.params.ItemParam">
+    <select id="customList" resultType="com.lfxwkj.sur.model.result.ItemResult"
+            parameterType="com.lfxwkj.sur.model.params.ItemParam">
         select
         <include refid="Base_Column_List"/>
         from sur_item where 1 = 1
@@ -78,6 +82,12 @@
         <if test="paramCondition.progress != null">
             and a.progress = #{paramCondition.progress}
         </if>
+        <if test="paramCondition.isForeign != null">
+            and a.is_foreign = #{paramCondition.isForeign}
+        </if>
+        <if test="paramCondition.isShow != null">
+            and a.is_show = #{paramCondition.isShow}
+        </if>
         order by a.id desc
     </select>
 
@@ -92,8 +102,9 @@
         left join sys_dict b on a.progress = b.dict_id
         left join sys_dict c on a.type = c.dict_id
         where a.state != 1
+        and a.is_show = 1
         <if test="paramCondition.itemName != null and paramCondition.itemName != ''">
-            and concat(a.item_name,a.item_code,location) like concat('%',#{paramCondition.itemName},'%')
+            and concat(a.item_name,a.item_code,location,a.xaxis,a.yaxis) like concat('%',#{paramCondition.itemName},'%')
         </if>
         <if test="paramCondition.typeArray != null and paramCondition.typeArray != ''">
             and a.type in (

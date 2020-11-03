@@ -151,7 +151,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     }
 
     @Override
-    @Transactional(timeout = 300)
+    @Transactional(timeout = 300000000)
     public ResponseData synchronous(Long itemId, int isDataCover, int isItemCover) {
         //查询理正数据库文件存放位置
         SubDetailResult subDetailResult = subDetailMapper.getSynchronousFile(itemId);

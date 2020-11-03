@@ -10,11 +10,11 @@ spring:
     max-active: 20
     max-pool-prepared-statement-per-connection-size: 20
 
-jodconverter:
-  local:
-    enabled: true
-    office-home: C:/Program Files (x86)/OpenOffice 4
-    max-tasks-per-process: 50
-    taskExecutionTimeout: 180000
-    processTimeout: 180000
-    port-numbers: 8100
+#jodconverter:
+#  local:
+#    enabled: true
+#    office-home: C:/Program Files (x86)/OpenOffice 4
+#    max-tasks-per-process: 50
+#    taskExecutionTimeout: 180000
+#    processTimeout: 180000
+#    port-numbers: 8100

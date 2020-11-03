@@ -84,4 +84,8 @@ public class DrillingVo {
 
     //序号
     private Integer rowNum;
+    //坐标系
+    private Integer coorSystem;
+
+    private String typeUrl;
 }

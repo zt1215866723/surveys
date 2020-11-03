@@ -117,11 +117,12 @@ public class DrillingServiceImpl extends ServiceImpl<DrillingMapper, Drilling> i
             if ( format.length() == 8 || format.length() == 6) {
                 //xian 80 guass kruger 3degree zone 39 (也就是说X轴坐标是39开头小数点前是八位的)
                 //xian 80 6度分带中央经线117E (也就是说X轴坐标是小数点前是六位的)
-                double[] doubles = CoordinatesUtil.GaussToBL(d.getZkx(), d.getZky());
+                double[] doubles = CoordinatesUtil.GaussToBL(d.getZkx(), d.getZky(),d.getCoorSystem());
 //                String s = GPSConverterUtils.changgeXY(String.valueOf(doubles[0]), String.valueOf(doubles[1]));
 //                String[] split = s.split(",");
                 d.setXaxis(String.valueOf(doubles[0]));
                 d.setYaxis(String.valueOf(doubles[1]));
+                d.setTypeUrl("/image/"+d.getTypeUrl());
             }else{
                 //X轴坐标开头4位代表以项目中的一个点为基准，无法转换为经纬度，不在地图中显示
             }

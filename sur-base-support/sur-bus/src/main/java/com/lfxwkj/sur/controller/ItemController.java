@@ -12,9 +12,12 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -283,6 +286,39 @@ public class ItemController extends BaseController {
     public ResponseData itemECharts() {
         List<Map<String,String>> result = itemService.itemECharts();
         return ResponseData.success(result);
+    }
+
+    /**
+     * @Description  ：批量展示或批量取消
+     * @methodName   : itemECharts
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    @ResponseBody
+    @RequestMapping("/showAndHiddenItems")
+    public ResponseData showAndHiddenItems(String ids,Integer type) {
+        String[] split = ids.split(",");
+        List<Item> list = new ArrayList<>();
+        if (type == 0){
+            //批量展示
+            for (int i = 0; i < split.length; i++) {
+                Item item = new Item();
+                item.setId(Long.parseLong(split[i]));
+                item.setIsShow(1);
+                list.add(item);
+            }
+        } else {
+            //批量隐藏
+            for (int i = 0; i < split.length; i++) {
+                Item item = new Item();
+                item.setId(Long.parseLong(split[i]));
+                item.setIsShow(0);
+                list.add(item);
+            }
+        }
+        itemService.updateBatchById(list);
+        return ResponseData.success();
     }
 }
 

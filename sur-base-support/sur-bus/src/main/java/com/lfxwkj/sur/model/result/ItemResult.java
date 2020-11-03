@@ -97,6 +97,12 @@ public class ItemResult implements Serializable {
      */
     private Date endDate;
 
+    private Integer isForeign;
+
+    private Integer isShow;
+
+    private Integer coorSystem;
+
     /**
      * 钻孔数量
      */

@@ -1,5 +1,6 @@
 package com.lfxwkj.sur.model.params;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import cn.stylefeng.roses.kernel.model.validator.BaseValidatingParam;
 import java.util.Date;
@@ -73,6 +74,12 @@ public class ItemParam implements Serializable, BaseValidatingParam {
     private Date beginDate;
 
     private Date endDate;
+
+    private Integer isForeign;
+
+    private Integer isShow;
+
+    private Integer coorSystem;
 
     private String itemTypes;
 

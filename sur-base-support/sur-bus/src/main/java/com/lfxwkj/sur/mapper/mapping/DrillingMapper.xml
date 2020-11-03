@@ -67,6 +67,8 @@
         <result column="zkzj" property="zkzj"/>
         <result column="itemName" property="itemName"/>
         <result column="itemId" property="itemId"/>
+        <result column="coorSystem" property="coorSystem"/>
+        <result column="typeUrl" property="typeUrl"/>
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -128,18 +130,22 @@
         d.zkx,
         d.zky,
         i.item_name as itemName,
-        i.id as itemId
+        i.id as itemId,
+        i.coor_system as coorSystem,
+        t.url as typeUrl
         FROM
         lz_drilling d
         LEFT JOIN sur_item i on d.item_id = i.id
+        LEFT JOIN sur_drilling_type t on d.type = t.`name`
         WHERE
-        d.item_id = #{paramCondition.itemId}
+        t.`status` = 0
+        and d.item_id = #{paramCondition.itemId}
         <if test="paramCondition.holeCode != null">
             AND CONCAT( d.hole_code, d.type ) like CONCAT('%',#{paramCondition.holeCode},'%')
         </if>
         order by CAST( hole_code AS SIGNED)
     </select>
-    <select id="selectExplorationPoints" resultType="com.lfxwkj.sur.model.result.DrillingVo">
+    <select id="selectExplorationPoints" resultType="com.lfxwkj.sur.entity.Drilling">
         SELECT
 --         ROW_NUMBER() OVER ( ORDER BY CAST( d.hole_code AS SIGNED ) ) rowNum,
         d.hole_code,
@@ -168,13 +174,17 @@
         AND d.item_id = c.item_id
         LEFT JOIN lz_water_level w ON d.hole_code = w.hole_code
         AND d.item_id = w.item_id
-        WHERE
-        d.hole_code in (
+        WHERE 1=1
+        <if test="strings != null and strings != ''">
+        and d.hole_code in (
         <foreach collection="strings" item="strings" separator=",">
             #{strings}
         </foreach>
         )
+        </if>
+        <if test="itemId != null">
         and d.item_id = #{itemId}
+        </if>
         ORDER BY
         CAST(
         d.hole_code AS SIGNED)

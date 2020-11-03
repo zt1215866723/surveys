@@ -31,8 +31,27 @@
                                 </select>
                             </div>
                             <div class="layui-inline">
+                                <select id="isForeign" class="layui-input" type="text" placeholder="类型" autocomplete="off">
+                                    <option value="">请选择工程来源</option>
+                                    <option value="0">本单位</option>
+                                    <option value="1">外单位</option>
+                                </select>
+                            </div>
+                            <div class="layui-inline">
+                                <select id="isShow" class="layui-input" type="text" placeholder="类型" autocomplete="off">
+                                    <option value="">请选择地图展示状态</option>
+                                    <option value="1">展示</option>
+                                    <option value="0">隐藏</option>
+                                </select>
+                            </div>
+                            <div class="layui-inline">
                                 <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
                                 <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                                <button id="showItem" class="layui-btn icon-btn"><i class="layui-icon">&#xe658;</i>批量展示</button>
+                                <button id="hiddenItem" class="layui-btn icon-btn"><i class="layui-icon">&#xe600;</i>批量隐藏</button>
+                            </div>
+                            <div class="layui-inline" style="margin-left:20px;">
+                                <span class="layui-badge-dot layui-bg-blue" style="margin:0 10px;"></span>外单位提供
                             </div>
                         </div>
                     </div>
@@ -44,6 +63,7 @@
 </div>
 
 <script type="text/html" id="tableBar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">工程详情</a>
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="document">工程文档</a>
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="synchronous">理正同步</a>
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>

@@ -106,4 +106,5 @@ public interface ItemService extends IService<Item> {
     ItemResult getItemDetail(Long id);
 
     List<Map<String, String>> itemECharts();
+
 }
