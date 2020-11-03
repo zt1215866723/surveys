@@ -42,4 +42,4 @@ log:
   path: _app_logs
 
 img:
-  realpath: C:/Users/lenovo/Documents/转出图片/
+  path: /Users/wangnanxiang/Downloads/imgTest/

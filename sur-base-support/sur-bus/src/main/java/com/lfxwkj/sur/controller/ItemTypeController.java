@@ -7,9 +7,20 @@ import com.lfxwkj.sur.service.ItemTypeService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 
 /**
@@ -23,6 +34,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ItemTypeController extends BaseController {
 
     private String PREFIX = "/itemType";
+
+    @Value("${img.path}")
+    private String path;
 
     @Autowired
     private ItemTypeService itemTypeService;
@@ -124,6 +138,52 @@ public class ItemTypeController extends BaseController {
         return this.itemTypeService.findPageBySpec(itemTypeParam);
     }
 
+    @ResponseBody
+    @RequestMapping("imgUpload")
+    public Map upload(MultipartFile file, HttpServletRequest request) {
+        //保存上传
+        OutputStream out = null;
+        InputStream fileInput = null;
+        try {
+            if (file != null) {
+                String originalName = file.getOriginalFilename();
+                String suffix = originalName.substring(originalName.lastIndexOf(".") + 1);
+                String uuid = UUID.randomUUID() + "";
+                String filepath = path + uuid + "." + suffix;
+
+
+                File files = new File(filepath);
+                if (!files.getParentFile().exists()) {
+                    files.getParentFile().mkdirs();
+                }
+                file.transferTo(files);
+                Map<String, Object> pathMap = new HashMap<>();
+                Map<String, Object> map = new HashMap<>();
+                map.put("code", 1);
+                map.put("msg", "");
+                map.put("data", pathMap);
+                pathMap.put("src", filepath);
+                return map;
+            }
+
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (fileInput != null) {
+                    fileInput.close();
+                }
+            } catch (IOException e) {
+            }
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("code", 0);
+        map.put("msg", "");
+        return map;
+
+    }
 }
 
 

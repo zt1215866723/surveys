@@ -11,9 +11,12 @@ import com.lfxwkj.sur.model.params.DrillingTypeParam;
 import com.lfxwkj.sur.model.result.DrillingTypeResult;
 import  com.lfxwkj.sur.service.DrillingTypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Encoder;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -81,4 +84,21 @@ public class DrillingTypeServiceImpl extends ServiceImpl<DrillingTypeMapper, Dri
         return entity;
     }
 
+    public String convertFileToBase64(String imgPath) {
+        byte[] data = null;
+        // 读取图片字节数组
+        try {
+            InputStream in = new FileInputStream(imgPath);
+            System.out.println("文件大小（字节）="+in.available());
+            data = new byte[in.available()];
+            in.read(data);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 对字节数组进行Base64编码，得到Base64编码的字符串
+        BASE64Encoder encoder = new BASE64Encoder();
+        String base64Str = encoder.encode(data);
+        return base64Str;
+    }
 }
