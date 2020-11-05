@@ -5,6 +5,7 @@
         <div class="layui-card-body">
             <div style="width:100%;height:420px;margin-bottom: 15px" id="allmap"></div>
             <form class="layui-form" id="itemForm" lay-filter="itemForm">
+                <input name="id" type="hidden" id="id">
                 <div class="layui-row">
                     <div class="layui-col-xs6">
                         <div class="layui-form-item">
@@ -98,18 +99,55 @@
                         </div>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">负责人<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="head" name="head" autocomplete="off" type="text" class="layui-input"
-                               lay-verify="required" required/>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">工程来源</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="isForeign" value=0 title="本单位" checked>
+                                <input type="radio" name="isForeign" value=1 title="外单位">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">地图展示</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="isShow" value=1 title="展示" checked>
+                                <input type="radio" name="isShow" value=0 title="隐藏">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">坐标系<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <select id="coorSystem" name="coorSystem" autocomplete="off" type="text" class="layui-input"
+                                        lay-verify="required" required lay-search="">
+                                    <option value=""></option>
+                                    <option value="1">54坐标系</option>
+                                    <option value="2">80坐标系</option>
+                                    <option value="3">2000坐标系</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">负责人<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="head" name="head" autocomplete="off" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">备注</label>
                     <div class="layui-input-block">
-                        <input id="remarks" name="remarks" autocomplete="off" placeholder="请输入备注" type="text"
-                               class="layui-input"/>
+                        <textarea id="remarks" name="remarks" placeholder="请输入备注" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">

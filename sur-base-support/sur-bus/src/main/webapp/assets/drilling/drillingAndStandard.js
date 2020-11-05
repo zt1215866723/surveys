@@ -12,7 +12,12 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
         tableId: "drillingTable"
     };
 
-    var holeCode = Feng.getUrlParam("holeCode");
+    var itemId = Feng.getUrlParam("itemId");
+
+    // 返回按钮点击事件
+    $('#btnReturn').click(function () {
+        location.href = "/item/itemDetail?id=" + itemId
+    });
 
     /**
      * 初始化表格的列
@@ -74,8 +79,7 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
         page: false,
         totalRow: true,
         where: {
-            itemId : "1303984243408805890",
-            holeCode: "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27"
+            itemId : itemId
         },
         height: "full-158",
         cellMinWidth: 100,
@@ -88,8 +92,7 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
         url: Feng.ctxPath + '/standard/selectStandardByIds',
         page: false,
         where: {
-            itemId : "1303984243408805890",
-            holeCode: "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27"
+            itemId : itemId
         },
         height: "full-158",
         cellMinWidth: 100,

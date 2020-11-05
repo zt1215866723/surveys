@@ -9,7 +9,7 @@ package com.lfxwkj.sur.util;
 public class CoordinatesUtil {
 
     //  由高斯投影坐标反算成经纬度
-    public static double[] GaussToBL(double X, double Y)//, double *longitude, double *latitude)
+    public static double[] GaussToBL(double X, double Y,Integer type)//, double *longitude, double *latitude)
 
     {
         int ProjNo; //带宽
@@ -17,9 +17,17 @@ public class CoordinatesUtil {
         double longitude1, latitude1, longitude0, X0, Y0, xval, yval;//latitude0,
         double e1, e2, f, a, ee, NN, T, C, M, D, R, u, fai, iPI;
         iPI = 0.0174532925199433; //3.1415926535898/180.0;
-//        a = 6378245.0; f = 1.0/298.3; //54年北京坐标系参数
-        a = 6378140.0;
-        f = 1 / 298.257; //80年西安坐标系参数
+        if (type!=null){
+            if (type == 1){
+                a = 6378245.0; f = 1.0/298.3; //54年北京坐标系参数
+            }else if (type == 3){
+                a = 6378137.0; f = 1.0/298.257222101; //2000国家大地坐标系
+            }else {
+                a = 6378140.0;f = 1 / 298.257; //80年西安坐标系参数
+            }
+        }else {
+            a = 6378140.0;f = 1 / 298.257; //80年西安坐标系参数
+        }
         ProjNo = (int) (X / 1000000L); //查找带号
 //        longitude0 = (ProjNo-1) * ZoneWide + ZoneWide / 2;
         longitude0 = 117 * iPI; //中央经线 (中央子午线117)
@@ -96,8 +104,7 @@ public class CoordinatesUtil {
     }
 
     public static void main(String[] args) {
-//        double[] doubles = GaussToBL(498734.05, 4402396.82);
-        double[] doubles = GaussToBL(498784.48, 4402280.4);
+        double[] doubles = GaussToBL(498784.48, 4402280.4,1);
         System.out.println(doubles[0]);
         System.out.println(doubles[1]);
     }

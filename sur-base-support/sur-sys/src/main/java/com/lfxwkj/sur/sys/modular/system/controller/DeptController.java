@@ -32,6 +32,7 @@ import com.lfxwkj.sur.sys.core.constant.dictmap.DeptDict;
 import com.lfxwkj.sur.sys.core.constant.factory.ConstantFactory;
 import com.lfxwkj.sur.sys.core.log.LogObjectHolder;
 import com.lfxwkj.sur.sys.modular.system.entity.Dept;
+import com.lfxwkj.sur.sys.modular.system.factory.LayuiTreeFactory;
 import com.lfxwkj.sur.sys.modular.system.model.CollegeDto;
 import com.lfxwkj.sur.sys.modular.system.model.DeptDto;
 import com.lfxwkj.sur.sys.modular.system.service.DeptService;
@@ -102,12 +103,9 @@ public class DeptController extends BaseController {
      */
     @RequestMapping(value = "/tree")
     @ResponseBody
-    public List<ZTreeNode> tree(String deptId) {
-        if (ToolUtil.isEmpty(deptId)){
-            LoginUser user = LoginContextHolder.getContext().getUser();
-            deptId = user.getDeptId().toString();
-        }
-        List<ZTreeNode> tree = this.deptService.tree(deptId);
+    public List<ZTreeNode> tree() {
+        List<ZTreeNode> tree = this.deptService.tree();
+        tree.add(ZTreeNode.createParent());
         return tree;
     }
 
@@ -119,12 +117,9 @@ public class DeptController extends BaseController {
      */
     @RequestMapping(value = "/layuiTree")
     @ResponseBody
-    public List<LayuiTreeNode> layuiTree(String deptId) {
-        if (ToolUtil.isEmpty(deptId)){
-            LoginUser user = LoginContextHolder.getContext().getUser();
-            deptId = user.getDeptId().toString();
-        }
-        List<LayuiTreeNode> list = this.deptService.layuiTree(deptId);
+    public List<LayuiTreeNode> layuiTree() {
+        List<LayuiTreeNode> list = this.deptService.layuiTree();
+        list.add(LayuiTreeFactory.createRoot());
         DefaultTreeBuildFactory<LayuiTreeNode> treeBuildFactory = new DefaultTreeBuildFactory<>();
         treeBuildFactory.setRootParentId("-1");
         return treeBuildFactory.doTreeBuild(list);
@@ -141,10 +136,6 @@ public class DeptController extends BaseController {
     @ResponseBody
     public Object list(@RequestParam(value = "condition", required = false) String condition,
                        @RequestParam(value = "deptId", required = false) Long deptId) {
-        if (ToolUtil.isEmpty(deptId)){
-            LoginUser user = LoginContextHolder.getContext().getUser();
-            deptId = user.getDeptId();
-        }
         Page<Map<String, Object>> list = this.deptService.list(condition, deptId);
         Page<Map<String, Object>> wrap = new DeptWrapper(list).wrap();
         return LayuiPageFactory.createPageInfo(wrap);

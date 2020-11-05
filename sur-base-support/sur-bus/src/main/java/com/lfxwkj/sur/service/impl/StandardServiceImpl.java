@@ -88,13 +88,8 @@ public class StandardServiceImpl extends ServiceImpl<StandardMapper, Standard> i
      * @Date 2020-09-15
      */
     @Override
-    public List<StandardResult> selectStandardByIds(String holeCode,Long itemId) {
-        List<StandardResult> standardResults = null;
-        //钻孔编号
-        if(holeCode!=null){
-            String[] strings = holeCode.split(",");
-            standardResults = this.baseMapper.selectStandardByIds(strings, itemId);
-        }
+    public List<StandardResult> selectStandardByIds(Long itemId) {
+        List<StandardResult> standardResults = this.baseMapper.selectStandardByIds(itemId);
         return standardResults;
     }
 

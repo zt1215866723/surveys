@@ -15,15 +15,12 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
 
     //获取工程类型的下拉框
     $.ajax({
-        url: Feng.ctxPath + "/dict/listDicts",
-        data:{
-            dictTypeId : '1303502589535965185'
-        },
+        url: Feng.ctxPath + "/itemType/getItemTypeList",
         dataType: 'json',
         type: 'post',
         success: function (data) {
-            $.each(data.data, function (index, item) {
-                $('#type').append(new Option(item.name, item.dictId));
+            $.each(data, function (index, item) {
+                $('#type').append(new Option(item.name, item.id));
             });
             form.render("select");
         }
@@ -32,8 +29,8 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
     //获取进度的下拉框
     $.ajax({
         url: Feng.ctxPath + "/dict/listDicts",
-        data:{
-            dictTypeId : '1303593897935896578'
+        data: {
+            dictTypeId: '1303593897935896578'
         },
         dataType: 'json',
         type: 'post',
@@ -51,41 +48,179 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
         url: Feng.ctxPath + '/item/list',
         page: true,
         toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-        ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+        , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             title: '提示'
-            ,layEvent: 'LAYTABLE_TIPS'
-            ,icon: 'layui-icon-tips'
+            , layEvent: 'LAYTABLE_TIPS'
+            , icon: 'layui-icon-tips'
         }],
         height: "full-158",
         limit: 20,
         cols: [[
-            {field: 'itemName', title: '工程名称',align:'center',width:250, templet: function (d) {
-                    var url = Feng.ctxPath + '/item/itemDetail?id=' + d.id;
-                    return '<a style="color: #01AAED;" href="' + url + '">' + d.itemName + '</a>';
-                }},
-            {field: 'itemCode', title: '工程编号',align:'center'},
-            {field: 'typeName', title: '工程类型',align:'center'},
-            {field: 'location', title: '工程地点',align:'center'},
-            {field: 'head',  title: '工程负责人',align:'center'},
-            {field: 'beginDate', title: '开始日期',align:'center', templet: function(d){
-                    return d.beginDate == ""? "":d.beginDate.slice(0,10);
-            }},
-            {field: 'endDate', title: '结束日期',align:'center', templet: function(d){
-                    return d.endDate == ""? "":d.endDate.slice(0,10);
-            }},
-            {field: 'processName', title: '工程进度',align:'center'},
-            {align: 'center', toolbar: '#tableBar', title: '操作', width:270}
-        ]]
+            {type: 'checkbox'},
+            {field: 'itemName', title: '工程名称', align: 'center', width: 250},
+            {field: 'itemCode', title: '工程编号', align: 'center'},
+            {field: 'typeName', title: '工程类型', align: 'center'},
+            // {field: 'location', title: '工程地点', align: 'center'},
+            {field: 'head', title: '工程负责人', align: 'center'},
+            {field: 'processName', title: '工程进度', align: 'center'},
+            {
+                title: '地图展示', field: 'isShow',align: 'center', templet: function (d) {
+                    var state = "";
+                    if (d.isShow == 1) {
+                        state = "<input type='checkbox' value='" + d.id + "' id='isShow' lay-filter='stat' checked='checked' name='isShow'  lay-skin='switch' lay-text='展示|隐藏' >";
+                    } else {
+                        state = "<input type='checkbox' value='" + d.id + "' id='isShow' lay-filter='stat'  name='isShow'  lay-skin='switch' lay-text='展示|隐藏' >";
+                    }
+                    return state;
+                }
+            },
+            {align: 'center', toolbar: '#tableBar', title: '操作', width: 360}
+        ]],
+        done: function(res, curr, count) {
+            $.each(res.data, function(index,value){
+                //外单位提供
+                if(res.data[index].isForeign == 1){
+                    $("table tbody tr").eq(index).css('color','#1E9FFF');
+                }
+            });
+        }
+    });
+
+    //监听开关事件
+    form.on('switch(stat)', function (data) {
+        var contexts;
+        var x = data.elem.checked;//判断开关状态
+        if (x == true) {
+            contexts = "你确定要展示吗？";
+        } else {
+            contexts = "你确定要隐藏吗？";
+        }
+        layer.open({
+            content: contexts
+            , btn: ['确定', '取消']
+            , yes: function (index, layero) {
+                var state = 1;
+                if (x == true) {
+                } else {
+                    state = 0;
+                }
+                var arr = data.value.split(",");
+                $.ajax({
+                    url: Feng.ctxPath + "/item/editItem",
+                    data: {"isShow": state, "id": data.value},
+                    dataType: "json",
+                    success: function (data) {
+                        form.reload(); //删除成功后再刷新
+                    },
+                    error: function (data) {
+                        alert('错误');
+                    }
+                });
+                data.elem.checked = x;
+                form.render();
+                layer.close(index);
+                //按钮【按钮一】的回调
+            }
+            , btn2: function (index, layero) {
+                //按钮【按钮二】的回调
+                data.elem.checked = !x;
+                form.render();
+                layer.close(index);
+                //return false 开启该代码可禁止点击该按钮关闭
+            }
+            , cancel: function () {
+                //右上角关闭回调
+                data.elem.checked = !x;
+                form.render();
+                //return false 开启该代码可禁止点击该按钮关闭
+            }
+        });
+        return false;
+    });
+
+    // 批量展示
+    $('#showItem').on('click', function () {
+        var qArray = layui.table.checkStatus('itemTable').data;
+        var idArray = new Array();
+        for (var i = 0; i < qArray.length; i++) {
+            idArray.push(qArray[i].id);
+        }
+        var ids = idArray.join(",");
+        console.log(ids)
+        if (ids == "") {
+            layer.msg("请选择工程信息！", {icon: 5, time: 1000});
+            return;
+        }
+        layer.confirm('确认要展示吗?', function (index) {
+            $.ajax({
+                url: Feng.ctxPath + "/item/showAndHiddenItems",
+                data: {"ids": ids, type: 0},
+                dataType: 'json',
+                async: 'false',
+                success: function (data) {
+                    if (data.success) {
+                        layer.close(index);
+                        Feng.success("操作批量展示成功!");
+                        table.reload('itemTable');
+                    } else {
+                        layer.close(index);
+                        Feng.success("操作批量展示失败!");
+                    }
+                },
+                error: function (response) {
+                    layer.close(index);
+                    Feng.error("删除失败!" + data.responseJSON.message + "!");
+                }
+            });
+        });
+    });
+
+    //批量隐藏
+    $('#hiddenItem').on('click', function () {
+        var qArray = layui.table.checkStatus('itemTable').data;
+        var idArray = new Array();
+        for (var i = 0; i < qArray.length; i++) {
+            idArray.push(qArray[i].id);
+        }
+        var ids = idArray.join(",");
+        if (ids == "") {
+            layer.msg("请选择工程信息！", {icon: 5, time: 1000});
+            return;
+        }
+        layer.confirm('确认要隐藏吗?', function (index) {
+            $.ajax({
+                url: Feng.ctxPath + "/item/showAndHiddenItems",
+                data: {"ids": ids, type: 1},
+                dataType: 'json',
+                async: 'false',
+                success: function (data) {
+                    if (data.success) {
+                        layer.close(index);
+                        Feng.success("操作批量隐藏成功!");
+                        table.reload('itemTable');
+                    } else {
+                        layer.close(index);
+                        Feng.success("操作批量隐藏失败!");
+                    }
+                },
+                error: function (response) {
+                    layer.close(index);
+                    Feng.error("失败!" + data.responseJSON.message + "!");
+                }
+            });
+        });
     });
 
     // 搜索按钮点击事件
     $('#btnSearch').click(function () {
         var queryData = {
-            itemName:$("#itemName").val(),
-            itemCode:$("#itemCode").val(),
+            itemName: $("#itemName").val(),
+            itemCode: $("#itemCode").val(),
             location: $("#location").val(),
             type: $("#type").val(),
-            progress: $("#progress").val()
+            progress: $("#progress").val(),
+            isForeign: $("#isForeign").val(),
+            isShow: $("#isShow").val()
         };
         table.reload(Item.tableId, {
             where: queryData, page: {curr: 1}
@@ -93,26 +228,26 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
     });
 
     //头工具栏事件
-    table.on('toolbar(' + Item.tableId + ')', function(obj){
+    table.on('toolbar(' + Item.tableId + ')', function (obj) {
         var checkStatus = table.checkStatus(obj.config.id);
-        switch(obj.event){
+        switch (obj.event) {
             case 'getCheckData':
                 var data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
                 break;
             case 'getCheckLength':
                 var data = checkStatus.data;
-                layer.msg('选中了：'+ data.length + ' 个');
+                layer.msg('选中了：' + data.length + ' 个');
                 break;
             case 'isAll':
-                layer.msg(checkStatus.isAll ? '全选': '未全选');
+                layer.msg(checkStatus.isAll ? '全选' : '未全选');
                 break;
 
             //自定义头工具栏右侧图标 - 提示
             case 'LAYTABLE_TIPS':
                 layer.alert('这是工具栏右侧自定义的一个图标按钮');
                 break;
-        };
+        }
     });
 
     // 添加按钮点击事件
@@ -153,41 +288,38 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
                 content: Feng.ctxPath + '/item/document?itemId=' + data.id
             });
         } else if (layEvent === 'synchronous') {
-            synchronous(data.id, 0, 0);
+            synchronous(data.id, 0);
+        } else if (layEvent === 'detail') {
+            location.href = Feng.ctxPath + '/item/itemDetail?id=' + data.id
         }
     });
 
-    function synchronous(itemId, isDataCover, isItemCover){
-        var prompt= layer.msg('文件同步中...', {
+    function synchronous(itemId, isDataCover) {
+        var prompt = layer.msg('文件同步中...', {
             icon: 16,
             shade: 0.2,
             time: false
         });
         $.ajax({
             url: Feng.ctxPath + "/item/synchronous",
-            data:{
-                itemId : itemId,
-                isDataCover : isDataCover,
-                isItemCover : isItemCover
+            data: {
+                itemId: itemId,
+                isDataCover: isDataCover
             },
             dataType: 'json',
             type: 'post',
             success: function (data) {
                 layer.close(prompt);
-                if(data.success){
-                    Feng.success("操作成功！");
-                }else{
-                    if(data.code == 3){
-                        layer.confirm(data.message, function(index){
-                            synchronous(itemId, 0, 1);
+                if (data.success) {
+                    Feng.success("操作成功,请等待同步完成。");
+                    table.reload(Item.tableId);
+                } else {
+                    if (data.code == 4) {
+                        layer.confirm(data.message, function (index) {
+                            synchronous(itemId, 1);
                             layer.close(index);
                         });
-                    }else if(data.code == 4){
-                        layer.confirm(data.message, function(index){
-                            synchronous(itemId, 1, 0);
-                            layer.close(index);
-                        });
-                    }else{
+                    } else {
                         Feng.error(data.message)
                     }
                 }

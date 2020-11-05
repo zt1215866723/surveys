@@ -132,9 +132,9 @@ public class StandardController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/selectStandardByIds")
-    public LayuiPageInfo selectStandardByIds(String holeCode,Long itemId) {
+    public LayuiPageInfo selectStandardByIds(Long itemId) {
 
-        List<StandardResult> standardResults = this.standardService.selectStandardByIds(holeCode,itemId);
+        List<StandardResult> standardResults = this.standardService.selectStandardByIds(itemId);
         LayuiPageInfo layuiPageInfo = new LayuiPageInfo();
         layuiPageInfo.setData(standardResults);
         return layuiPageInfo;

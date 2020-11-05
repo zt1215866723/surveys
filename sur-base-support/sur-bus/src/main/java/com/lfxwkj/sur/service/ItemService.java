@@ -82,10 +82,9 @@ public interface ItemService extends IService<Item> {
      * 理正数据同步
      * @param itemId
      * @param isCover
-     * @param isIgnoreName
      * @return
      */
-    ResponseData synchronous(Long itemId, int isCover, int isIgnoreName) throws Exception;
+    ResponseData synchronous(Long itemId, int isCover) throws Exception;
 
     /**
      * @Description  ：在地图上展示所有工程信息
@@ -104,6 +103,12 @@ public interface ItemService extends IService<Item> {
      * @Date 2020-09-23
      */
     ItemResult getItemDetail(Long id);
-
+    /**
+     * @Description  ：首页工程echarts图
+     * @methodName   : itemECharts
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
     List<Map<String, String>> itemECharts();
 }

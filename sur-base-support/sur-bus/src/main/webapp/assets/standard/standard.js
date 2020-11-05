@@ -7,6 +7,13 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
 
     var itemIds = Feng.getUrlParam("itemIds");
     var holeCode = Feng.getUrlParam("holeCode");
+    var xaxis = Feng.getUrlParam("xaxis");
+    var yaxis = Feng.getUrlParam("yaxis");
+
+    // 返回按钮点击事件
+    $('#btnBack').click(function () {
+        location.href = "/drilling/drillingMap?itemId=" + itemIds + "&xaxis=" + xaxis + "&yaxis=" + yaxis + ""
+    });
 
     /**
      * 地层信息管理

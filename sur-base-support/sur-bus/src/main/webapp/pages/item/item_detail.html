@@ -5,17 +5,17 @@
             <div class="layui-card">
                         <div class="layui-card-body" style="border:1px solid rgba(0,0,0,0.35)">
                             <div class="row" id="projectInfo">
-                                <label class="layui-col-lg3">项目编号：<span id="itemCode"></span></label>
-                                <label class="layui-col-lg3">项目名称：<span id="itemName"></span></label>
-                                <label class="layui-col-lg3">项目负责人：<span id="head"></span></label>
+                                <label class="layui-col-lg3">工程编号：<span id="itemCode"></span></label>
+                                <label class="layui-col-lg3">工程名称：<span id="itemName"></span></label>
+                                <label class="layui-col-lg3">工程负责人：<span id="head"></span></label>
                                 <label class="layui-col-lg3">开始日期：<span id="beginDate"></span></label>
                                 <label class="layui-col-lg3">结束日期：<span id="endDate"></span></label>
                                 <label class="layui-col-lg3">经纬度：<span id="xaxis"></span>,<span id="yaxis"></span></label>
                                 <label class="layui-col-lg3">工程类别：<span id="typeName"></span></label>
-                                <label class="layui-col-lg3">项目进度：<span id="processName"></span></label>
+                                <label class="layui-col-lg3">工程进度：<span id="processName"></span></label>
                                 <label class="col-lg-6">
-                                    项目地址：<span id="location"></span>&nbsp;&nbsp;
-                                    <i id="projectMap" title="项目位置" class="layui-icon layui-icon-location" style="color:#bb4646;cursor:pointer;"></i>
+                                    工程地址：<span id="location"></span>&nbsp;&nbsp;
+                                    <i id="projectMap" title="工程位置" class="layui-icon layui-icon-location" style="color:#bb4646;cursor:pointer;"></i>
                                 </label>
                                 <label class="layui-col-lg3">备注：<span id="remarks"></span></label>
                             </div>
@@ -37,11 +37,16 @@
                             </div>
                             <div class="layui-inline">
                                 <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                @if(shiro.hasPermission("/item/detail/ylb")){
+                                <button id="btnYlb" class="layui-btn icon-btn"><i class="layui-icon">&#xe63c;</i>一览表</button>
+                                @}
                                 <button id="btnReturn" class="layui-btn icon-btn"><i class="layui-icon">&#xe65c;</i>返回</button>
                             </div>
                         </div>
                     </div>
+                    @if(shiro.hasPermission("/item/detail/table")){
                     <table class="layui-table" id="itemTable" lay-filter="itemTable"></table>
+                    @}
                 </div>
             </div>
         </div>
@@ -49,8 +54,12 @@
 </div>
 
 <script type="text/html" id="tableBar">
+    @if(shiro.hasPermission("/item/detail/edit")){
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    @}
+    @if(shiro.hasPermission("/item/detail/look")){
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="look">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="histogram">柱状图</a>
+    @}
+<!--    <a class="layui-btn layui-btn-xs" lay-event="histogram">柱状图</a>-->
 </script>
 @}

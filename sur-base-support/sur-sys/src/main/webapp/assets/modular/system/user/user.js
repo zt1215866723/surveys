@@ -32,15 +32,15 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'func', 
 
         return [[
             {type: 'checkbox'},
-            {field: 'userId', hide: true, sort: true, title: '用户id'},
-            {field: 'account', align: "center", sort: true, title: langs.FIELD_ACCOUNT},
-            {field: 'name', align: "center", sort: true, title: langs.FIELD_NAME},
-            {field: 'deptName', align: "center", sort: true, title: langs.FIELD_DEPT},
-            {field: 'positionName', align: "center", sort: true, title: langs.FIELD_POST},
-            {field: 'phone', align: "center", sort: true, title: langs.FIELD_PHONE, minWidth: 117},
-            {field: 'createTime', align: "center", sort: true, title: langs.FIELD_CREATE_TIME, minWidth: 160},
-            {field: 'status', align: "center", sort: true, templet: '#statusTpl', title: langs.FIELD_STATUS},
-            {align: 'center', toolbar: '#tableBar', title: langs.FIELD_OPERATION, minWidth: 480}
+            {field: 'userId', hide: true, title: '用户id'},
+            {field: 'account', align: "center", title: langs.FIELD_ACCOUNT},
+            {field: 'name', align: "center", title: langs.FIELD_NAME},
+            {field: 'deptName', align: "center", title: langs.FIELD_DEPT},
+            {field: 'positionName', align: "center", title: langs.FIELD_POST},
+            {field: 'phone', align: "center", title: langs.FIELD_PHONE, minWidth: 117},
+            // {field: 'createTime', align: "center", title: langs.FIELD_CREATE_TIME, minWidth: 160},
+            {field: 'status', align: "center", templet: '#statusTpl', title: langs.FIELD_STATUS},
+            {align: 'center', toolbar: '#tableBar', title: langs.FIELD_OPERATION, minWidth: 270}
         ]];
     };
 
@@ -201,9 +201,19 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'func', 
         page: true,
         height: "full-98",
         cellMinWidth: 100,
-        cols: MgrUser.initColumn()
-    });
+        cols: MgrUser.initColumn(),
+        done: function(res, curr, count){
+            //如果是异步请求数据方式，res即为你接口返回的信息。
+            //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+            console.log(res);
 
+            //得到当前页码
+            console.log(curr);
+
+            //得到数据总量
+            console.log(count);
+        }
+    });
     //渲染时间选择框
     laydate.render({
         elem: '#timeLimit',

@@ -51,7 +51,7 @@ public class Item implements Serializable {
     private String remarks;
 
     /**
-     * 设备状态， 与数据字典对应不关联
+     * 状态
      */
     @TableField("state")
     private Integer state;
@@ -98,6 +98,44 @@ public class Item implements Serializable {
     @TableField("end_date")
     private Date endDate;
 
+    @TableField("is_foreign")
+    private Integer isForeign;
+
+    @TableField("is_show")
+    private Integer isShow;
+
+    @TableField("coor_system")
+    private Integer coorSystem;
+
+    @TableField("synchronous_state")
+    private Integer synchronousState;
+
+    public Integer getCoorSystem() {
+        return coorSystem;
+    }
+
+    public Item setCoorSystem(Integer coorSystem) {
+        this.coorSystem = coorSystem;
+        return this;
+    }
+
+    public Integer getIsForeign() {
+        return isForeign;
+    }
+
+    public Item setIsForeign(Integer isForeign) {
+        this.isForeign = isForeign;
+        return this;
+    }
+
+    public Integer getIsShow() {
+        return isShow;
+    }
+
+    public Item setIsShow(Integer isShow) {
+        this.isShow = isShow;
+        return this;
+    }
 
     public Long getId() {
         return id;
@@ -203,17 +241,32 @@ public class Item implements Serializable {
         this.endDate = endDate;
     }
 
+    public Integer getSynchronousState() {
+        return synchronousState;
+    }
+
+    public void setSynchronousState(Integer synchronousState) {
+        this.synchronousState = synchronousState;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
-        "id=" + id +
-        ", itemCode=" + itemCode +
-        ", itemName=" + itemName +
-        ", location=" + location +
-        ", remarks=" + remarks +
-        ", state=" + state +
-        ", xaxis=" + xaxis +
-        ", yaxis=" + yaxis +
-        "}";
+                "id=" + id +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", location='" + location + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", state=" + state +
+                ", xaxis='" + xaxis + '\'' +
+                ", yaxis='" + yaxis + '\'' +
+                ", progress=" + progress +
+                ", type=" + type +
+                ", head='" + head + '\'' +
+                ", beginDate=" + beginDate +
+                ", endDate=" + endDate +
+                ", isForeign=" + isForeign +
+                ", isShow=" + isShow +
+                '}';
     }
 }

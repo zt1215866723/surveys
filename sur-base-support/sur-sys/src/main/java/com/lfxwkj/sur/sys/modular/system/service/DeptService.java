@@ -87,8 +87,8 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
      * @author fengshuonan
      * @Date 2018/12/23 5:16 PM
      */
-    public List<ZTreeNode> tree(String deptId) {
-        return this.baseMapper.tree(deptId);
+    public List<ZTreeNode> tree() {
+        return this.baseMapper.tree();
     }
 
     /**
@@ -97,8 +97,8 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
      * @author fengshuonan
      * @Date 2019-8-27 15:23
      */
-    public List<LayuiTreeNode> layuiTree(String deptId) {
-        return this.baseMapper.layuiTree(deptId);
+    public List<LayuiTreeNode> layuiTree() {
+        return this.baseMapper.layuiTree();
     }
 
     /**

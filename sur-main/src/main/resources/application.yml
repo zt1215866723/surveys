@@ -42,4 +42,5 @@ log:
   path: _app_logs
 
 img:
-  path: /Users/wangnanxiang/Downloads/imgTest/
+  drillingPath: D:\tempImgPath\drillingFilePath\
+  itemPath: D:\tempImgPath\itemFilePath\

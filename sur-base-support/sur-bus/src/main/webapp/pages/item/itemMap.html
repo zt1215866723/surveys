@@ -73,6 +73,7 @@
     .searchItem:hover {
         background-color: #def6ff;
     }
+
 </style>
 <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=GXPDLcpdfGRaZ42n5TgQW6DIwftiTN8E"></script>
 <!-- 正文开始 -->
@@ -80,11 +81,9 @@
     <div class="map-top-card" style="position: absolute;left:20px;top: 20px;z-index: 1000;font-size: 0.8rem; ">
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <input style="height: 30px;width: 200px" name="nickName" id="nickName" onclick="sousuo()"
-                       class="layui-input" autocomplete=off placeholder="工程名称/工程编号/工程地址"/>
+                <input style="height: 30px;width: 240px" name="nickName" id="nickName" onclick="sousuo()"
+                       class="layui-input" autocomplete=off placeholder="工程名称/工程编号/工程地址/大地坐标"/>
             </div>
-        </div>
-        <div class="layui-inline">&emsp;
             <button id="search" style="height: 30px;line-height: 30px" class="layui-btn icon-btn"
                     lay-filter="userTbSearch" lay-submit>
                 <i class="layui-icon">&#xe615;</i>搜索
