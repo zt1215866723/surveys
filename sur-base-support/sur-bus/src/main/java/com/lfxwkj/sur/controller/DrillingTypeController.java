@@ -190,9 +190,7 @@ public class DrillingTypeController extends BaseController {
         map.put("code", 0);
         map.put("msg", "");
         return map;
-
     }
-
 }
 
 

@@ -1,9 +1,10 @@
-layui.use(['table', 'admin', 'ax', 'func'], function () {
+layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
     var func = layui.func;
+    var form = layui.form;
 
     /**
      * 钻孔类型表管理
@@ -21,7 +22,17 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
             {field: 'id', hide: true, title: '主键'},
             {field: 'name', sort: true, title: '名称'},
             {field: 'url', sort: true, title: '图例存储路径'},
-            {field: 'status', sort: true, title: '状态0启用1删除2禁用'},
+            {field: 'status', sort: true, title: '状态', templet: function(d){
+                    if(d.url != '') {
+                        if(Boolean(d.status)){
+                            return '<input type="checkbox" id="'+ d.id +'" name="status" checked=""  lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
+                        }
+                        return '<input type="checkbox" id="'+ d.id +'" name="status" lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
+
+                    }
+                    return ''
+                }
+            },
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };
@@ -134,5 +145,19 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
         } else if (layEvent === 'delete') {
             DrillingType.onDeleteItem(data);
         }
+    });
+
+    /**
+     *  监听开关的点击
+     */
+    form.on('switch(statusSwitch)', function(data){
+        $.ajax({
+            url:"/drillingType/editItem",
+            type: "GET",
+            data: {"id" : this.id, "status": 1 & Number(this.checked)},
+            success: function () {
+                layer.msg('修改成功')
+            }
+        })
     });
 });
