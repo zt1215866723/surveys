@@ -15,15 +15,12 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
 
     //获取工程类型的下拉框
     $.ajax({
-        url: Feng.ctxPath + "/dict/listDicts",
-        data: {
-            dictTypeId: '1303502589535965185'
-        },
+        url: Feng.ctxPath + "/itemType/getItemTypeList",
         dataType: 'json',
         type: 'post',
         success: function (data) {
-            $.each(data.data, function (index, item) {
-                $('#type').append(new Option(item.name, item.dictId));
+            $.each(data, function (index, item) {
+                $('#type').append(new Option(item.name, item.id));
             });
             form.render("select");
         }
@@ -63,7 +60,7 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
             {field: 'itemName', title: '工程名称', align: 'center', width: 250},
             {field: 'itemCode', title: '工程编号', align: 'center'},
             {field: 'typeName', title: '工程类型', align: 'center'},
-            {field: 'location', title: '工程地点', align: 'center'},
+            // {field: 'location', title: '工程地点', align: 'center'},
             {field: 'head', title: '工程负责人', align: 'center'},
             {field: 'processName', title: '工程进度', align: 'center'},
             {

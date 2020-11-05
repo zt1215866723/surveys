@@ -37,7 +37,7 @@ public class DrillingTypeController extends BaseController {
 
     private String PREFIX = "/drillingType";
 
-    @Value("${img.path}")
+    @Value("${img.drillingPath}")
     private String path;
 
     @Autowired
@@ -158,7 +158,7 @@ public class DrillingTypeController extends BaseController {
                 String suffix = originalName.substring(originalName.lastIndexOf(".") + 1);
                 String uuid = UUID.randomUUID() + "";
                 String filepath = path + uuid + "." + suffix;
-
+                String filepaths = uuid + "." + suffix;
 
                 File files = new File(filepath);
                 if (!files.getParentFile().exists()) {
@@ -170,7 +170,7 @@ public class DrillingTypeController extends BaseController {
                 map.put("code", 1);
                 map.put("msg", "");
                 map.put("data", pathMap);
-                pathMap.put("src", filepath);
+                pathMap.put("src", filepaths);
                 return map;
             }
 

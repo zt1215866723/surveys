@@ -145,7 +145,7 @@
         </if>
         order by CAST( hole_code AS SIGNED)
     </select>
-    <select id="selectExplorationPoints" resultType="com.lfxwkj.sur.entity.Drilling">
+    <select id="selectExplorationPoints" resultType="com.lfxwkj.sur.model.result.DrillingVo">
         SELECT
 --         ROW_NUMBER() OVER ( ORDER BY CAST( d.hole_code AS SIGNED ) ) rowNum,
         d.hole_code,
@@ -175,13 +175,6 @@
         LEFT JOIN lz_water_level w ON d.hole_code = w.hole_code
         AND d.item_id = w.item_id
         WHERE 1=1
-        <if test="strings != null and strings != ''">
-        and d.hole_code in (
-        <foreach collection="strings" item="strings" separator=",">
-            #{strings}
-        </foreach>
-        )
-        </if>
         <if test="itemId != null">
         and d.item_id = #{itemId}
         </if>

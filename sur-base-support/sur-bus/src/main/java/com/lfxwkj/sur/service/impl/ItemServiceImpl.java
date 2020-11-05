@@ -81,9 +81,9 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     @Autowired
     private SampleService sampleService;
     @Autowired
-    private DictService dictService;
-    @Autowired
     private ReadMdb readMdb;
+    @Autowired
+    private ItemTypeMapper itemTypeMapper;
 
     @Override
     public void add(ItemParam param) {
@@ -151,7 +151,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     }
 
     @Override
-    @Transactional(timeout = 300000000)
+    @Transactional
     public ResponseData synchronous(Long itemId, int isDataCover, int isItemCover) {
         //查询理正数据库文件存放位置
         SubDetailResult subDetailResult = subDetailMapper.getSynchronousFile(itemId);
@@ -191,8 +191,8 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                 return ResponseData.error(4, "该工程下已导入理正数据，是否覆盖？");
             }
         }
-        //查询项目信息
-        Item item = this.baseMapper.selectById(itemId);
+//        //查询项目信息
+//        Item item = this.baseMapper.selectById(itemId);
         //将所有表的时间格式化
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         //暂定同步（钻孔，静探，标贯，土层，水位，工程，抛线，土层标准）
@@ -583,17 +583,20 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     public List<Map<String, String>> itemECharts() {
         List<Map<String, String>> result = new ArrayList<>();
         //查一下几类工程
-        List<Dict> dicts = dictService.listDicts(1303502589535965185l);
+        QueryWrapper<ItemType> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status",0);
+        List<ItemType> itemTypes = itemTypeMapper.selectList(queryWrapper);
         //分类查数量
-        for (Dict d : dicts) {
+        for (ItemType t : itemTypes) {
             //查询每个类型有多少项目
-            String count = this.baseMapper.getCountByType(d.getDictId());
+            String count = this.baseMapper.getCountByType(t.getId());
             Map<String, String> a = new HashMap<>();
-            a.put("name", d.getName());
-            a.put("id", d.getDictId().toString());
+            a.put("name", t.getName());
+            a.put("id", t.getId().toString());
             a.put("value", count);
             result.add(a);
         }
         return result;
     }
+
 }

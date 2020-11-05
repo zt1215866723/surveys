@@ -170,13 +170,8 @@ public class DrillingServiceImpl extends ServiceImpl<DrillingMapper, Drilling> i
      * @Date 2020-10.22
      */
     @Override
-    public List<Drilling> selectExplorationPoints(String holeCode,Long itemId) {
-        List<Drilling> drillingList = null;
-        //钻孔编号
-        if (holeCode!=null) {
-            String[] strings = holeCode.split(",");
-            drillingList = this.baseMapper.selectExplorationPoints(strings, itemId);
-        }
+    public List<Drilling> selectExplorationPoints(Long itemId) {
+        List<Drilling> drillingList = this.baseMapper.selectExplorationPoints(itemId);
         return drillingList;
     }
 

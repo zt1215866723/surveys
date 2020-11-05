@@ -104,7 +104,12 @@ public interface ItemService extends IService<Item> {
      * @Date 2020-09-23
      */
     ItemResult getItemDetail(Long id);
-
+    /**
+     * @Description  ：首页工程echarts图
+     * @methodName   : itemECharts
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
     List<Map<String, String>> itemECharts();
-
 }

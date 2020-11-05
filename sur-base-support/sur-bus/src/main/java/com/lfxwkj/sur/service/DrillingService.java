@@ -93,5 +93,5 @@ public interface DrillingService extends IService<Drilling> {
      * @author 张童
      * @Date 2020-10.22
      */
-    List<Drilling> selectExplorationPoints(String holeCode,Long itemId);
+    List<Drilling> selectExplorationPoints(Long itemId);
 }

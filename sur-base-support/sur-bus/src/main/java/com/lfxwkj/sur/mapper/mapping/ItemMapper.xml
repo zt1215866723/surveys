@@ -65,7 +65,7 @@
         select a.*,b.name processName, c.name typeName
         from sur_item a
         left join sys_dict b on a.progress = b.dict_id
-        left join sys_dict c on a.type = c.dict_id
+        left join sur_item_type c on a.type = c.id
         where a.state != 1
         <if test="paramCondition.itemName != null and paramCondition.itemName != ''">
             and a.item_name like CONCAT('%',#{paramCondition.itemName},'%')
@@ -97,10 +97,10 @@
         from sur_item where 1 = 1
     </select>
     <select id="getItemOnTheMap" resultType="com.lfxwkj.sur.model.result.ItemResult">
-        select a.*,b.name processName, c.name typeName
+        select a.*,b.name processName, c.name typeName , c.url typeUrl
         from sur_item a
         left join sys_dict b on a.progress = b.dict_id
-        left join sys_dict c on a.type = c.dict_id
+        left join sur_item_type c on a.type = c.id
         where a.state != 1
         and a.is_show = 1
         <if test="paramCondition.itemName != null and paramCondition.itemName != ''">
@@ -130,7 +130,7 @@
         FROM
         sur_item a
         LEFT JOIN sys_dict b ON a.progress = b.dict_id
-        LEFT JOIN sys_dict c ON a.type = c.dict_id
+        left join sur_item_type c on a.type = c.id
         WHERE
         a.state != 1
         <if test="paramCondition != null">
@@ -143,7 +143,10 @@
         FROM
             sur_item
         WHERE
-            type = #{paramCondition}
+            state = 0
+        <if test="paramCondition != null">
+            and type = #{paramCondition}
+        </if>
     </select>
 
 </mapper>

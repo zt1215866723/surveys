@@ -59,7 +59,7 @@ public interface StandardMapper extends BaseMapper<Standard> {
      * @author 张童
      * @Date 2020-09-15
      */
-    List<StandardResult> selectStandardByIds(@Param("strings") String[] strings,@Param("itemId")Long itemId);
+    List<StandardResult> selectStandardByIds(@Param("itemId")Long itemId);
 
     /**
      * 查询单个钻孔柱状图

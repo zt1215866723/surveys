@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lfxwkj.sur.model.result.DrillingResult;
 import com.lfxwkj.sur.model.result.DrillingVo;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @author 张童
  * @since 2020-09-15
  */
+@Repository
 public interface DrillingMapper extends BaseMapper<Drilling> {
 
     /**
@@ -71,5 +73,5 @@ public interface DrillingMapper extends BaseMapper<Drilling> {
      */
     List<DrillingVo> selectDrillingByItemId(@Param("paramCondition") DrillingParam drillingParam);
 
-    List<Drilling> selectExplorationPoints(@Param("strings")String[] strings, @Param("itemId")Long itemId);
+    List<Drilling> selectExplorationPoints(@Param("itemId")Long itemId);
 }

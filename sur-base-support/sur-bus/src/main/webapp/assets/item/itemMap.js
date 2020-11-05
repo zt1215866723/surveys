@@ -93,29 +93,13 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             success: function (data) {
                 tempData = data.data;
                 $("#searchList").empty();
-                var iContent1, iContent2, iContent3;
+                var iContent;
                 if (data.data.length != 0) {
                     data.data.forEach(function (item, index) {
-                        iContent1 =
+                        iContent =
                             "<div class='searchItem' onclick='dianji(" + JSON.stringify(item) + ")'>" +
-                            "<div style='float: left'>";
-                        if (item.type == 1303502789608460289) {
-                            iContent2 =
-                                "<img src='/assets/picture/kancha.png'>";
-                        } else if (item.type == 1303502842829983746) {
-                            iContent2 =
-                                "<img src='/assets/picture/diji.png'>";
-                        } else if (item.type == 1303502895028097025) {
-                            iContent2 =
-                                "<img src='/assets/picture/celiang.png'>";
-                        } else if (item.type == 1303502953022738433) {
-                            iContent2 =
-                                "<img src='/assets/picture/jikeng.png'>";
-                        } else {
-                            iContent2 =
-                                "<img src='/assets/picture/qita.png'>";
-                        }
-                        iContent3 =
+                            "<div style='float: left'>" +
+                            "<img src=/image/" + item.typeUrl + ">" +
                             "</div>" +
                             "<div style='float: left;padding:0 5px 0 10px;width: 230px'>" +
                             "<strong style='margin-left: 5px;line-height: 25px'>项目名称：" + item.itemName + "</strong>" +
@@ -124,7 +108,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                             " <p style='line-height: 20px;font-size: 0.8rem '>地址：" + item.location + "</p>" +
                             "</div>" +
                             "</div>";
-                        $("#searchList").append(iContent1 + iContent2 + iContent3);
+                        $("#searchList").append(iContent);
                     })
                 } else {
                     <!--搜索结果为空-->
@@ -144,30 +128,11 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
     var info = new Array(); //存放提示信息窗口对象的数组
     tempData.forEach(function (item, index) {
         xmPoint[index] = new window.BMap.Point(item.xaxis, item.yaxis); //循环生成新的地图点
-        var myIcon1 = new BMap.Icon("/assets/picture/celiang.png", new BMap.Size(24, 24));
-        var myIcon2 = new BMap.Icon("/assets/picture/diji.png", new BMap.Size(24, 24));
-        var myIcon3 = new BMap.Icon("/assets/picture/jikeng.png", new BMap.Size(24, 24));
-        var myIcon4 = new BMap.Icon("/assets/picture/kancha.png", new BMap.Size(24, 24));
-        var myIcon5 = new BMap.Icon("/assets/picture/qita.png", new BMap.Size(24, 24));
-        if (item.type == 1303502789608460289) {
+        var myIcon = new BMap.Icon("/image/"+item.typeUrl, new BMap.Size(24, 24));
             var xmLabel = new window.BMap.Label(item.itemName, {offset: new window.BMap.Size(20, -10)});
             xmLabel.setStyle({
-                color: '#ffffff',
-                background: '#ff151d',
-                borderRadius: "5px",
-                border: 'none',
-                textAlign: "center",
-                height: "20px",
-                lineHeight: "20px",
-                padding: "0 10px",
-
-            });
-            xmMarker[index] = new window.BMap.Marker(xmPoint[index], {icon: myIcon4}); //按照地图点坐标生成标记
-        } else if (item.type == 1303502842829983746) {
-            var xmLabel = new window.BMap.Label(item.itemName, {offset: new window.BMap.Size(20, -10)});
-            xmLabel.setStyle({
-                color: '#ffffff',
-                background: '#FF7100',
+                color: '#000000',
+                background: '#ffffff',
                 borderRadius: "5px",
                 border: 'none',
                 textAlign: "center",
@@ -175,47 +140,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                 lineHeight: "20px",
                 padding: "0 10px"
             });
-            xmMarker[index] = new window.BMap.Marker(xmPoint[index], {icon: myIcon2}); //按照地图点坐标生成标记
-        } else if (item.type == 1303502895028097025) {
-            var xmLabel = new window.BMap.Label(item.itemName, {offset: new window.BMap.Size(20, -10)});
-            xmLabel.setStyle({
-                color: '#ffffff',
-                background: '#2EB5B1',
-                borderRadius: "5px",
-                border: 'none',
-                textAlign: "center",
-                height: "20px",
-                lineHeight: "20px",
-                padding: "0 10px"
-            });
-            xmMarker[index] = new window.BMap.Marker(xmPoint[index], {icon: myIcon1}); //按照地图点坐标生成标记
-        } else if (item.type == 1303502953022738433) {
-            var xmLabel = new window.BMap.Label(item.itemName, {offset: new window.BMap.Size(20, -10)});
-            xmLabel.setStyle({
-                color: '#ffffff',
-                background: '#0cD500',
-                borderRadius: "5px",
-                border: 'none',
-                textAlign: "center",
-                height: "20px",
-                lineHeight: "20px",
-                padding: "0 10px"
-            });
-            xmMarker[index] = new window.BMap.Marker(xmPoint[index], {icon: myIcon3}); //按照地图点坐标生成标记
-        } else {
-            var xmLabel = new window.BMap.Label(item.itemName, {offset: new window.BMap.Size(20, -10)});
-            xmLabel.setStyle({
-                color: '#ffffff',
-                background: '#807B76',
-                borderRadius: "5px",
-                border: 'none',
-                textAlign: "center",
-                height: "20px",
-                lineHeight: "20px",
-                padding: "0 10px"
-            });
-            xmMarker[index] = new window.BMap.Marker(xmPoint[index], {icon: myIcon5}); //按照地图点坐标生成标记
-        }
+            xmMarker[index] = new window.BMap.Marker(xmPoint[index], {icon: myIcon}); //按照地图点坐标生成标记
 
         map.addOverlay(xmMarker[index]);
 
@@ -225,17 +150,17 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>" + item.itemName + "</h4>" +
             "<p class='map-card-p' style=''>项目编号：" + item.itemCode + "</p>" +
             "<p class='map-card-p'>项目类型：" + item.typeName + "</p>" +
-            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>" ;
-        var sContent2='';
-        if (item.type == 1303502789608460289){
+            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>";
+        var sContent2 = '';
+        if (item.type == 2) {
             //勘察工程才有钻孔信息！！！
             sContent2 =
-                "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>" ;
+                "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
         }
         var sContent3 =
             "</div>" +
             "</div>";
-        info[index] = new window.BMap.InfoWindow(sContent1+sContent2+sContent3); // 创建信息窗口对象
+        info[index] = new window.BMap.InfoWindow(sContent1 + sContent2 + sContent3); // 创建信息窗口对象
 
         addInfo(info[index], xmMarker[index]);
     })
@@ -260,17 +185,17 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>" + item.itemName + "</h4>" +
             "<p class='map-card-p' style=''>项目编号：" + item.itemCode + "</p>" +
             "<p class='map-card-p'>项目类型：" + item.typeName + "</p>" +
-            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>" ;
-        var opts2='';
-        if (item.type == 1303502789608460289){
+            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>";
+        var opts2 = '';
+        if (item.type == 2) {
             //勘察工程才有钻孔信息！！！
             opts2 =
-                "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>" ;
+                "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
         }
         var opts3 =
             "</div>" +
             "</div>";
-        var infoWindow = new BMap.InfoWindow(opts1+opts2+opts3);
+        var infoWindow = new BMap.InfoWindow(opts1 + opts2 + opts3);
         map.openInfoWindow(infoWindow, point);
     };
     //点击工程搜索结果
@@ -283,7 +208,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         itemTypes = ''
         for (var i = 0; i < $('.typeItem').length; i++) {
             if ($('.typeItem')[i].checked) {
-                itemTypes += $('.typeItem')[i].value+ ','
+                itemTypes += $('.typeItem')[i].value + ','
             }
         }
         $.ajax({
@@ -298,29 +223,13 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             success: function (data) {
                 tempData = data.data;
                 $("#searchList").empty();
-                var iContent1, iContent2, iContent3;
+                var iContent;
                 if (data.data.length != 0) {
                     data.data.forEach(function (item, index) {
-                        iContent1 =
+                        iContent =
                             "<div class='searchItem' onclick='dianji(" + JSON.stringify(item) + ")'>" +
-                            "<div style='float: left'>";
-                        if (item.type == 1303502789608460289) {
-                            iContent2 =
-                                "<img src='/assets/picture/kancha.png'>";
-                        } else if (item.type == 1303502842829983746) {
-                            iContent2 =
-                                "<img src='/assets/picture/diji.png'>";
-                        } else if (item.type == 1303502895028097025) {
-                            iContent2 =
-                                "<img src='/assets/picture/celiang.png'>";
-                        } else if (item.type == 1303502953022738433) {
-                            iContent2 =
-                                "<img src='/assets/picture/jikeng.png'>";
-                        } else {
-                            iContent2 =
-                                "<img src='/assets/picture/qita.png'>";
-                        }
-                        iContent3 =
+                            "<div style='float: left'>" +
+                            "<img src=/image/" + item.typeUrl + ">" +
                             "</div>" +
                             "<div style='float: left;padding:0 5px 0 10px;width: 230px'>" +
                             "<strong style='margin-left: 5px;line-height: 25px'>项目名称：" + item.itemName + "</strong>" +
@@ -329,7 +238,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                             " <p style='line-height: 20px;font-size: 0.8rem '>地址：" + item.location + "</p>" +
                             "</div>" +
                             "</div>";
-                        $("#searchList").append(iContent1 + iContent2 + iContent3);
+                        $("#searchList").append(iContent);
                     })
                 } else {
                     <!--搜索结果为空-->
@@ -348,7 +257,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         itemPlans = ''
         for (var i = 0; i < $('.planItem').length; i++) {
             if ($('.planItem')[i].checked) {
-                itemPlans += $('.planItem')[i].value+ ','
+                itemPlans += $('.planItem')[i].value + ','
             }
         }
         $.ajax({
@@ -363,29 +272,13 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             success: function (data) {
                 tempData = data.data;
                 $("#searchList").empty();
-                var iContent1, iContent2, iContent3;
+                var iContent;
                 if (data.data.length != 0) {
                     data.data.forEach(function (item, index) {
-                        iContent1 =
+                        iContent =
                             "<div class='searchItem' onclick='dianji(" + JSON.stringify(item) + ")'>" +
-                            "<div style='float: left'>";
-                        if (item.type == 1303502789608460289) {
-                            iContent2 =
-                                "<img src='/assets/picture/kancha.png'>";
-                        } else if (item.type == 1303502842829983746) {
-                            iContent2 =
-                                "<img src='/assets/picture/diji.png'>";
-                        } else if (item.type == 1303502895028097025) {
-                            iContent2 =
-                                "<img src='/assets/picture/celiang.png'>";
-                        } else if (item.type == 1303502953022738433) {
-                            iContent2 =
-                                "<img src='/assets/picture/jikeng.png'>";
-                        } else {
-                            iContent2 =
-                                "<img src='/assets/picture/qita.png'>";
-                        }
-                        iContent3 =
+                            "<div style='float: left'>" +
+                            "<img src=/image/" + item.typeUrl + ">" +
                             "</div>" +
                             "<div style='float: left;padding:0 5px 0 10px;width: 230px'>" +
                             "<strong style='margin-left: 5px;line-height: 25px'>项目名称：" + item.itemName + "</strong>" +
@@ -394,7 +287,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                             " <p style='line-height: 20px;font-size: 0.8rem '>地址：" + item.location + "</p>" +
                             "</div>" +
                             "</div>";
-                        $("#searchList").append(iContent1 + iContent2 + iContent3);
+                        $("#searchList").append(iContent);
                     })
                 } else {
                     <!--搜索结果为空-->
