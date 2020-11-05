@@ -107,4 +107,6 @@ public class ItemResult implements Serializable {
      * 钻孔数量
      */
     private Integer zkCount;
+
+    private Integer synchronousState;
 }
