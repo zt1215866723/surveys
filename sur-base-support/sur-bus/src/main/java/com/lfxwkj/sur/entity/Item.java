@@ -107,6 +107,9 @@ public class Item implements Serializable {
     @TableField("coor_system")
     private Integer coorSystem;
 
+    @TableField("synchronous_state")
+    private Integer synchronousState;
+
     public Integer getCoorSystem() {
         return coorSystem;
     }
@@ -236,6 +239,14 @@ public class Item implements Serializable {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Integer getSynchronousState() {
+        return synchronousState;
+    }
+
+    public void setSynchronousState(Integer synchronousState) {
+        this.synchronousState = synchronousState;
     }
 
     @Override

@@ -82,10 +82,9 @@ public interface ItemService extends IService<Item> {
      * 理正数据同步
      * @param itemId
      * @param isCover
-     * @param isIgnoreName
      * @return
      */
-    ResponseData synchronous(Long itemId, int isCover, int isIgnoreName) throws Exception;
+    ResponseData synchronous(Long itemId, int isCover) throws Exception;
 
     /**
      * @Description  ：在地图上展示所有工程信息

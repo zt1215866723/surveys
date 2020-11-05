@@ -20,6 +20,7 @@
         <result column="coor_system" property="coorSystem"/>
         <result column="head" property="head"/>
         <result column="progress" property="progress"/>
+        <result column="synchronous_state" property="synchronousState"/>
     </resultMap>
 
     <resultMap id="resultMap" type="com.lfxwkj.sur.model.result.ItemResult">

@@ -114,8 +114,8 @@ public class ItemController extends BaseController {
      */
     @RequestMapping("/synchronous")
     @ResponseBody
-    public ResponseData synchronous(Long itemId, int isDataCover, int isItemCover) throws Exception {
-        ResponseData responseData = itemService.synchronous(itemId, isDataCover, isItemCover);
+    public ResponseData synchronous(Long itemId, int isDataCover) throws Exception {
+        ResponseData responseData = itemService.synchronous(itemId, isDataCover);
         return responseData;
     }
 

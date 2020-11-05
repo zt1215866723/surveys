@@ -288,13 +288,13 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
                 content: Feng.ctxPath + '/item/document?itemId=' + data.id
             });
         } else if (layEvent === 'synchronous') {
-            synchronous(data.id, 0, 0);
+            synchronous(data.id, 0);
         } else if (layEvent === 'detail') {
             location.href = Feng.ctxPath + '/item/itemDetail?id=' + data.id
         }
     });
 
-    function synchronous(itemId, isDataCover, isItemCover) {
+    function synchronous(itemId, isDataCover) {
         var prompt = layer.msg('文件同步中...', {
             icon: 16,
             shade: 0.2,
@@ -304,24 +304,19 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
             url: Feng.ctxPath + "/item/synchronous",
             data: {
                 itemId: itemId,
-                isDataCover: isDataCover,
-                isItemCover: isItemCover
+                isDataCover: isDataCover
             },
             dataType: 'json',
             type: 'post',
             success: function (data) {
                 layer.close(prompt);
                 if (data.success) {
-                    Feng.success("操作成功！");
+                    Feng.success("操作成功,请等待同步完成。");
+                    table.reload(Item.tableId);
                 } else {
-                    if (data.code == 3) {
+                    if (data.code == 4) {
                         layer.confirm(data.message, function (index) {
-                            synchronous(itemId, 0, 1);
-                            layer.close(index);
-                        });
-                    } else if (data.code == 4) {
-                        layer.confirm(data.message, function (index) {
-                            synchronous(itemId, 1, 0);
+                            synchronous(itemId, 1);
                             layer.close(index);
                         });
                     } else {

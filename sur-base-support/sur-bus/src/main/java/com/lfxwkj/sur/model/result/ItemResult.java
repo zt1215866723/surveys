@@ -109,4 +109,6 @@ public class ItemResult implements Serializable {
     private Integer zkCount;
 
     private String typeUrl;
+
+    private Integer synchronousState;
 }
