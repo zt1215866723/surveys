@@ -216,8 +216,8 @@ public class DrillingController extends BaseController {
      */
     @RequestMapping("/selectExplorationPoints")
     @ResponseBody
-    public LayuiPageInfo selectExplorationPoints(String holeCode,Long itemId) {
-        List<Drilling> drillingList = this.drillingService.selectExplorationPoints(holeCode,itemId);
+    public LayuiPageInfo selectExplorationPoints(Long itemId) {
+        List<Drilling> drillingList = this.drillingService.selectExplorationPoints(itemId);
                 LayuiPageInfo layuiPageInfo = new LayuiPageInfo();
                 layuiPageInfo.setData(drillingList);
                 return layuiPageInfo;

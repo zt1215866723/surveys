@@ -90,20 +90,6 @@ public class Dept implements Serializable {
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
-    /**
-     * 部门的种类，取自数据字典
-     */
-    @TableField(value = "dept_type")
-    private String deptType;
-
-    public String getDeptType() {
-        return deptType;
-    }
-
-    public void setDeptType(String deptType) {
-        this.deptType = deptType;
-    }
-
     public Long getDeptId() {
         return deptId;
     }

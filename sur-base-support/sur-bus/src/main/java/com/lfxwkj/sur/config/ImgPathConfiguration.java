@@ -11,11 +11,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class ImgPathConfiguration implements WebMvcConfigurer {
-	@Value("${img.realpath}")
-	private String imgRealPath;
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//		registry.addResourceHandler("/image/**").addResourceLocations("file:///D:/upload/");
-		registry.addResourceHandler("/image/**").addResourceLocations("file:///"+imgRealPath+"/");
-	}
+//	@Value("${img.realpath}")
+//	private String imgRealPath;
+//	@Override
+//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+////		registry.addResourceHandler("/image/**").addResourceLocations("file:///D:/upload/");
+//		registry.addResourceHandler("/image/**").addResourceLocations("file:///"+imgRealPath+"/");
+//	}
 }

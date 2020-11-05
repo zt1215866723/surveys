@@ -72,7 +72,7 @@ public interface StandardService extends IService<Standard> {
      * @author 张童
      * @Date 2020-09-15
      */
-    List<StandardResult> selectStandardByIds(String holeCode,Long itemId);
+    List<StandardResult> selectStandardByIds(Long itemId);
 
     /**
      * 查询单个钻孔柱状图

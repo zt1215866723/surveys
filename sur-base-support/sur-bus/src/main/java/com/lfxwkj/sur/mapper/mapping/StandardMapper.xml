@@ -111,13 +111,6 @@
         FROM
         lz_standard
         WHERE 1=1
-        <if test="strings != null and strings != ''">
-        and hole_code in (
-        <foreach collection="strings" item="strings" separator=",">
-            #{strings}
-        </foreach>
-        )
-        </if>
         <if test="itemId != null">
             and item_id = #{itemId}
         </if>

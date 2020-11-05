@@ -1,8 +1,10 @@
 package com.lfxwkj.sur.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
 import com.lfxwkj.sur.entity.ItemType;
 import com.lfxwkj.sur.model.params.ItemTypeParam;
+import com.lfxwkj.sur.model.result.ItemTypeResult;
 import com.lfxwkj.sur.service.ItemTypeService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -35,7 +38,7 @@ public class ItemTypeController extends BaseController {
 
     private String PREFIX = "/itemType";
 
-    @Value("${img.path}")
+    @Value("${img.itemPath}")
     private String path;
 
     @Autowired
@@ -150,7 +153,7 @@ public class ItemTypeController extends BaseController {
                 String suffix = originalName.substring(originalName.lastIndexOf(".") + 1);
                 String uuid = UUID.randomUUID() + "";
                 String filepath = path + uuid + "." + suffix;
-
+                String filepaths = uuid + "." + suffix;
 
                 File files = new File(filepath);
                 if (!files.getParentFile().exists()) {
@@ -162,7 +165,7 @@ public class ItemTypeController extends BaseController {
                 map.put("code", 1);
                 map.put("msg", "");
                 map.put("data", pathMap);
-                pathMap.put("src", filepath);
+                pathMap.put("src", filepaths);
                 return map;
             }
 
@@ -183,6 +186,20 @@ public class ItemTypeController extends BaseController {
         map.put("msg", "");
         return map;
 
+    }
+
+    /**
+     * 查询列表
+     *
+     * @author zt
+     * @Date 2020-11-3
+     */
+    @ResponseBody
+    @RequestMapping("/getItemTypeList")
+    public List<ItemType> getItemTypeList(ItemTypeParam itemTypeParam) {
+        QueryWrapper<ItemType> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status",0);
+        return this.itemTypeService.list(queryWrapper);
     }
 }
 

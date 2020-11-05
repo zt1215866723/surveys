@@ -65,6 +65,11 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
         location.href = "/item"
     });
 
+    // 一览表点击事件
+    $('#btnYlb').click(function () {
+        location.href = "/drilling/drillingAndStandard?itemId="+result.data.id
+    });
+
     // 项目定位按钮点击事件
     $('#projectMap').click(function () {
         func.open({

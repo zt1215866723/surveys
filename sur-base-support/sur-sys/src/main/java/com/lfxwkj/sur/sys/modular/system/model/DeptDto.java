@@ -44,8 +44,4 @@ public class DeptDto implements Serializable {
      */
     private Integer sort;
 
-    /**
-     * 部门的种类
-     */
-    private String deptType;
 }

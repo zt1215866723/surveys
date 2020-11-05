@@ -16,7 +16,6 @@
         <result column="update_time" property="updateTime" />
         <result column="create_user" property="createUser" />
         <result column="update_user" property="updateUser" />
-        <result column="dept_type" property="deptType" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -24,7 +23,7 @@
         dept_id AS "deptId", pid AS "pid", pids AS "pids", simple_name AS "simpleName",
         full_name AS "fullName", description AS "description", version AS "version",
         sort AS "sort", create_time AS "createTime", update_time AS "updateTime",
-        create_user AS "createUser", update_user AS "updateUser", dept_type as "deptType"
+        create_user AS "createUser", update_user AS "updateUser"
     </sql>
 
     <select id="collegeList" resultType="com.lfxwkj.sur.sys.modular.system.model.CollegeDto">
