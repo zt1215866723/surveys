@@ -43,33 +43,27 @@
     </select>
 
     <select id="layuiTree" resultType="com.lfxwkj.sur.base.pojo.node.LayuiTreeNode">
-		select dept_id AS id,
-		(CASE WHEN (dept_id = #{deptId}) THEN '-1' ELSE pid END) AS "pid", simple_name as title,
-		(
-		CASE
-		WHEN (pid = 0 OR pid IS NULL) THEN
-		'false'
-		ELSE
-		'false'
-		END
-		) as "spread" from sys_dept where 1=1
-	    and (sys_dept.dept_id = #{deptId} or dept_id in ( select dept_id from sys_dept where pids like CONCAT('%$[', #{deptId}, '$]%') escape '$' ))
-
+		select dept_id AS id, pid as "pid", simple_name as title,
+        (
+        CASE
+        WHEN (pid = 0 OR pid IS NULL) THEN
+        'true'
+        ELSE
+        'false'
+        END
+        ) as "spread" from sys_dept
 	</select>
 
     <select id="tree" resultType="com.lfxwkj.sur.base.pojo.node.ZTreeNode">
 		select dept_id AS id, pid as "pId", simple_name as name,
-		(
-		CASE
-		WHEN (pid = 0 OR pid IS NULL) THEN
-		'false'
-		ELSE
-		'false'
-		END
-		) as "open"
-		from
-		sys_dept where 1=1
-		and (sys_dept.dept_id = #{deptId} or dept_id in ( select dept_id from sys_dept where pids like CONCAT('%$[', #{deptId}, '$]%') escape '$' ))
+        (
+        CASE
+        WHEN (pid = 0 OR pid IS NULL) THEN
+        'true'
+        ELSE
+        'false'
+        END
+        ) as "open" from sys_dept
 	</select>
 
     <select id="list" resultType="map">
