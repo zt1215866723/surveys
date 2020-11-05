@@ -25,16 +25,16 @@ layui.use(['table', 'admin', 'ax', 'ztree', 'func', 'tree'], function () {
             {type: 'checkbox'},
             {field: 'deptId', hide: true, sort: true, title: 'id'},
             {field: 'simpleName', align: "center", sort: true, title: '部门简称'},
-            {field: 'deptType', align: "center", sort: true, title: '部门种类', templet: function(d){
-                    if(d.deptType == "0"){
-                        return '女';
-                    } else if(d.deptType == "1"){
-                        return '';
-                    } else if(d.deptType == "2"){
-                        return '男';
-                    }
-                }
-            },
+            // {field: 'deptType', align: "center", sort: true, title: '部门种类', templet: function(d){
+            //         if(d.deptType == "0"){
+            //             return '女';
+            //         } else if(d.deptType == "1"){
+            //             return '';
+            //         } else if(d.deptType == "2"){
+            //             return '男';
+            //         }
+            //     }
+            // },
             {field: 'sort', align: "center", sort: true, title: '排序'},
             {field: 'description', align: "center", sort: true, title: '备注'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}

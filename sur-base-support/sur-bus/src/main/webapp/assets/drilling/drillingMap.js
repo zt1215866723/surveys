@@ -61,20 +61,29 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                         var myIcon = new BMap.Icon(item.typeUrl, new BMap.Size(26, 26));
                         xmMarker[i] = new window.BMap.Marker(xmPoint[i], {icon: myIcon}); //按照地图点坐标生成标记
                         map.addOverlay(xmMarker[i]);
-                        var sContent =
+                        var sContent1,sContent2;
+                        sContent1 =
                             "<div style='width: 300px;height: 200px;position:relative'>" +
                             "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>" + item.itemName + "</h4>" +
                             "<p class='map-card-p'>钻孔编号：" + item.holeCode + "</p>" +
                             "<p class='map-card-p'>钻孔类型：" + item.type + "</p>" +
                             "<p class='map-card-p'>孔口高程(m)：" + item.zkbg + "</p>" +
                             "<p class='map-card-p'>勘探深度(m)：" + item.depth + "</p>" +
-                            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>" +
-                            "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold' href='/item/document?itemId=" + item.id + "' >钻孔柱状图</a></div>" +
-                            "<div style='width: 34% '><a style='color: #1668ff;font-weight: bold' href='/staticTest/staticTestChart?itemIds=" + item.itemId + "&holeCode=" + item.holeCode + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >静探曲线图</a></div>" +
-                            "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold' href='/standard?itemIds=" + item.itemId + "&holeCode=" + item.holeCode + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >钻孔地层信息</a></div>" +
-                            "</div>" +
-                            "</div>";
-                        info[i] = new window.BMap.InfoWindow(sContent); // 创建信息窗口对象
+                            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>";
+                            // "<div style='width: 33% '><a style='color: #1668ff;font-weight: bold' href='/item/document?itemId=" + item.id + "' >钻孔柱状图</a></div>" +
+                            if (item.type == '静力触探试验孔') {
+                                sContent2 =
+                                    "<div style='bottom: 0;display: flex;width: 50% '><a style='color: #1668ff;font-weight: bold;margin: 0 auto;' href='/staticTest/staticTestChart?itemIds=" + item.itemId + "&holeCode=" + item.holeCode + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >静探曲线图</a></div>"+
+                                    "<div style='bottom: 0;display: flex;width: 50% '><a style='color: #1668ff;font-weight: bold;margin: 0 auto;' href='/standard?itemIds=" + item.itemId + "&holeCode=" + item.holeCode + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >钻孔地层信息</a></div>" +
+                                    "</div>" +
+                                    "</div>";
+                            }else {
+                                sContent2 =
+                                    "<div style='position:absolute; bottom: 0;display: flex;width: 100%'><a style='color: #1668ff;font-weight: bold;margin: 0 auto;' href='/standard?itemIds=" + item.itemId + "&holeCode=" + item.holeCode + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >钻孔地层信息</a></div>" +
+                                    "</div>" +
+                                    "</div>";
+                            }
+                        info[i] = new window.BMap.InfoWindow(sContent1+sContent2); // 创建信息窗口对象
 
                         addInfo(info[i], xmMarker[i]);
                     }
