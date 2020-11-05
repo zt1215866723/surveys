@@ -29,6 +29,7 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
 
     //表单提交事件
     form.on('submit(btnSubmit)', function (data) {
+        data.field.status = data.field.status ? "1": "0";
         var ajax = new $ax(Feng.ctxPath + "/itemType/addItem", function (data) {
             Feng.success("添加成功！");
             //传给上个页面，刷新table用
