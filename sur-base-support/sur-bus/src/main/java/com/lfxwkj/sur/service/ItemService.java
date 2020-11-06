@@ -8,6 +8,7 @@ import com.lfxwkj.sur.model.params.ItemParam;
 import com.lfxwkj.sur.model.result.ItemResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -111,4 +112,6 @@ public interface ItemService extends IService<Item> {
      * @author       : 张童
      */
     List<Map<String, String>> itemECharts();
+
+    void saveData(Long itemId, String saveUrl, String... tables) throws ParseException, ClassNotFoundException;
 }
