@@ -23,7 +23,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
             {field: 'name', sort: true, title: '名称'},
             {field: 'url', sort: true, title: '图例存储路径'},
             {field: 'status', sort: true, title: '状态',templet: function(d) {
-                    if (d.url != '') {
+                    if (!d.url != '') {
                         if (Boolean(d.status)) {
                             return '<input type="checkbox" id="' + d.id + '" name="status" checked=""  lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
                         }
@@ -154,7 +154,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
         $.ajax({
             url:"/itemType/editItem",
             type: "GET",
-            data: {"id" : this.id, "status": 1 & Number(this.checked)},
+            data: {"id" : this.id, "status": this.checked ? 0 : 2},
             success: function () {
                 layer.msg('修改成功')
             }

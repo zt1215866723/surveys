@@ -33,9 +33,6 @@ public class DrillingTypeServiceImpl extends ServiceImpl<DrillingTypeMapper, Dri
     @Override
     public void add(DrillingTypeParam param){
         DrillingType entity = getEntity(param);
-        if(entity.getStatus() == null) {
-            entity.setStatus(0);
-        }
         this.save(entity);
     }
 
