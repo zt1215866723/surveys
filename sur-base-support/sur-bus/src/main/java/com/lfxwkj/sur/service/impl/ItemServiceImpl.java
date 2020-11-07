@@ -193,7 +193,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     }
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
+    @Transactional(rollbackFor=Exception.class, timeout = 3000)
     public void saveData(Long itemId, String saveUrl, String... tables) throws ParseException, ClassNotFoundException {
         Item item = this.getById(itemId);
         ResultSet result = null;
@@ -245,6 +245,8 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
             waterLevelMapper.delete(waterLevelQueryWrapper);
         }catch (Exception e){
             e.printStackTrace();
+            item.setSynchronousState(0);
+            this.updateById(item);
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             sign = false;
         }

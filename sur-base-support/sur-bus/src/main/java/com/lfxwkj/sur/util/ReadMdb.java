@@ -28,7 +28,7 @@ public class ReadMdb {
     @Autowired
     private ItemService itemService;
 
-    @Async("taskExecutor")
+    @Async
     public void selectData(Long itemId, String saveUrl, String... tables) throws ParseException, ClassNotFoundException {
         itemService.saveData(itemId, saveUrl, tables);
     }
