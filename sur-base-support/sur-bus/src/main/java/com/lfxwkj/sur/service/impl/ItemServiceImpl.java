@@ -153,6 +153,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ResponseData synchronous(Long itemId, int isDataCover) throws InterruptedException {
         //查询理正数据库文件存放位置
         SubDetailResult subDetailResult = subDetailMapper.getSynchronousFile(itemId);
@@ -169,18 +170,25 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                 return ResponseData.error(4, "该工程下已导入理正数据，是否覆盖？");
             }
         }
+        Item item = this.getById(itemId);
+        item.setSynchronousState(1);
+        this.updateById(item);
         //暂定同步（钻孔，静探，标贯，土层，水位，工程，抛线，土层标准）
         String[] tableNames = {"z_ZuanKong", "z_y_JingTan", "z_y_BiaoGuan", "z_g_TuCeng", "z_g_ShuiWei", "x_GongCheng", "p_PouXian", "g_STuCengGC", "z_c_quyang"};
         try {
             readMdb.selectData(itemId, subDetailResult.getSaveUrl(), tableNames);
         }catch (RejectedExecutionException e){
             e.printStackTrace();
+            item.setSynchronousState(0);
+            this.updateById(item);
             return ResponseData.error("当前处理任务过多，请稍后重试。");
         }catch (Exception e) {
             e.printStackTrace();
+            item.setSynchronousState(0);
+            this.updateById(item);
             return ResponseData.error("服务异常。");
         }
-        Thread.sleep(1000);
+        Thread.sleep(800);
         return ResponseData.success();
     }
 
@@ -188,8 +196,6 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     @Transactional(rollbackFor=Exception.class)
     public void saveData(Long itemId, String saveUrl, String... tables) throws ParseException, ClassNotFoundException {
         Item item = this.getById(itemId);
-        item.setSynchronousState(1);
-        this.updateById(item);
         ResultSet result = null;
         Map<String, List<Map>> data = new HashMap<>();
         Properties prop = new Properties();
@@ -523,16 +529,15 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                         sample.setQyhsl(map.get("QYHSL") == null ? null : new BigDecimal((String) map.get("QYHSL")).floatValue());
                         sample.setQyyx(map.get("QYYX") == null ? null : new BigDecimal((String) map.get("QYYX")).floatValue());
                         sample.setQysx(map.get("QYSY") == null ? null : new BigDecimal((String) map.get("QYSY")).floatValue());
-
                         samples.add(sample);
                     }
                     sampleService.saveBatch(samples);
                 }
             }
-            //状态设置为同步完成
-            item.setSynchronousState(0);
-            itemService.updateById(item);
         }
+        //状态设置为同步完成
+        item.setSynchronousState(0);
+        itemService.updateById(item);
     }
 
     private Serializable getKey(ItemParam param) {
