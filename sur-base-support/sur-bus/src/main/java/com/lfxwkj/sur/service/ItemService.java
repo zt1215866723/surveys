@@ -113,5 +113,5 @@ public interface ItemService extends IService<Item> {
      */
     List<Map<String, String>> itemECharts();
 
-    void saveData(Long itemId, String saveUrl, String... tables) throws ParseException, ClassNotFoundException;
+    void saveData(Long itemId, boolean sign, Map<String, List<Map>> data) throws ParseException;
 }

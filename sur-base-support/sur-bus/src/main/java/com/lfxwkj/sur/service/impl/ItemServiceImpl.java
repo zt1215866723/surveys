@@ -177,16 +177,11 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
         String[] tableNames = {"z_ZuanKong", "z_y_JingTan", "z_y_BiaoGuan", "z_g_TuCeng", "z_g_ShuiWei", "x_GongCheng", "p_PouXian", "g_STuCengGC", "z_c_quyang"};
         try {
             readMdb.selectData(itemId, subDetailResult.getSaveUrl(), tableNames);
-        }catch (RejectedExecutionException e){
+        }catch (RejectedExecutionException | ParseException | ClassNotFoundException e){
             e.printStackTrace();
             item.setSynchronousState(0);
             this.updateById(item);
             return ResponseData.error("当前处理任务过多，请稍后重试。");
-        }catch (Exception e) {
-            e.printStackTrace();
-            item.setSynchronousState(0);
-            this.updateById(item);
-            return ResponseData.error("服务异常。");
         }
         Thread.sleep(800);
         return ResponseData.success();
@@ -194,33 +189,9 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
 
     @Override
     @Transactional(rollbackFor=Exception.class, timeout = 3000)
-    public void saveData(Long itemId, String saveUrl, String... tables) throws ParseException, ClassNotFoundException {
+    public void saveData(Long itemId, boolean sign, Map<String, List<Map>> data) throws ParseException {
         Item item = this.getById(itemId);
-        ResultSet result = null;
-        Map<String, List<Map>> data = new HashMap<>();
-        Properties prop = new Properties();
-        prop.put("jackcessOpener", "com.lfxwkj.sur.util.CharsetOpener");
-        Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-        boolean sign = true;
-        try(Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + saveUrl, prop);
-            Statement statement = conn.createStatement();){
-            for(String table : tables){
-                List<Map> mapList = new ArrayList<>();
-                String sql = "select * from " + table;
-                result = statement.executeQuery(sql);
-                ResultSetMetaData data1 = result.getMetaData();
-                while (result.next()) {
-                    Map map = new HashMap();
-                    for (int i = 1; i <= data1.getColumnCount(); i++) {
-                        //列名
-                        String columnName = data1.getColumnName(i);
-                        String columnValue = result.getString(i);
-                        map.put(columnName, columnValue);
-                    }
-                    mapList.add(map);
-                }
-                data.put(table, mapList);
-            }
+        if(sign){
             //删除当前工程下的所有理正数据
             QueryWrapper<Drilling> drillingQueryWrapper = new QueryWrapper<>();
             drillingQueryWrapper.eq("item_id", itemId);
@@ -243,14 +214,6 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
             QueryWrapper<WaterLevel> waterLevelQueryWrapper = new QueryWrapper<>();
             waterLevelQueryWrapper.eq("item_id", itemId);
             waterLevelMapper.delete(waterLevelQueryWrapper);
-        }catch (Exception e){
-            e.printStackTrace();
-            item.setSynchronousState(0);
-            this.updateById(item);
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            sign = false;
-        }
-        if(sign){
             //将所有表的时间格式化
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             for (Map.Entry<String, List<Map>> entry : data.entrySet()) {
