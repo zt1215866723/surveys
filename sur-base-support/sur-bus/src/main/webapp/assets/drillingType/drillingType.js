@@ -21,7 +21,10 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
             {type: 'checkbox'},
             {field: 'id', hide: true, title: '主键'},
             {field: 'name', sort: true, title: '名称'},
-            {field: 'url', sort: true, title: '图例存储路径'},
+            {field: 'url', sort: true, title: '图例',templet: function(d) {
+                    return'<img src="/image/'+ d.url +'" style="max-width: 45px" >'
+                }
+            },
             {field: 'status', sort: true, title: '状态', templet: function(d){
                     if(d.url != '') {
                         if(!Boolean(d.status)){
