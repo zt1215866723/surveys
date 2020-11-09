@@ -31,7 +31,7 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
     var ajax = new $ax(Feng.ctxPath + "/itemType/detail?id=" + Feng.getUrlParam("id"));
     var result = ajax.start();
     form.val('itemTypeForm', result.data);
-    $("#preview").attr('src', result.data.url).css("width","15%").css("height","15%");
+    $("#preview").attr('src', '/image/' + result.data.url).css("width","15%").css("height","15%");
     if(result.data.status == "0"){
         $('#status').attr("checked","")
         form.render();

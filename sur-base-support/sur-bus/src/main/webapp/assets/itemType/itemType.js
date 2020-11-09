@@ -23,11 +23,11 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
             {field: 'name', sort: true, title: '名称'},
             {field: 'url', sort: true, title: '图例存储路径'},
             {field: 'status', sort: true, title: '状态',templet: function(d) {
-                    if (!d.url != '') {
-                        if (Boolean(d.status)) {
-                            return '<input type="checkbox" id="' + d.id + '" name="status" checked=""  lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
+                    if(d.url != '') {
+                        if(!Boolean(d.status)){
+                            return '<input type="checkbox" id="'+ d.id +'" name="status" checked=""  lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
                         }
-                        return '<input type="checkbox" id="' + d.id + '" name="status" lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
+                        return '<input type="checkbox" id="'+ d.id +'" name="status" lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
 
                     }
                     return ''
@@ -44,8 +44,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
         var queryData = {};
 
         queryData['name'] = $('#name').val();
-        queryData['url'] = $('#url').val();
-        queryData['status'] = $('#status').val();
+        queryData['status'] = $('input[name="status"]:checked').val();
 
         table.reload(ItemType.tableId, {
             where: queryData, page: {curr: 1}

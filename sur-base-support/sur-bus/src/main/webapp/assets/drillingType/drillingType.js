@@ -44,8 +44,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
         var queryData = {};
 
         queryData['name'] = $('#name').val();
-        queryData['url'] = $('#url').val();
-        queryData['status'] = $('#status').val();
+        queryData['status'] = $('input[name="status"]:checked').val();
 
         table.reload(DrillingType.tableId, {
             where: queryData, page: {curr: 1}
