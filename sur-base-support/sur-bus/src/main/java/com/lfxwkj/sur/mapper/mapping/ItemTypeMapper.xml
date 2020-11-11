@@ -53,10 +53,7 @@
             <if test="paramCondition.name != null and paramCondition.name != ''">
                 and name like CONCAT('%',#{paramCondition.name},'%')
             </if>
-            <if test="paramCondition.url != null and paramCondition.url != ''">
-                and url like CONCAT('%',#{paramCondition.url},'%')
-            </if>
-            <if test="paramCondition.status != null and paramCondition.status != ''">
+            <if test="paramCondition.status != null">
                 and status like CONCAT('%',#{paramCondition.status},'%')
             </if>
     </select>

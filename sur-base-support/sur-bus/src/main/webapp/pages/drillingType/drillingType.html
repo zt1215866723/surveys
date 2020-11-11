@@ -15,7 +15,10 @@
                                 <input id="name" class="layui-input" type="text" placeholder="名称"/>
                             </div>
                             <div class="layui-inline">
-                                <input id="status" class="layui-input" type="text" placeholder="状态"/>
+                                <label class="layui-form-label">状态:</label>
+                                <input type="radio" name="status" value="" title="不指定" checked>
+                                <input type="radio" name="status" value="0" title="启用">
+                                <input type="radio" name="status" value="2" title="禁用">
                             </div>
                             <div class="layui-inline">
                                 <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索

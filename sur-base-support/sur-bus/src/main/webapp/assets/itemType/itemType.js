@@ -21,13 +21,16 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
             {type: 'checkbox'},
             {field: 'id', hide: true, title: '主键'},
             {field: 'name', sort: true, title: '名称'},
-            {field: 'url', sort: true, title: '图例存储路径'},
+            {field: 'url', sort: true, title: '图例',templet: function(d) {
+                    return'<img src="/image/'+ d.url +'" style="max-width: 45px" >'
+                }
+            },
             {field: 'status', sort: true, title: '状态',templet: function(d) {
-                    if (d.url != '') {
-                        if (Boolean(d.status)) {
-                            return '<input type="checkbox" id="' + d.id + '" name="status" checked=""  lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
+                    if(d.url != '') {
+                        if(!Boolean(d.status)){
+                            return '<input type="checkbox" id="'+ d.id +'" name="status" checked=""  lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
                         }
-                        return '<input type="checkbox" id="' + d.id + '" name="status" lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
+                        return '<input type="checkbox" id="'+ d.id +'" name="status" lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
 
                     }
                     return ''
@@ -44,8 +47,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
         var queryData = {};
 
         queryData['name'] = $('#name').val();
-        queryData['url'] = $('#url').val();
-        queryData['status'] = $('#status').val();
+        queryData['status'] = $('input[name="status"]:checked').val();
 
         table.reload(ItemType.tableId, {
             where: queryData, page: {curr: 1}
@@ -154,7 +156,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
         $.ajax({
             url:"/itemType/editItem",
             type: "GET",
-            data: {"id" : this.id, "status": 1 & Number(this.checked)},
+            data: {"id" : this.id, "status": this.checked ? 0 : 2},
             success: function () {
                 layer.msg('修改成功')
             }
