@@ -325,5 +325,6 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
                 }
             }
         });
+        return false;
     }
 });

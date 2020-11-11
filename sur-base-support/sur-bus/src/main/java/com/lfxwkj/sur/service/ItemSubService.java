@@ -1,5 +1,6 @@
 package com.lfxwkj.sur.service;
 
+import com.lfxwkj.sur.base.pojo.node.LayuiTreeNode;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
 import com.lfxwkj.sur.entity.Index;
 import com.lfxwkj.sur.entity.ItemSub;
@@ -68,4 +69,6 @@ public interface ItemSubService extends IService<ItemSub> {
      LayuiPageInfo findPageBySpec(ItemSubParam param);
 
     List<Index> getList(ItemSubParam itemSubParam);
+
+    List<LayuiTreeNode> getTree(Long id);
 }

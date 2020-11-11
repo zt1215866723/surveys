@@ -1,0 +1,48 @@
+@layout("/common/_tree_container.html",{plugins:["ztree"],js:["/assets/itemSub/itemSubDetail.js"]}){
+
+<style>
+    /*修改源码点击选中变色*/
+    .custom-tree-item-clicked {
+        color: #ff5722
+    }
+</style>
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">文档内容</span>
+</div>
+
+<div id="myContiner" style="height: 100%">
+    <div class="ui-layout-west">
+        <div class="box box-main">
+            <div class="ui-layout-content">
+                <div id="tree"></div>
+            </div>
+        </div>
+    </div>
+    <div class="ui-layout-center">
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-form toolbar">
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <button id="btnLook" class="layui-btn icon-btn"><i
+                                                class="layui-icon">&#xe654;</i>预览
+                                        </button>
+                                        <button id="btnDownLoad" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>下载
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="layui-table" id="subDetailTable" lay-filter="subDetailTable"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@}

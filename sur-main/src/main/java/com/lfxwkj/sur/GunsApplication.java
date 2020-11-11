@@ -18,9 +18,14 @@ package com.lfxwkj.sur;
 import cn.stylefeng.roses.core.config.MybatisDataSourceAutoConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
+
+import javax.servlet.MultipartConfigElement;
 
 /**
  * SpringBoot方式启动类
@@ -30,9 +35,21 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @SpringBootApplication(exclude = {MybatisDataSourceAutoConfiguration.class})
 @EnableAsync
+@Configurable //允许基于注解的配置
 public class GunsApplication {
 
     private final static Logger logger = LoggerFactory.getLogger(GunsApplication.class);
+
+    /**
+     * 配置文件上传大小
+     */
+    @Bean
+    public MultipartConfigElement getMultiConfig() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setMaxFileSize("4000MB");
+        factory.setMaxRequestSize("4000MB");
+        return factory.createMultipartConfig();
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(GunsApplication.class, args);

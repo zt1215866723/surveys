@@ -24,11 +24,12 @@
         <result column="add_time" property="addTime" />
         <result column="state" property="state" />
         <result column="is_foreign" property="isForeign" />
+        <result column="file_path" property="filePath" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id AS "id", item_id AS "itemId", item_type AS "itemType", sur_num AS "surNum", sur_level AS "surLevel", sur_stage AS "surStage", sur_name AS "surName", write_name AS "writeName", review_name AS "reviewName", check_name AS "checkName", exam_name AS "examName", charge_name AS "chargeName", engin_name AS "enginName", legal_name AS "legalName", write_time AS "writeTime", add_user AS "addUser", add_time AS "addTime", state AS "state"
+        id AS "id", item_id AS "itemId", item_type AS "itemType", sur_num AS "surNum", sur_level AS "surLevel", sur_stage AS "surStage", sur_name AS "surName", write_name AS "writeName", review_name AS "reviewName", check_name AS "checkName", exam_name AS "examName", charge_name AS "chargeName", engin_name AS "enginName", legal_name AS "legalName", write_time AS "writeTime", add_user AS "addUser", add_time AS "addTime", state AS "state", file_path as "filePath"
     </sql>
 
 

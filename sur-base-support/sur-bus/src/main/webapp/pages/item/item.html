@@ -46,16 +46,24 @@
                             </div>
                             <div class="layui-inline">
                                 <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                @if(shiro.hasPermission("/item/add")){
                                 <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                                @}
+                                @if(shiro.hasPermission("/item/plzs")){
                                 <button id="showItem" class="layui-btn icon-btn"><i class="layui-icon">&#xe658;</i>批量展示</button>
+                                @}
+                                @if(shiro.hasPermission("/item/plyc")){
                                 <button id="hiddenItem" class="layui-btn icon-btn"><i class="layui-icon">&#xe600;</i>批量隐藏</button>
+                                @}
                             </div>
                             <div class="layui-inline" style="margin-left:20px;">
                                 <span class="layui-badge-dot layui-bg-blue" style="margin:0 10px;"></span>外单位提供
                             </div>
                         </div>
                     </div>
+                    @if(shiro.hasPermission("/item/table")){
                     <table class="layui-table" id="itemTable" lay-filter="itemTable"></table>
+                    @}
                 </div>
             </div>
         </div>
@@ -63,15 +71,25 @@
 </div>
 
 <script type="text/html" id="tableBar">
+    @if(shiro.hasPermission("/item/detail")){
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">工程详情</a>
+    @}
+    @if(shiro.hasPermission("/item/document")){
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="document">工程文档</a>
+    @}
+    @if(shiro.hasPermission("/item/synchronous")){
     {{# if (d.synchronousState==0){}}
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="synchronous">理正同步</a>
     {{#}}}
     {{# if (d.synchronousState==1){}}
     <a class="layui-btn-disabled layui-btn layui-btn-primary layui-btn-xs">同步中</a>
     {{#}}}
+    @}
+    @if(shiro.hasPermission("/item/edit")){
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    @}
+    @if(shiro.hasPermission("/item/delete")){
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+    @}
 </script>
 @}

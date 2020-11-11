@@ -123,4 +123,5 @@ public class ItemSubResult implements Serializable {
 
     private Integer isBorrow;
 
+    private String filePath;
 }

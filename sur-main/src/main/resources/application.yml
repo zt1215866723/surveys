@@ -3,7 +3,7 @@ server:
   max-http-header-size: 40960
 
 file-upload-path:
-  windows: D:\tempFilePath\
+  windows: D:/tempFilePath
   linux: /tmp/tempFilePath
 
 beetl:

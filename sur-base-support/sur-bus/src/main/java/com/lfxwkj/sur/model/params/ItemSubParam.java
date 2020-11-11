@@ -113,6 +113,8 @@ public class ItemSubParam implements Serializable, BaseValidatingParam {
      */
     private Integer state;
 
+    private String filePath;
+
     private Date startTime;
 
     private Date endTime;

@@ -32,6 +32,11 @@ public class LayuiTreeNode implements Tree {
     private String title;
 
     /**
+     * 节点路径
+     */
+    private String href;
+
+    /**
      * 节点是否初始展开
      */
     private Boolean spread;

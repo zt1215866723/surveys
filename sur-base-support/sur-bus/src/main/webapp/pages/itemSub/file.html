@@ -1,0 +1,7 @@
+@layout("/common/_container.html",{js:["/assets/itemSub/file.js"]}){
+<form class="layui-form" id="itemSubForm" lay-filter="itemSubForm" enctype="multipart/form-data">
+    <!-- html5支持选择文件夹上传 -->
+    <input type="file" name="folder" multiple webkitdirectory>
+    <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+</form>
+@}

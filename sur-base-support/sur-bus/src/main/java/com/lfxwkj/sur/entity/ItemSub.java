@@ -140,6 +140,11 @@ public class ItemSub implements Serializable {
     @TableField("is_borrow")
     private Integer isBorrow;
 
+    /**
+     * 是否借阅 0无 1已借阅
+     */
+    @TableField("file_path")
+    private String filePath;
     public Integer getIsBorrow() {
         return isBorrow;
     }
@@ -298,6 +303,15 @@ public class ItemSub implements Serializable {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public ItemSub setFilePath(String filePath) {
+        this.filePath = filePath;
+        return this;
     }
 
     @Override

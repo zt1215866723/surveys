@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLDecoder;
 import java.util.List;
 
 
@@ -174,14 +175,19 @@ public class SubDetailController extends BaseController {
 
     /**
      * 文件下载
-     * @param subDetailId
      */
     @ResponseBody
     @RequestMapping("/fileDownload")
-    public void fileDownload(Long subDetailId) throws IOException {
-        SubDetail subDetail =subDetailService.getById(subDetailId);
-        String fileUrl = subDetail.getSaveUrl();
-        String filename = fileUrl.substring(fileUrl.lastIndexOf("\\"),fileUrl.length());
+    public void fileDownload(String path) throws IOException {
+        String pathName = "";
+        if (path != null){
+            try {
+                pathName = URLDecoder.decode(path , "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        String filename = pathName.substring(pathName.lastIndexOf("\\"),pathName.length());
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletResponse response = requestAttributes.getResponse();
         // 设置信息给客户端不解析
@@ -192,7 +198,7 @@ public class SubDetailController extends BaseController {
         String hehe = new String(filename.getBytes("utf-8"), "iso-8859-1");
         // 设置扩展头，当Content-Type 的类型为要下载的类型时 , 这个信息头会告诉浏览器这个文件的名字和类型。
         response.setHeader("Content-Disposition", "attachment;filename=" + hehe);
-        this.download(fileUrl, response);
+        this.download(pathName , response);
     }
 
     private void download(String fileUrl, HttpServletResponse res) throws IOException {

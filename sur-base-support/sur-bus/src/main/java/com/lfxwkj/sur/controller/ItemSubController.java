@@ -1,6 +1,8 @@
 package com.lfxwkj.sur.controller;
 
+import cn.stylefeng.roses.core.treebuild.DefaultTreeBuildFactory;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.lfxwkj.sur.base.pojo.node.LayuiTreeNode;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
 import com.lfxwkj.sur.entity.Index;
 import com.lfxwkj.sur.entity.Item;
@@ -164,6 +166,27 @@ public class ItemSubController extends BaseController {
         return this.itemSubService.findPageBySpec(itemSubParam);
     }
 
+    @RequestMapping("/file")
+    public String file() {
+        return PREFIX + "/file.html";
+    }
+
+    @RequestMapping("/itemSubDetail")
+    public String itemSubDetail() {
+        return PREFIX + "/itemSubDetail.html";
+    }
+
+    /**
+     * 获取树列表
+     * @param id
+     * @return
+     */
+    @RequestMapping("/getTree")
+    @ResponseBody
+    public List<LayuiTreeNode> getTree(Long id) {
+        List<LayuiTreeNode> list = this.itemSubService.getTree(id);
+        return list;
+    }
 }
 
 

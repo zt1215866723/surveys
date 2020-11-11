@@ -130,7 +130,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'laydate', 'form'], function () {
             layer.open({
                 type: 2,
                 area: ['100%', '100%'],
-                content: Feng.ctxPath + '/subDetail?subId=' + data.id + '&surName=' + data.surName
+                content: Feng.ctxPath + '/itemSub/itemSubDetail?subId=' + data.id + '&surName=' + data.surName
             });
         } else if (layEvent === 'borrow') {
             layer.open({
@@ -138,6 +138,13 @@ layui.use(['table', 'admin', 'ax', 'func', 'laydate', 'form'], function () {
                 title: data.surName,
                 area: ['60%', '75%'],
                 content: Feng.ctxPath + '/recordBorrow/add?subId=' + data.id
+            });
+        } else if (layEvent === 'upload') {
+            layer.open({
+                type: 2,
+                title: data.surName,
+                area: ['60%', '75%'],
+                content: Feng.ctxPath + '/itemSub/file?subId=' + data.id
             });
         }
     });

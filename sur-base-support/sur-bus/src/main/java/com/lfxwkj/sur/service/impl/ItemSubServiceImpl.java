@@ -1,13 +1,16 @@
 package com.lfxwkj.sur.service.impl;
 
+import cn.hutool.system.SystemUtil;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lfxwkj.sur.auth.context.LoginContextHolder;
 import com.lfxwkj.sur.auth.model.LoginUser;
+import com.lfxwkj.sur.base.pojo.node.LayuiTreeNode;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageFactory;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
+import com.lfxwkj.sur.config.FileUploadConfig;
 import com.lfxwkj.sur.entity.Focus;
 import com.lfxwkj.sur.entity.Index;
 import com.lfxwkj.sur.entity.Item;
@@ -22,6 +25,7 @@ import  com.lfxwkj.sur.service.ItemSubService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lfxwkj.sur.sys.modular.system.entity.Dict;
 import com.lfxwkj.sur.sys.modular.system.mapper.DictMapper;
+import com.lfxwkj.sur.util.TakeFilePathAndName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +54,10 @@ public class ItemSubServiceImpl extends ServiceImpl<ItemSubMapper, ItemSub> impl
     private ItemMapper itemMapper;
     @Autowired
     private DictMapper dictMapper;
-
+    @Autowired
+    private TakeFilePathAndName takeFilePathAndName;
+    @Autowired
+    private FileUploadConfig fileUploadConfig;
     @Override
     @Transactional(rollbackFor={RuntimeException.class, Exception.class})
     public void add(ItemSubParam param){
@@ -157,6 +164,24 @@ public class ItemSubServiceImpl extends ServiceImpl<ItemSubMapper, ItemSub> impl
         return indexList;
     }
 
+    @Override
+    public List<LayuiTreeNode> getTree(Long id) {
+        ItemSub itemSub = this.baseMapper.selectById(id);
+        //这是需要获取的文件夹路径
+        List<LayuiTreeNode> file = takeFilePathAndName.getFile(getFilePath() + "/" + itemSub.getFilePath(), 0);
+        List<LayuiTreeNode> layuiTreeNodeList = new ArrayList<>();
+        for (LayuiTreeNode layuiTreeNode : file){
+            layuiTreeNode.setSpread(true);
+        }
+        LayuiTreeNode layuiTreeNode = new LayuiTreeNode();
+        layuiTreeNode.setTitle(itemSub.getFilePath());
+        layuiTreeNode.setId(1L);
+        layuiTreeNode.setSpread(true);
+        layuiTreeNode.setChildren(file);
+        layuiTreeNodeList.add(layuiTreeNode);
+        return layuiTreeNodeList;
+    }
+
     private Serializable getKey(ItemSubParam param){
         return param.getId();
     }
@@ -175,4 +200,13 @@ public class ItemSubServiceImpl extends ServiceImpl<ItemSubMapper, ItemSub> impl
         return entity;
     }
 
+    private String getFilePath(){
+        String savePath;
+        if (SystemUtil.getOsInfo().isWindows()) {
+            savePath = fileUploadConfig.getWindows();
+        } else {
+            savePath = fileUploadConfig.getLinux();
+        }
+        return savePath;
+    }
 }
