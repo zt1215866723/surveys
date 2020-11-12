@@ -50,6 +50,13 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
             {field: 'isNecessary', title: '必填项', templet: function(d){
                     return d.isNecessary == 0 ? '否' : '是';
             }},
+            {field: 'isShow', title: '展示', templet: function(d){
+                    if(Boolean(d.isShow)){
+                        return '<input type="checkbox" id="'+ d.id +'" name="isShow" checked=""  lay-skin="switch" lay-filter="isShowSwitch" lay-text="是|否">'
+                    }
+                    return '<input type="checkbox" id="'+ d.id +'" name="isShow" lay-skin="switch" lay-filter="isShowSwitch" lay-text="是|否">'
+
+                }},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]]
     });
@@ -98,5 +105,20 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
             };
             Feng.confirm("是否删除?", operation);
         }
+    });
+
+    /**
+     *  监听开关的点击
+     *  2020年11月12日 王南翔
+     */
+    form.on('switch(isShowSwitch)', function(data){
+        $.ajax({
+            url:"/focus/editItem",
+            type: "GET",
+            data: {"id" : this.id, "isShow": this.checked ? 1 : 0},
+            success: function () {
+                layer.msg('修改成功')
+            }
+        })
     });
 });

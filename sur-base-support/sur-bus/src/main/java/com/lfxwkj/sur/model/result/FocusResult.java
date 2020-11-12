@@ -70,4 +70,9 @@ public class FocusResult implements Serializable {
 
     private Integer sort;
 
+    /**
+     * 是否展示 0 否 1 是
+     */
+    private Integer isShow;
+
 }

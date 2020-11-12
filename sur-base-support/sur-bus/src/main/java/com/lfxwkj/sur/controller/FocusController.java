@@ -124,7 +124,8 @@ public class FocusController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     public LayuiPageInfo list(FocusParam focusParam) {
-        return this.focusService.findPageBySpec(focusParam);
+        LayuiPageInfo pageBySpec = this.focusService.findPageBySpec(focusParam);
+        return pageBySpec;
     }
 
     /**

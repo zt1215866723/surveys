@@ -67,6 +67,11 @@ public class FocusParam implements Serializable, BaseValidatingParam {
      */
     private Integer isNecessary;
 
+    /**
+     * 是否展示
+     */
+    private Integer isShow;
+
     @Override
     public String checkParam() {
         return null;

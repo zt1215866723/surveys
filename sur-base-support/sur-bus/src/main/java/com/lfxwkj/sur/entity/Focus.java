@@ -74,6 +74,9 @@ public class Focus implements Serializable {
     @TableField("is_necessary")
     private Integer isNecessary;
 
+    @TableField("is_show")
+    private Integer isShow;
+
     /**
      * 排序
      */
@@ -159,6 +162,14 @@ public class Focus implements Serializable {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public Integer getIsShow() {
+        return isShow;
+    }
+
+    public void setIsShow(Integer isShow) {
+        this.isShow = isShow;
     }
 
     @Override
