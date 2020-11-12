@@ -99,8 +99,33 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'upload', 'formSelects'], function 
     // })
 
 
+    /*
+     * 工程选择 -> 判断文档是否重复
+     * 2020年11月12日
+     * 王南翔
+     */
+    let isRepeat = false
+    form.on('select(itemId)', function (data) {
+        $.ajax({
+            url: Feng.ctxPath + '/itemSub/checkRepeat',
+            method: 'get',
+            data: {'itemId': data.value},
+            success: function (res) {
+                console.log(res);
+                if(res) {
+                    isRepeat = true
+                    Feng.error("项目文档已存在！")
+                }
+            }
+        })
+    });
+
     //表单提交事件
     form.on('submit(btnSubmit)', function (data) {
+        if(isRepeat) {
+            Feng.error("项目文档已存在！")
+            return
+        }
         var ajax = new $ax(Feng.ctxPath + "/itemSub/addItem", function (data) {
             Feng.success("添加成功！");
             //传给上个页面，刷新table用

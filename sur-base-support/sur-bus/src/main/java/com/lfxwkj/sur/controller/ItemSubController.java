@@ -187,6 +187,22 @@ public class ItemSubController extends BaseController {
         List<LayuiTreeNode> list = this.itemSubService.getTree(id);
         return list;
     }
+
+
+    /*
+     * 2020年11月12日
+     * 王南翔
+     * 添加文档判断项目文档是否存在
+     * true 重复  false 不重复
+     */
+    @RequestMapping("/checkRepeat")
+    @ResponseBody
+    public Boolean checkRepeatByItemId(ItemSubParam itemSubParam) {
+        QueryWrapper<ItemSub> itemSubQueryWrapper = new QueryWrapper<>();
+        itemSubQueryWrapper.eq("item_id", itemSubParam.getItemId());
+        itemSubQueryWrapper.eq("state", "0");
+        return this.itemSubService.getOne(itemSubQueryWrapper) != null;
+    }
 }
 
 
