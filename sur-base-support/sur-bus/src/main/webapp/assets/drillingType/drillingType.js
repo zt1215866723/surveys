@@ -18,7 +18,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
      */
     DrillingType.initColumn = function () {
         return [[
-            {type: 'checkbox'},
+            {hide: true, type: 'checkbox'},
             {field: 'id', hide: true, title: '主键'},
             {field: 'name', sort: true, title: '名称'},
             {field: 'url', sort: true, title: '图例',templet: function(d) {

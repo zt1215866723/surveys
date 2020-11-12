@@ -37,7 +37,7 @@
         SELECT a.*, b.name typeName, c.name itemName
         FROM `sur_focus` a
         LEFT JOIN `sys_dict` b ON a.`type` > 0 AND a.`type` = b.dict_id
-        LEFT JOIN `sys_dict` c ON a.`item_type` = c.dict_id
+        left join sur_item_type c on a.item_type = c.id
         where a.state != 1
         <if test="paramCondition.name != null and paramCondition.name != ''">
             and a.name like CONCAT('%',#{paramCondition.name},'%')

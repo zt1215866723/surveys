@@ -15,15 +15,12 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
 
     //获取项目类型的下拉框
     $.ajax({
-        url: Feng.ctxPath + "/dict/listDictsA",
-        data:{
-            dictTypeId : '1303502589535965185'
-        },
+        url: Feng.ctxPath + "/itemType/getItemTypeList",
         dataType: 'json',
         type: 'post',
         success: function (data) {
-            $.each(data.data, function (index, item) {
-                $('#itemType').append(new Option(item.name, item.dictId));
+            $.each(data, function (index, item) {
+                $('#itemType').append(new Option(item.name, item.id));
             });
             form.render("select");
         }
@@ -38,7 +35,6 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
         cellMinWidth: 100,
         limit: 20,
         cols:[[
-            {field: 'sort', sort: true, title: '排序'},
             {field: 'itemName', title: '工程类别'},
             {field: 'name', title: '关注项'},
             {field: 'unit', title: '单位'},

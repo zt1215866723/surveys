@@ -170,9 +170,6 @@ public class ItemSubServiceImpl extends ServiceImpl<ItemSubMapper, ItemSub> impl
         //这是需要获取的文件夹路径
         List<LayuiTreeNode> file = takeFilePathAndName.getFile(getFilePath() + "/" + itemSub.getFilePath(), 0);
         List<LayuiTreeNode> layuiTreeNodeList = new ArrayList<>();
-        for (LayuiTreeNode layuiTreeNode : file){
-            layuiTreeNode.setSpread(true);
-        }
         LayuiTreeNode layuiTreeNode = new LayuiTreeNode();
         layuiTreeNode.setTitle(itemSub.getFilePath());
         layuiTreeNode.setId(1L);
