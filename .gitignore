@@ -1,7 +1,46 @@
-# Project exclude paths
-/sur-base-support/sur-base/target/
-/sur-base-support/sur-base-auth/target/
-/sur-base-support/sur-dbctn/target/
-/sur-base-support/sur-generator/target/
-/sur-base-support/sur-sys/target/
-/sur-main/target/
+# Compiled class file
+*.class
+*.iml
+*.idea
+target/
+logs/
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+*velocity.log*
+
+# Eclipse #
+.classpath
+.project
+.settings/
+
+.DS_Store
+
+_dockerCerts/
+
+.factorypath
+
+node_modules/
+dist/
+package-lock.json
+yarn.lock
+
+rebel.xml

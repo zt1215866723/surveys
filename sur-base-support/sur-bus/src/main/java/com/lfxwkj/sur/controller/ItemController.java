@@ -1,9 +1,12 @@
 package com.lfxwkj.sur.controller;
 
+import cn.hutool.system.SystemUtil;
 import cn.stylefeng.roses.core.treebuild.DefaultTreeBuildFactory;
+import cn.stylefeng.roses.kernel.model.response.SuccessResponseData;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lfxwkj.sur.base.pojo.node.LayuiTreeNode;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
+import com.lfxwkj.sur.config.FileUploadConfig;
 import com.lfxwkj.sur.entity.Item;
 import com.lfxwkj.sur.model.params.ItemParam;
 import com.lfxwkj.sur.model.result.ItemResult;
@@ -16,7 +19,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +42,8 @@ public class ItemController extends BaseController {
 
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private FileUploadConfig fileUploadConfig;
 
     /**
      * 跳转到主页面
@@ -57,6 +65,11 @@ public class ItemController extends BaseController {
     @RequestMapping("/add")
     public String add() {
         return PREFIX + "/item_add.html";
+    }
+
+    @RequestMapping("/fileUploadPage")
+    public String fileUploadPage() {
+        return PREFIX + "/file_upload.html";
     }
 
     /**
@@ -114,9 +127,51 @@ public class ItemController extends BaseController {
      */
     @RequestMapping("/synchronous")
     @ResponseBody
-    public ResponseData synchronous(Long itemId, int isDataCover) throws Exception {
-        ResponseData responseData = itemService.synchronous(itemId, isDataCover);
+    public ResponseData synchronous(Long itemId, String fileUrl) throws InterruptedException {
+        ResponseData responseData = itemService.synchronous(itemId, fileUrl);
+        Thread.sleep(800);
         return responseData;
+    }
+
+    /**
+     * 理正文件上传
+     * @param file
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/fileUpload")
+    public ResponseData fileUpload(MultipartFile file, Long itemId) throws IOException {
+        Item item = itemService.getById(itemId);
+        String savePath = getFilePath();
+        savePath = savePath + item.getItemName();
+        savePath = savePath.replaceAll("& #40;","(").replaceAll("& #41;",")").replaceAll("& #39;","'");
+        File localFile = new File(savePath, file.getOriginalFilename());
+        //判断文件父目录是否存在
+        if (!localFile.getParentFile().exists()) {
+            localFile.getParentFile().mkdirs();
+        }
+        String fileName = file.getOriginalFilename();
+        //后缀名
+        String fileTyle=fileName.substring(fileName.lastIndexOf("."),fileName.length());
+        //文件名（不带后缀）
+        String caselsh = fileName.substring(0,fileName.lastIndexOf("."));
+        //判断文件是否存在
+        while(localFile.exists()){
+            caselsh += "1";
+            localFile = new File(savePath, caselsh + fileTyle);
+        }
+        file.transferTo(localFile);
+        return ResponseData.success(localFile.getPath());
+    }
+
+    private String getFilePath(){
+        String savePath;
+        if (SystemUtil.getOsInfo().isWindows()) {
+            savePath = fileUploadConfig.getWindows();
+        } else {
+            savePath = fileUploadConfig.getLinux();
+        }
+        return savePath;
     }
 
     /**

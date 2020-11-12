@@ -7,6 +7,7 @@ import com.lfxwkj.sur.entity.Item;
 import com.lfxwkj.sur.model.params.ItemParam;
 import com.lfxwkj.sur.model.result.ItemResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
 import java.util.List;
@@ -82,10 +83,10 @@ public interface ItemService extends IService<Item> {
     /**
      * 理正数据同步
      * @param itemId
-     * @param isCover
+     * @param fileUrl
      * @return
      */
-    ResponseData synchronous(Long itemId, int isCover) throws Exception;
+    ResponseData synchronous(Long itemId, String fileUrl);
 
     /**
      * @Description  ：在地图上展示所有工程信息

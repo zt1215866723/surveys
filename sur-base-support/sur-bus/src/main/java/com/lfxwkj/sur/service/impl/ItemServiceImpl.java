@@ -1,5 +1,6 @@
 package com.lfxwkj.sur.service.impl;
 
+import cn.hutool.system.SystemUtil;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -8,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lfxwkj.sur.base.pojo.node.LayuiTreeNode;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageFactory;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
+import com.lfxwkj.sur.config.FileUploadConfig;
 import com.lfxwkj.sur.entity.*;
 import com.lfxwkj.sur.mapper.*;
 import com.lfxwkj.sur.model.params.ItemParam;
@@ -23,7 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.*;
@@ -86,6 +90,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     private StaticTestMapper staticTestMapper;
     @Autowired
     private WaterLevelMapper waterLevelMapper;
+
 
     @Override
     public void add(ItemParam param) {
@@ -154,36 +159,20 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ResponseData synchronous(Long itemId, int isDataCover) throws InterruptedException {
-        //查询理正数据库文件存放位置
-        SubDetailResult subDetailResult = subDetailMapper.getSynchronousFile(itemId);
-        if (subDetailResult == null) {
-            return ResponseData.error(1, "请先上传理勘察正备份库文件");
-        }
-        //覆盖
-        if (isDataCover == 0) {
-            //根据数据库中钻孔表数据判断是否已经导入过理正数据
-            QueryWrapper<Drilling> drillingWrapper = new QueryWrapper<>();
-            drillingWrapper.eq("item_id", itemId);
-            List<Drilling> drillings = drillingMapper.selectList(drillingWrapper);
-            if (drillings.size() > 0) {
-                return ResponseData.error(4, "该工程下已导入理正数据，是否覆盖？");
-            }
-        }
+    public ResponseData synchronous(Long itemId, String fileUrl){
         Item item = this.getById(itemId);
         item.setSynchronousState(1);
         this.updateById(item);
         //暂定同步（钻孔，静探，标贯，土层，水位，工程，抛线，土层标准）
         String[] tableNames = {"z_ZuanKong", "z_y_JingTan", "z_y_BiaoGuan", "z_g_TuCeng", "z_g_ShuiWei", "x_GongCheng", "p_PouXian", "g_STuCengGC", "z_c_quyang"};
         try {
-            readMdb.selectData(itemId, subDetailResult.getSaveUrl(), tableNames);
+            readMdb.selectData(itemId, fileUrl, tableNames);
         }catch (RejectedExecutionException | ParseException | ClassNotFoundException e){
             e.printStackTrace();
             item.setSynchronousState(0);
             this.updateById(item);
             return ResponseData.error("当前处理任务过多，请稍后重试。");
         }
-        Thread.sleep(800);
         return ResponseData.success();
     }
 
