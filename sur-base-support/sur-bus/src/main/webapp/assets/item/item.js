@@ -288,43 +288,13 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
                 content: Feng.ctxPath + '/item/document?itemId=' + data.id
             });
         } else if (layEvent === 'synchronous') {
-            synchronous(data.id, 0);
+            layer.open({
+                type: 2,
+                area: ['50%', '80%'],
+                content: Feng.ctxPath + '/item/fileUploadPage?itemId=' + data.id
+            });
         } else if (layEvent === 'detail') {
             location.href = Feng.ctxPath + '/item/itemDetail?id=' + data.id
         }
     });
-
-    function synchronous(itemId, isDataCover) {
-        var prompt = layer.msg('文件同步中...', {
-            icon: 16,
-            shade: 0.2,
-            time: false
-        });
-        $.ajax({
-            url: Feng.ctxPath + "/item/synchronous",
-            data: {
-                itemId: itemId,
-                isDataCover: isDataCover
-            },
-            dataType: 'json',
-            type: 'post',
-            success: function (data) {
-                layer.close(prompt);
-                if (data.success) {
-                    Feng.success("操作成功,请等待同步完成。");
-                    table.reload(Item.tableId);
-                } else {
-                    if (data.code == 4) {
-                        layer.confirm(data.message, function (index) {
-                            synchronous(itemId, 1);
-                            layer.close(index);
-                        });
-                    } else {
-                        Feng.error(data.message)
-                    }
-                }
-            }
-        });
-        return false;
-    }
 });

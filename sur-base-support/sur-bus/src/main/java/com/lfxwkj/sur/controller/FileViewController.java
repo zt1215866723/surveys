@@ -22,8 +22,8 @@ import java.net.URLDecoder;
 @RequestMapping("/fileView")
 public class FileViewController {
 
-    @Autowired
-    private DocumentConverter converter;
+//    @Autowired
+//    private DocumentConverter converter;
 
     @Autowired
     private HttpServletResponse response;
@@ -77,7 +77,7 @@ public class FileViewController {
                     newFile.mkdirs();
                 }
                 //文件转化
-                converter.convert(file).to(new File(newFileUrl)).execute();
+//                converter.convert(file).to(new File(newFileUrl)).execute();
                 //读取文件
                 in = new FileInputStream(new File(newFileUrl));
             }
@@ -98,7 +98,8 @@ public class FileViewController {
         String s = fileUtil.saveMultiFile(folder);
         if (s != null) {
             return ResponseData.success(s);
-        } else return ResponseData.error("上传失败");
+        } else
+            return ResponseData.error("上传失败");
     }
 
 }
