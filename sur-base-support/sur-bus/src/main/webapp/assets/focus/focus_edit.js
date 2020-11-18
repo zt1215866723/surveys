@@ -9,9 +9,11 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
     var result = ajax.start();
     form.val('focusForm', result.data);
     if(result.data.isShow == "1"){
-        $('#isShow').attr("checked","")
-        form.render();
+        $('#isShow').prop("checked", true)
+    } else {
+        $('#isShow').prop("checked", false)
     }
+    form.render();
 
     //获取类型的下拉框
     $.ajax({
@@ -46,7 +48,7 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
 
     //表单提交事件
     form.on('submit(btnSubmit)', function (data) {
-        data.field.isShow = data.field.isShow ? "1": "0";
+        data.field.isShow = data.field.isShow == "on" ? "1": "0";
         var ajax = new $ax(Feng.ctxPath + "/focus/editItem", function (data) {
             Feng.success("更新成功！");
             //传给上个页面，刷新table用

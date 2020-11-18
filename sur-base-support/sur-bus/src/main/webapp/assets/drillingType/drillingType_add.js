@@ -29,7 +29,7 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
 
     //表单提交事件
     form.on('submit(btnSubmit)', function (data) {
-        data.field.status = data.field.status ? "0": "2";
+        data.field.status = data.field.status == "on" ? "0": "2";
 
         var ajax = new $ax(Feng.ctxPath + "/drillingType/addItem", function (data) {
             Feng.success("添加成功！");
