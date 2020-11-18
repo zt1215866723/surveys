@@ -27,7 +27,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
             },
             {field: 'status', sort: true, title: '状态',templet: function(d) {
                     if(d.url != '') {
-                        if(!Boolean(d.status)){
+                        if(d.status == 0){
                             return '<input type="checkbox" id="'+ d.id +'" name="status" checked=""  lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
                         }
                         return '<input type="checkbox" id="'+ d.id +'" name="status" lay-skin="switch" lay-filter="statusSwitch" lay-text="启用|禁用">'
