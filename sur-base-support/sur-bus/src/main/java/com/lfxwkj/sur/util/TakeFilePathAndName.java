@@ -18,7 +18,11 @@ public class TakeFilePathAndName {
     public static void main(String[] args) {
         //这是需要获取的文件夹路径
         String path = "C:/Users/lenovo/Desktop/新建文件夹";
-        getFile(path, 0);
+        List<File> list = takenFile(path);
+        for (File s : list){
+            System.out.println(s);
+
+        }
     }
 
     /*
@@ -65,4 +69,30 @@ public class TakeFilePathAndName {
         }
         return layuiTreeNodeList;
     }
+
+    private static List<File> takenFile(String path){
+        List<File> list = new ArrayList<>();
+        // get file list where the path has
+        File file = new File(path);
+        // get the folder list
+        File[] array = file.listFiles();
+
+        for(int i=0;i<array.length;i++){
+            if(array[i].isFile()){
+                File downLoad = new File(array[i].getPath());
+                list.add(downLoad);
+//                // only take file name
+//                System.out.println("^^^^^" + array[i].getName());
+//                // take file path and name
+//                System.out.println("#####" + array[i]);
+//                // take file path and name
+//                System.out.println("*****" + array[i].getPath());
+            }else if(array[i].isDirectory()){
+                List<File> list1 = takenFile(array[i].getPath());
+                list.addAll(list1);
+            }
+        }
+        return list;
+    }
+
 }

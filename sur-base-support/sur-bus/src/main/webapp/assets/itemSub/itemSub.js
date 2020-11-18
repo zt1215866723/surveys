@@ -144,8 +144,12 @@ layui.use(['table', 'admin', 'ax', 'func', 'laydate', 'form'], function () {
                 type: 2,
                 title: data.surName,
                 area: ['60%', '75%'],
-                content: Feng.ctxPath + '/itemSub/file?subId=' + data.id
+                content: Feng.ctxPath + '/itemSub/file?subId=' + data.id,
+                tableId: ItemSub.tableId
             });
+        } else if (layEvent === 'downLoad') {
+            console.log(data.filePath)
+            location.href = Feng.ctxPath + '/fileView/downloadZip?id=' + data.id
         }
     });
 });

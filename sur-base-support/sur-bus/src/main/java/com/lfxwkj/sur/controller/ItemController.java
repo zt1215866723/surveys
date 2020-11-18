@@ -292,7 +292,12 @@ public class ItemController extends BaseController {
     @RequestMapping("/getItemDetail")
     @ResponseBody
     public ResponseData getItemDetail(ItemParam itemParam) {
+
         ItemResult detail = this.itemService.getItemDetail(itemParam.getId());
+        Item item = new Item();
+        item.setId(itemParam.getId());
+        item.setHits(detail.getHits()+1);
+        this.itemService.updateById(item);
         return ResponseData.success(detail);
     }
 
@@ -374,6 +379,17 @@ public class ItemController extends BaseController {
         }
         itemService.updateBatchById(list);
         return ResponseData.success();
+    }
+
+    /**
+     * 跳转到主页
+     *
+     *  @author zt
+     *      * @Date 2020-09-22
+     */
+    @RequestMapping("/home")
+    public String homeIndex() {
+        return "/home/index.html";
     }
 }
 

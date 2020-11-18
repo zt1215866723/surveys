@@ -1,9 +1,16 @@
 package com.lfxwkj.sur.controller;
 
+import cn.hutool.system.SystemUtil;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
+import com.lfxwkj.sur.config.FileUploadConfig;
+import com.lfxwkj.sur.entity.ItemSub;
 import com.lfxwkj.sur.entity.SubDetail;
+import com.lfxwkj.sur.service.ItemSubService;
 import com.lfxwkj.sur.service.SubDetailService;
 import com.lfxwkj.sur.util.FileUtil;
+import com.lfxwkj.sur.util.IOCloseUtils;
+import com.lfxwkj.sur.util.ZipUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.jodconverter.DocumentConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLDecoder;
 
+@Slf4j
 @Controller
 @RequestMapping("/fileView")
 public class FileViewController {
@@ -29,10 +37,12 @@ public class FileViewController {
     private HttpServletResponse response;
 
     @Autowired
-    private SubDetailService subDetailService;
+    private ItemSubService itemSubService;
 
     @Autowired
     private FileUtil fileUtil;
+    @Autowired
+    private FileUploadConfig fileUploadConfig;
     /**
      * 视图页面
      *
@@ -102,4 +112,30 @@ public class FileViewController {
             return ResponseData.error("上传失败");
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/downloadZip", method = RequestMethod.GET)
+    public void downloadZip(Long id,HttpServletResponse response) {
+        ItemSub byId = itemSubService.getById(id);
+        String zipPath = getFilePath() + "/" + byId.getFilePath();
+        BufferedWriter bw = null;//创建缓冲流
+        try {
+            //将目标文件压缩为ZIP并下载
+            ZipUtil.zip(zipPath, byId.getFilePath(),response);
+        } catch (Exception e) {
+            log.error("html压缩"+e.getMessage(),e);
+        }finally {
+            //这是我写的IO流关闭工具类 如需要可以看我关于IO流关闭的文章
+            IOCloseUtils.ioClose(bw);
+        }
+    }
+
+    private String getFilePath(){
+        String savePath;
+        if (SystemUtil.getOsInfo().isWindows()) {
+            savePath = fileUploadConfig.getWindows();
+        } else {
+            savePath = fileUploadConfig.getLinux();
+        }
+        return savePath;
+    }
 }

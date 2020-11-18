@@ -10,11 +10,10 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'layer'], function () {
 
     //表单提交事件
     form.on('submit(btnSubmit)', function (data) {
-        var prompt = layer.msg('文件同步中...', {
-            icon: 16,
-            shade: 0.2,
-            time: false
-        });
+        if (data.field.folder ==''){
+            Feng.error("请选择文件!");
+            return false
+        }
         var formData = new FormData($('#itemSubForm')[0]);
         $.ajax({
             url: Feng.ctxPath + "/fileView/uploadFolder",
@@ -33,7 +32,12 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'layer'], function () {
                     },
                     type: 'post',
                     success: function (data) {
-                        layer.close(prompt);
+                        Feng.success("上传成功!");
+                        //传给上个页面，刷新table用
+                        admin.putTempData('formOk', true);
+                        //关掉对话框
+                        admin.closeThisDialog();
+                        parent.layui.table.reload("itemSubTable");
                     }
                 });
             }

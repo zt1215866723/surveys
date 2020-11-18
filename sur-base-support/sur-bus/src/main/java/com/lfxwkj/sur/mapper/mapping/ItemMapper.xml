@@ -21,6 +21,7 @@
         <result column="head" property="head"/>
         <result column="progress" property="progress"/>
         <result column="synchronous_state" property="synchronousState"/>
+        <result column="hits" property="hits"/>
     </resultMap>
 
     <resultMap id="resultMap" type="com.lfxwkj.sur.model.result.ItemResult">
@@ -46,7 +47,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id AS "id", item_code AS "itemCode", item_name AS "itemName", location AS "location", remarks AS "remarks", state AS "state", xaxis AS "xaxis", yaxis AS "yaxis", is_foreign as "isForeign", is_show as "isShow",coor_system as "coorSystem"
+        id AS "id", item_code AS "itemCode", item_name AS "itemName", location AS "location", remarks AS "remarks", state AS "state", xaxis AS "xaxis", yaxis AS "yaxis", is_foreign as "isForeign", is_show as "isShow",coor_system as "coorSystem",hits as "hits"
     </sql>
 
     <select id="customList" resultType="com.lfxwkj.sur.model.result.ItemResult"
@@ -140,14 +141,17 @@
     </select>
     <select id="getCountByType" resultType="java.lang.String">
         SELECT
-            count(*)
+        count(*)
         FROM
-            sur_item
+        sur_item
         WHERE
-            state = 0
+        state = 0
         <if test="paramCondition != null">
             and type = #{paramCondition}
         </if>
+    </select>
+    <select id="selectItemHot" resultType="com.lfxwkj.sur.entity.Item">
+        SELECT * from sur_item WHERE state = 0 ORDER BY hits DESC LIMIT 3
     </select>
 
 </mapper>

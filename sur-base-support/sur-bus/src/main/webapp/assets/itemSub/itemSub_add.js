@@ -124,7 +124,7 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'upload', 'formSelects'], function 
     form.on('submit(btnSubmit)', function (data) {
         if(isRepeat) {
             Feng.error("项目文档已存在！")
-            return
+            return false
         }
         var ajax = new $ax(Feng.ctxPath + "/itemSub/addItem", function (data) {
             Feng.success("添加成功！");

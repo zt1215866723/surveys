@@ -23,14 +23,14 @@ import java.util.Map;
 /**
  * 项目表控制器
  *
- * @author 郭晓东
- * @Date 2020-08-18 11:54:07
+ * @author zt
+ * @Date 2020-11-16 11:54:07
  */
 @Controller
-@RequestMapping("/item")
+@RequestMapping("/console")
 public class ConsoleController extends BaseController {
 
-    private String PREFIX = "/item";
+    private String PREFIX = "/console";
 
     @Autowired
     private ConsoleService consoleService;
@@ -72,11 +72,24 @@ public class ConsoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/itemsByProgram")
-    public ResponseData itemsByProgram(String program) {
-        List<Item> result = consoleService.itemsByProgram(program);
+    public ResponseData itemsByProgram() {
+        List<List<Item>> result = consoleService.itemsByProgram();
         return ResponseData.success(result);
     }
 
+    /**
+     * @Description  ：工程排名
+     * @methodName   : itemHot
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    @ResponseBody
+    @RequestMapping("/itemHot")
+    public ResponseData itemHot() {
+        List<Item> itemList = consoleService.itemHot();
+        return ResponseData.success(itemList);
+    }
 }
 
 

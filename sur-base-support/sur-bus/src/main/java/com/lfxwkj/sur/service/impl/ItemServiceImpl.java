@@ -556,19 +556,38 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
      */
     @Override
     public List<Map<String, String>> itemECharts() {
+
+        //四个分类：勘察工程；测量工程；岩土设计；其他工程。（先写死吧，首页展示没发动态啊）
         List<Map<String, String>> result = new ArrayList<>();
-        //查一下几类工程
-        List<Dict> dicts = dictService.listDicts(1303502589535965185l);
-        //分类查数量
-        for (Dict d : dicts) {
-            //查询每个类型有多少项目
-            String count = this.baseMapper.getCountByType(d.getDictId());
-            Map<String, String> a = new HashMap<>();
-            a.put("name", d.getName());
-            a.put("id", d.getDictId().toString());
-            a.put("value", count);
-            result.add(a);
-        }
+        //勘察工程
+        String count1 = this.baseMapper.getCountByType(2L);
+        Map<String, String> a1 = new HashMap<>();
+        a1.put("name", "勘察工程");
+        a1.put("value", count1);
+        result.add(a1);
+        //测量工程
+        String count2 = this.baseMapper.getCountByType(4L);
+        Map<String, String> a2 = new HashMap<>();
+        a2.put("name", "测量工程");
+        a2.put("value", count2);
+        result.add(a2);
+        //岩土设计
+        String count3 = this.baseMapper.getCountByType(3L);
+        String count4 = this.baseMapper.getCountByType(5L);
+        Integer integer = Integer.parseInt(count3)+Integer.parseInt(count4);
+        Map<String, String> a3 = new HashMap<>();
+        a3.put("name", "岩土设计");
+        a3.put("value", integer.toString());
+        result.add(a3);
+        //其他工程
+        QueryWrapper<Item> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("state",0);
+        Integer count5 = this.baseMapper.selectCount(queryWrapper);
+        count5 = count5 - integer - Integer.parseInt(count1)+Integer.parseInt(count2);
+        Map<String, String> a = new HashMap<>();
+        a.put("name", "其他工程");
+        a.put("value", count5.toString());
+        result.add(a);
         return result;
     }
 }

@@ -43,5 +43,11 @@ public interface ConsoleService {
      * @exception    :
      * @author       : 张童
      */
-    List<Item> itemsByProgram(String program);
+    List<List<Item>> itemsByProgram();
+
+    /**
+     * 工程热度
+     * @return
+     */
+    List<Item> itemHot();
 }

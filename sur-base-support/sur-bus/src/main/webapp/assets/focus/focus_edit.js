@@ -39,6 +39,7 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
             $.each(data, function (index, item) {
                 $('#itemType').append(new Option(item.name, item.id));
             });
+            $('#itemType').val(result.data.itemType);
             form.render("select");
         }
     });

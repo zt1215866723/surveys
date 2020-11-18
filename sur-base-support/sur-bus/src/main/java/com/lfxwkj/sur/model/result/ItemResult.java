@@ -111,4 +111,6 @@ public class ItemResult implements Serializable {
     private String typeUrl;
 
     private Integer synchronousState;
+
+    private Integer hits;
 }

@@ -36,7 +36,9 @@
                             </div>
                         </div>
                     </div>
+                    @if(shiro.hasPermission("/dictType/list")){
                     <table class="layui-table" id="dictTypeTable" lay-filter="dictTypeTable"></table>
+                    @}
                 </div>
             </div>
         </div>

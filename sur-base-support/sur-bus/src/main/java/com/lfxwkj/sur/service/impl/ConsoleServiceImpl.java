@@ -118,11 +118,48 @@ public class ConsoleServiceImpl implements ConsoleService {
     }
 
     @Override
-    public List<Item> itemsByProgram(String program) {
+    public List<List<Item>> itemsByProgram() {
+        //签订合同
         QueryWrapper<Item> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("state",0);
-        queryWrapper.eq("progress",program);
+        queryWrapper.eq("progress", "1303594236575612929");
         List<Item> list = itemMapper.selectList(queryWrapper);
-        return list;
+
+        //进场实施
+        QueryWrapper<Item> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("state",0);
+        queryWrapper1.eq("progress", "1303594301717348354");
+        List<Item> list1 = itemMapper.selectList(queryWrapper1);
+
+        //报告完成
+        QueryWrapper<Item> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("state",0);
+        queryWrapper2.eq("progress", "1303594357925216257");
+        List<Item> list2 = itemMapper.selectList(queryWrapper2);
+
+        //验槽
+        QueryWrapper<Item> queryWrapper3 = new QueryWrapper<>();
+        queryWrapper3.eq("state",0);
+        queryWrapper3.eq("progress", "1303594444642451458");
+        List<Item> list3 = itemMapper.selectList(queryWrapper3);
+
+        //竣工
+        QueryWrapper<Item> queryWrapper4 = new QueryWrapper<>();
+        queryWrapper4.eq("state",0);
+        queryWrapper4.eq("progress", "1303594532169187329");
+        List<Item> list4 = itemMapper.selectList(queryWrapper4);
+
+        List<List<Item>> listList = new ArrayList<>();
+        listList.add(list);
+        listList.add(list1);
+        listList.add(list2);
+        listList.add(list3);
+        listList.add(list4);
+        return listList;
+    }
+
+    @Override
+    public List<Item> itemHot() {
+        return itemMapper.selectItemHot();
     }
 }

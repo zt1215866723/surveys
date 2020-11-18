@@ -68,4 +68,10 @@ public interface ItemMapper extends BaseMapper<Item> {
     ItemResult getItemDetail(@Param("paramCondition") Long id);
 
     String getCountByType(@Param("paramCondition")Long dictId);
+
+    /**
+     * 工程热度
+     * @return
+     */
+    List<Item> selectItemHot();
 }

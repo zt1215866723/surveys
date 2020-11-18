@@ -110,6 +110,18 @@ public class Item implements Serializable {
     @TableField("synchronous_state")
     private Integer synchronousState;
 
+    @TableField("hits")
+    private Integer hits;
+
+    public Integer getHits() {
+        return hits;
+    }
+
+    public Item setHits(Integer hits) {
+        this.hits = hits;
+        return this;
+    }
+
     public Integer getCoorSystem() {
         return coorSystem;
     }
