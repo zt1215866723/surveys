@@ -32,13 +32,15 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
     form.val('drillingTypeForm', result.data);
     $("#preview").attr('src', '/image/' + result.data.url).css("width","15%").css("height","15%");
     if(result.data.status == 0){
-        $('#status').attr("checked","")
-        form.render();
+        $('#status').prop("checked", true)
+    } else {
+        $('#status').prop("checked", false)
     }
+    form.render();
 
     //表单提交事件
     form.on('submit(btnSubmit)', function (data) {
-        data.field.status = data.field.status ? "0": "2";
+        data.field.status = data.field.status == "on" ? "0": "2";
         var ajax = new $ax(Feng.ctxPath + "/drillingType/editItem", function (data) {
             Feng.success("更新成功！");
             //传给上个页面，刷新table用
