@@ -7,11 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="sur-generator" />
+        <module name="sur-dbctn" />
         <module name="sur-bus" />
         <module name="sur-base" />
         <module name="sur-main" />
-        <module name="sur-dbctn" />
+        <module name="sur-generator" />
         <module name="sur-base-auth" />
         <module name="sur-sys" />
       </profile>
