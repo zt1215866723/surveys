@@ -78,7 +78,7 @@ public class ItemSubServiceImpl extends ServiceImpl<ItemSubMapper, ItemSub> impl
             index.setState(0);
             index.setSubId(entity.getId());
             if(doubleFocusIds.contains(entry.getKey())){
-                index.setNouValue(entry.getValue().equals("")? null : Double.valueOf(entry.getValue()));
+                index.setNouValue("".equals(entry.getValue())? null : Double.valueOf(entry.getValue()));
             }else{
                 index.setStrValue(entry.getValue());
             }
