@@ -30,8 +30,8 @@ import java.net.URLDecoder;
 @RequestMapping("/fileView")
 public class FileViewController {
 
-//    @Autowired
-//    private DocumentConverter converter;
+    @Autowired
+    private DocumentConverter converter;
 
     @Autowired
     private HttpServletResponse response;
@@ -64,7 +64,7 @@ public class FileViewController {
                 e.printStackTrace();
             }
         }
-        pathName = pathName.replaceAll("& #40;","(").replaceAll("& #41;",")").replaceAll("& #39;","'");
+        pathName = pathName.replaceAll( "& #40;","(").replaceAll("& #41;",")").replaceAll("& #39;","'");
         File file = new File(pathName);
         String newAdress = pathName.substring(0, pathName.lastIndexOf("\\"));
         String newFileUrl = pathName.substring(0, pathName.lastIndexOf(".")) + ".pdf";
@@ -87,7 +87,7 @@ public class FileViewController {
                     newFile.mkdirs();
                 }
                 //文件转化
-//                converter.convert(file).to(new File(newFileUrl)).execute();
+                converter.convert(file).to(new File(newFileUrl)).execute();
                 //读取文件
                 in = new FileInputStream(new File(newFileUrl));
             }

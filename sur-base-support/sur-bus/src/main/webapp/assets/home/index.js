@@ -106,8 +106,8 @@ window.onload = function () {
                 formatter: '{b}<br/>{c}'
             },
             visualMap: {
-                min: 20,
-                max: 100,
+                min: 0,
+                max: 2,
                 text:['High','Low'],
                 realtime: false,
                 calculable: true,

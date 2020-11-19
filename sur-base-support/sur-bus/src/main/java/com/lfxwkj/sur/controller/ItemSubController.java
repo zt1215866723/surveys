@@ -203,6 +203,22 @@ public class ItemSubController extends BaseController {
         itemSubQueryWrapper.eq("state", "0");
         return this.itemSubService.getOne(itemSubQueryWrapper) != null;
     }
+
+    //根据工程Id查询对应的文档
+    @RequestMapping("/selectItemSubByItemId")
+    @ResponseBody
+    public ItemSub selectItemSubByItemId(Long itemId){
+        QueryWrapper<ItemSub> itemSubQueryWrapper = new QueryWrapper<>();
+        itemSubQueryWrapper.eq("item_id",itemId);
+        itemSubQueryWrapper.eq("state",0);
+        ItemSub one = this.itemSubService.getOne(itemSubQueryWrapper);
+        if (one == null){
+            ItemSub itemSub = new ItemSub();
+            return itemSub;
+        }else {
+            return one;
+        }
+    }
 }
 
 
