@@ -50,12 +50,12 @@ layui.use(['table', 'admin', 'ax', 'func', 'laydate', 'form'], function () {
             {align: 'center', toolbar: '#tableBar', title: '操作', width:350}
         ]],
         done: function(res, curr, count) {
-            $.each(res.data, function(index,value){
-                //外单位提供
-                if(res.data[index].isForeign == 1){
-                    $("table tbody tr").eq(index).css('color','#1E9FFF');
-                }
-            });
+            // $.each(res.data, function(index,value){
+            //     //外单位提供
+            //     if(res.data[index].isForeign == 1){
+            //         $("table tbody tr").eq(index).css('color','#1E9FFF');
+            //     }
+            // });
         }
     });
 

@@ -4,9 +4,7 @@ import cn.hutool.system.SystemUtil;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import com.lfxwkj.sur.config.FileUploadConfig;
 import com.lfxwkj.sur.entity.ItemSub;
-import com.lfxwkj.sur.entity.SubDetail;
 import com.lfxwkj.sur.service.ItemSubService;
-import com.lfxwkj.sur.service.SubDetailService;
 import com.lfxwkj.sur.util.FileUtil;
 import com.lfxwkj.sur.util.IOCloseUtils;
 import com.lfxwkj.sur.util.ZipUtil;
@@ -32,13 +30,10 @@ public class FileViewController {
 
     @Autowired
     private DocumentConverter converter;
-
     @Autowired
     private HttpServletResponse response;
-
     @Autowired
     private ItemSubService itemSubService;
-
     @Autowired
     private FileUtil fileUtil;
     @Autowired

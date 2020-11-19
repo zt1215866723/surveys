@@ -26,7 +26,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'laydate'], function () {
      */
     RecordBorrow.initColumn = function () {
         return [[
-            {type: 'checkbox'},
+            {type: 'checkbox', hide: true},
             {field: 'id', hide: true, title: '主键'},
             {field: 'borrower', sort: true, title: '借阅人'},
             {field: 'documentName', sort: true, title: '文档'},

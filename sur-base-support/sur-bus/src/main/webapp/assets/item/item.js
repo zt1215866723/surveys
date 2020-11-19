@@ -47,12 +47,12 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
         elem: '#' + Item.tableId,
         url: Feng.ctxPath + '/item/list',
         page: true,
-        toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-        , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            title: '提示'
-            , layEvent: 'LAYTABLE_TIPS'
-            , icon: 'layui-icon-tips'
-        }],
+        //  toolbar: '#toolbarDemo'， //开启头部工具栏，并为其绑定左侧模板
+        //  defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+        //     title: '提示'
+        //     , layEvent: 'LAYTABLE_TIPS'
+        //     , icon: 'layui-icon-tips'
+        // }],
         height: "full-158",
         limit: 20,
         cols: [[
