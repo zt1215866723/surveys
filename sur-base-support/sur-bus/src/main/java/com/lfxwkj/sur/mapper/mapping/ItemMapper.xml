@@ -45,6 +45,35 @@
         <result column="typeName" property="typeName"/>
     </resultMap>
 
+    <resultMap id="resultMap1" type="com.lfxwkj.sur.model.result.ItemResult">
+        <id column="id" property="id"/>
+        <result column="item_code" property="itemCode"/>
+        <result column="item_name" property="itemName"/>
+        <result column="location" property="location"/>
+        <result column="remarks" property="remarks"/>
+        <result column="state" property="state"/>
+        <result column="xaxis" property="xaxis"/>
+        <result column="yaxis" property="yaxis"/>
+        <result column="type" property="type"/>
+        <result column="begin_date" property="beginDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="is_foreign" property="isForeign"/>
+        <result column="is_show" property="isShow"/>
+        <result column="coor_system" property="coorSystem"/>
+        <result column="head" property="head"/>
+        <result column="progress" property="progress"/>
+        <result column="processName" property="processName"/>
+        <result column="typeName" property="typeName"/>
+
+<!--        <collection property="indexList" javaType="list" ofType="com.lfxwkj.sur.model.result.IndexResult"-->
+<!--                    autoMapping="true">-->
+<!--            <id column="item_id" property="itemId"></id>-->
+<!--            <result column="order_id" property="orderId"></result>-->
+<!--            <result column="product_id" property="productId"></result>-->
+<!--            <result column="total_price" property="totalPrice"></result>-->
+<!--        </collection>-->
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id AS "id", item_code AS "itemCode", item_name AS "itemName", location AS "location", remarks AS "remarks", state AS "state", xaxis AS "xaxis", yaxis AS "yaxis", is_foreign as "isForeign", is_show as "isShow",coor_system as "coorSystem",hits as "hits"
@@ -152,6 +181,32 @@
     </select>
     <select id="selectItemHot" resultType="com.lfxwkj.sur.entity.Item">
         SELECT * from sur_item WHERE state = 0 ORDER BY hits DESC LIMIT 3
+    </select>
+    <select id="getItemOnTheMapAddGZ" resultType="com.lfxwkj.sur.model.result.ItemResult">
+        select a.*,b.name processName, c.name typeName , c.url typeUrl
+        from sur_item a
+        left join sys_dict b on a.progress = b.dict_id
+        left join sur_item_type c on a.type = c.id
+        where a.state != 1
+        and a.is_show = 1
+        <if test="paramCondition.itemName != null and paramCondition.itemName != ''">
+            and concat(a.item_name,a.item_code,location,a.xaxis,a.yaxis) like concat('%',#{paramCondition.itemName},'%')
+        </if>
+        <if test="paramCondition.typeArray != null and paramCondition.typeArray != ''">
+            and a.type in (
+            <foreach collection="paramCondition.typeArray" item="itemType" separator=",">
+                #{itemType}
+            </foreach>
+            )
+        </if>
+        <if test="paramCondition.planArray != null and paramCondition.planArray != ''">
+            and a.progress in (
+            <foreach collection="paramCondition.planArray" item="itemPlan" separator=",">
+                #{itemPlan}
+            </foreach>
+            )
+        </if>
+        order by a.id desc
     </select>
 
 </mapper>

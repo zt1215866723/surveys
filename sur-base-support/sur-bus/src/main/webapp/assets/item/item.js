@@ -282,10 +282,25 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
             };
             Feng.confirm("是否删除?", operation);
         } else if (layEvent === 'document') {
-            layer.open({
-                type: 2,
-                area: ['100%', '100%'],
-                content: Feng.ctxPath + '/item/document?itemId=' + data.id
+            //查一下项目对应的文档Id
+            $.ajax({
+                url: Feng.ctxPath + "/itemSub/selectItemSubByItemId",
+                data: {
+                    itemId: data.id
+                },
+                dataType: 'json',
+                async:false,
+                success: function (data) {
+                    if (data.filePath!="" && data.filePath !=null){
+                        layer.open({
+                            type: 2,
+                            area: ['100%', '100%'],
+                            content: Feng.ctxPath + '/itemSub/itemSubDetail?subId=' + data.id
+                        });
+                    }else {
+                        layer.msg("请先上传工程文档!", {icon: 5, time: 1000});
+                    }
+                }
             });
         } else if (layEvent === 'synchronous') {
             layer.open({

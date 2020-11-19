@@ -23,7 +23,6 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
                 //节点高亮
                 var nodes = document.getElementsByClassName("layui-tree-txt");
                 for (var i = 0; i < nodes.length; i++) {
-                    console.log(nodes[i])
                     if (nodes[i].innerHTML === obj.data.title)
                         nodes[i].style.color = "red";
                     else
@@ -49,7 +48,8 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
             return false;
         }
         var viewerUrl = Feng.ctxPath + "/assets/pdf/web/viewer.html";
-        var pdfUrl = Feng.ctxPath + "/fileView/toPdfFile?path=" + encodeURI(encodeURI(queryData.cataId));
+        console.log(queryData.cataId)
+        var pdfUrl = Feng.ctxPath + "/fileView/toPdfFile?path=" + encodeURIComponent(queryData.cataId);
         window.open(`${viewerUrl}?file=${encodeURIComponent(pdfUrl)}`);
     });
     $('#btnDownLoad').click(function () {
@@ -57,7 +57,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
             layer.msg('请从左侧选择需要下载的内容。');
             return false;
         }
-        window.open(Feng.ctxPath + "/subDetail/fileDownload?path=" + encodeURI(encodeURI(queryData.cataId)), '_blank')
+        window.open(Feng.ctxPath + "/subDetail/fileDownload?path=" + encodeURIComponent(queryData.cataId), '_blank')
     });
 });
 $(function () {

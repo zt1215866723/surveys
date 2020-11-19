@@ -115,4 +115,14 @@ public interface ItemService extends IService<Item> {
     List<Map<String, String>> itemECharts();
 
     void saveData(Long itemId, boolean sign, Map<String, List<Map>> data) throws ParseException;
+
+    /**
+     * @Description  ：在地图上展示所有工程信息(+关注项)
+     * @methodName   : getItemOnTheMap
+     * @param        : * @param itemParam :
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    List<ItemResult> getItemOnTheMapAddGZ(ItemParam itemParam);
 }

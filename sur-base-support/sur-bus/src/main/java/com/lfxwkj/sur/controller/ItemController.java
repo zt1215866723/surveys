@@ -391,6 +391,21 @@ public class ItemController extends BaseController {
     public String homeIndex() {
         return "/home/index.html";
     }
+
+    /**
+     * @Description  ：在地图上展示所有工程信息(+关注项)
+     * @methodName   : getItemOnTheMap
+     * @param        : * @param itemParam :
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    @ResponseBody
+    @RequestMapping("/getItemOnTheMapAddGZ")
+    public ResponseData getItemOnTheMapAddGZ(ItemParam itemParam) {
+        List<ItemResult> list = this.itemService.getItemOnTheMapAddGZ(itemParam);
+        return ResponseData.success(list);
+    }
 }
 
 

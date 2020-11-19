@@ -494,6 +494,30 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
         itemService.updateById(item);
     }
 
+    /**
+     * @Description  ：在地图上展示所有工程信息(+关注项)
+     * @methodName   : getItemOnTheMap
+     * @param        : * @param itemParam :
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    @Override
+    public List<ItemResult> getItemOnTheMapAddGZ(ItemParam itemParam) {
+        if (itemParam.getItemTypes()!=null && !itemParam.getItemTypes().equals("")) {
+            String s1 = itemParam.getItemTypes().substring(0, itemParam.getItemTypes().length() - 1);
+            String[] split = s1.split(",");
+            itemParam.setTypeArray(split);
+        }
+        if (itemParam.getItemPlans()!=null && !itemParam.getItemPlans().equals("")) {
+            String s2 = itemParam.getItemPlans().substring(0, itemParam.getItemPlans().length() - 1);
+            String[] split1 = s2.split(",");
+            itemParam.setPlanArray(split1);
+        }
+        List<ItemResult> itemOnTheMap = this.baseMapper.getItemOnTheMapAddGZ(itemParam);
+        return itemOnTheMap;
+    }
+
     private Serializable getKey(ItemParam param) {
         return param.getId();
     }

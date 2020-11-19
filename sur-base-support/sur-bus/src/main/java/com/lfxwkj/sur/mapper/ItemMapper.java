@@ -74,4 +74,13 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @return
      */
     List<Item> selectItemHot();
+    /**
+     * @Description  ：
+     * @methodName   : getItemOnTheMapAddGZ
+     * @param        : * @param itemParam :
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    List<ItemResult> getItemOnTheMapAddGZ(@Param("paramCondition") ItemParam itemParam);
 }

@@ -2,10 +2,12 @@ package com.lfxwkj.sur.model.result;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.lfxwkj.sur.entity.Index;
 import lombok.Data;
 import java.util.Date;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -113,4 +115,6 @@ public class ItemResult implements Serializable {
     private Integer synchronousState;
 
     private Integer hits;
+
+    private List<Index> indexList;
 }
