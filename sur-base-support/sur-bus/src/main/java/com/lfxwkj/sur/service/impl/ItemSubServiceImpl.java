@@ -73,16 +73,18 @@ public class ItemSubServiceImpl extends ServiceImpl<ItemSubMapper, ItemSub> impl
         ItemSub entity = getEntity(param);
         this.save(entity);
         for(Map.Entry<Long, String> entry : param.getFocus().entrySet()){
-            Index index = new Index();
-            index.setFocusId(entry.getKey());
-            index.setState(0);
-            index.setSubId(entity.getId());
-            if(doubleFocusIds.contains(entry.getKey())){
-                index.setNouValue("".equals(entry.getValue())? null : Double.valueOf(entry.getValue()));
-            }else{
-                index.setStrValue(entry.getValue());
+            if(!"".equals(entry.getValue())){
+                Index index = new Index();
+                index.setFocusId(entry.getKey());
+                index.setState(0);
+                index.setSubId(entity.getId());
+                if(doubleFocusIds.contains(entry.getKey())){
+                    index.setNouValue("".equals(entry.getValue())? null : Double.valueOf(entry.getValue()));
+                }else{
+                    index.setStrValue(entry.getValue());
+                }
+                indexMapper.insert(index);
             }
-            indexMapper.insert(index);
         }
     }
 
@@ -105,21 +107,28 @@ public class ItemSubServiceImpl extends ServiceImpl<ItemSubMapper, ItemSub> impl
             focusQueryWrapper.select("id");
             List<Focus> focusList = focusMapper.selectList(focusQueryWrapper);
             List<Long> doubleFocusIds = focusList.stream().map(Focus::getId).collect(Collectors.toList());
-            QueryWrapper<Index> indexQueryWrapper = new QueryWrapper<>();
-            indexQueryWrapper.eq("sub_id", param.getId());
-            indexQueryWrapper.in("focus_id", doubleFocusIds);
-            indexQueryWrapper.select("id");
-            List<Index> indexList = indexMapper.selectList(indexQueryWrapper);
-            List<Long> doubleIndexIds = indexList.stream().map(Index::getId).collect(Collectors.toList());
             for(Map.Entry<Long, String> entry : param.getFocus().entrySet()){
-                Index index = new Index();
-                index.setId(entry.getKey());
-                if(doubleIndexIds.contains(entry.getKey())){
+                QueryWrapper<Index> indexQueryWrapper = new QueryWrapper<>();
+                indexQueryWrapper.eq("sub_id", param.getId());
+                indexQueryWrapper.eq("focus_id", entry.getKey());
+                indexQueryWrapper.eq("state", 0);
+                Index index = indexMapper.selectOne(indexQueryWrapper);
+                if(index == null){
+                    index = new Index();
+                    index.setSubId(param.getId());
+                    index.setFocusId(entry.getKey());
+                    index.setState(0);
+                }
+                if(doubleFocusIds.contains(entry.getKey())){
                     index.setNouValue(Double.valueOf(entry.getValue()));
                 }else{
                     index.setStrValue(entry.getValue());
                 }
-                indexMapper.updateById(index);
+                if(index.getId() == null){
+                    indexMapper.insert(index);
+                }else{
+                    indexMapper.updateById(index);
+                }
             }
         }
     }

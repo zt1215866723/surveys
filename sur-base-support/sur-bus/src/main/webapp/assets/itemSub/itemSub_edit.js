@@ -126,13 +126,13 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
 
     var focus = {}
     form.on('select(monitor)', function(data){
-        focus[data.elem.name] = data.value;
+        focus[data.elem.id] = data.value;
     });
 
     $("#focus").find("input").each(function () {
         if($(this).prop("id") != ""){
             document.getElementById($(this).prop("id")).addEventListener('input',function(){
-                focus[$(this).prop("name")] = $(this).prop("value");
+                focus[$(this).prop("id")] = $(this).prop("value");
             });
         }
     })
