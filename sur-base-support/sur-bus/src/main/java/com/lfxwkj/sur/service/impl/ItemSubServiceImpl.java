@@ -72,18 +72,20 @@ public class ItemSubServiceImpl extends ServiceImpl<ItemSubMapper, ItemSub> impl
         param.setState(0);
         ItemSub entity = getEntity(param);
         this.save(entity);
-        for(Map.Entry<Long, String> entry : param.getFocus().entrySet()){
-            if(!"".equals(entry.getValue())){
-                Index index = new Index();
-                index.setFocusId(entry.getKey());
-                index.setState(0);
-                index.setSubId(entity.getId());
-                if(doubleFocusIds.contains(entry.getKey())){
-                    index.setNouValue("".equals(entry.getValue())? null : Double.valueOf(entry.getValue()));
-                }else{
-                    index.setStrValue(entry.getValue());
+        if(param.getFocus() != null){
+            for(Map.Entry<Long, String> entry : param.getFocus().entrySet()){
+                if(!"".equals(entry.getValue())){
+                    Index index = new Index();
+                    index.setFocusId(entry.getKey());
+                    index.setState(0);
+                    index.setSubId(entity.getId());
+                    if(doubleFocusIds.contains(entry.getKey())){
+                        index.setNouValue("".equals(entry.getValue())? null : Double.valueOf(entry.getValue()));
+                    }else{
+                        index.setStrValue(entry.getValue());
+                    }
+                    indexMapper.insert(index);
                 }
-                indexMapper.insert(index);
             }
         }
     }
