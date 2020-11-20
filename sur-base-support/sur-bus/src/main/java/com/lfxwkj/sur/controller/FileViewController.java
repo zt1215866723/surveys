@@ -62,6 +62,7 @@ public class FileViewController {
         pathName = pathName.replaceAll( "& #40;","(").replaceAll("& #41;",")").replaceAll("& #39;","'");
         File file = new File(pathName);
         String newAdress = pathName.substring(0, pathName.lastIndexOf("\\"));
+//        String newAdress = pathName.substring(0, pathName.lastIndexOf("/"));
         String newFileUrl = pathName.substring(0, pathName.lastIndexOf(".")) + ".pdf";
         //使用response,将pdf文件以流的方式发送的前段
         ServletOutputStream outputStream = response.getOutputStream();
