@@ -3,6 +3,7 @@ package com.lfxwkj.sur.service;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
 import com.lfxwkj.sur.entity.DrillingType;
 import com.lfxwkj.sur.model.params.DrillingTypeParam;
+import com.lfxwkj.sur.model.params.ItemTypeParam;
 import com.lfxwkj.sur.model.result.DrillingTypeResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -67,4 +68,12 @@ public interface DrillingTypeService extends IService<DrillingType> {
      LayuiPageInfo findPageBySpec(DrillingTypeParam param);
 
      String convertFileToBase64(String imgPath);
+
+    /**
+     * 逻辑删除
+     * 2020年11月21日
+     * @author 王南翔
+     * @param param
+     */
+    void deleteByLogic(DrillingTypeParam param);
 }

@@ -112,7 +112,7 @@ public class ItemTypeController extends BaseController {
     @RequestMapping("/delete")
     @ResponseBody
     public ResponseData delete(ItemTypeParam itemTypeParam) {
-        this.itemTypeService.delete(itemTypeParam);
+        this.itemTypeService.deleteByLogic(itemTypeParam);
         return ResponseData.success();
     }
 

@@ -63,6 +63,12 @@ public class ItemTypeServiceImpl extends ServiceImpl<ItemTypeMapper, ItemType> i
         return LayuiPageFactory.createPageInfo(page);
     }
 
+    @Override
+    public void deleteByLogic(ItemTypeParam param) {
+        param.setStatus(1);
+        this.update(param);
+    }
+
     private Serializable getKey(ItemTypeParam param){
         return param.getId();
     }
