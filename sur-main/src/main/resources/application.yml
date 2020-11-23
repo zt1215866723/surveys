@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 7070
   max-http-header-size: 40960
 
 file-upload-path:
@@ -44,3 +44,6 @@ log:
 img:
   drillingPath: D:\tempImgPath\drillingFilePath\
   itemPath: D:\tempImgPath\itemFilePath\
+#img:
+#  drillingPath: /tmp/tempImgPath/drillingFilePath/
+#  itemPath: /tmp/tempImgPath/itemFilePath/

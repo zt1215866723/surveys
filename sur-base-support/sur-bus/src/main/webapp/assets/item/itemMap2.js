@@ -13,7 +13,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         if (flag == 1) {
             $("#floatDivBoxs").animate({right: '-200px'}, 300);
             $(this).animate({right: '10px'}, 300);
-            $(this).css('background-position', '-39px 0');
+            $(this).css('background-position', '-25px 0');
             flag = 0;
         } else {
             $("#floatDivBoxs").animate({right: '0'}, 300);

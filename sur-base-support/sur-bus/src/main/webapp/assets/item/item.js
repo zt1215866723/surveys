@@ -60,8 +60,8 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
             {field: 'itemName', title: '工程名称', align: 'center', width: 250},
             {field: 'itemCode', title: '工程编号', align: 'center'},
             {field: 'typeName', title: '工程类型', align: 'center'},
-            // {field: 'location', title: '工程地点', align: 'center'},
-            {field: 'head', title: '工程负责人', align: 'center'},
+            {field: 'location', title: '工程地点', align: 'center'},
+            // {field: 'head', title: '工程负责人', align: 'center'},
             {field: 'processName', title: '工程进度', align: 'center'},
             {
                 title: '地图展示', field: 'isShow',align: 'center', templet: function (d) {
