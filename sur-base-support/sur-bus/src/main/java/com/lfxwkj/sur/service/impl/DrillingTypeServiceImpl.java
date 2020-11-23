@@ -8,6 +8,7 @@ import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
 import com.lfxwkj.sur.entity.DrillingType;
 import com.lfxwkj.sur.mapper.DrillingTypeMapper;
 import com.lfxwkj.sur.model.params.DrillingTypeParam;
+import com.lfxwkj.sur.model.params.ItemTypeParam;
 import com.lfxwkj.sur.model.result.DrillingTypeResult;
 import  com.lfxwkj.sur.service.DrillingTypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -100,5 +101,11 @@ public class DrillingTypeServiceImpl extends ServiceImpl<DrillingTypeMapper, Dri
         BASE64Encoder encoder = new BASE64Encoder();
         String base64Str = encoder.encode(data);
         return base64Str;
+    }
+
+    @Override
+    public void deleteByLogic(DrillingTypeParam param) {
+        param.setStatus(1);
+        this.update(param);
     }
 }

@@ -111,7 +111,7 @@ public class DrillingTypeController extends BaseController {
     @RequestMapping("/delete")
     @ResponseBody
     public ResponseData delete(DrillingTypeParam drillingTypeParam) {
-        this.drillingTypeService.delete(drillingTypeParam);
+        this.drillingTypeService.deleteByLogic(drillingTypeParam);
         return ResponseData.success();
     }
 

@@ -66,4 +66,11 @@ public interface ItemTypeService extends IService<ItemType> {
      */
      LayuiPageInfo findPageBySpec(ItemTypeParam param);
 
+    /**
+     * 逻辑删除
+     * 2020年11月21日
+     * @author 王南翔
+     * @param param
+     */
+     void deleteByLogic(ItemTypeParam param);
 }
