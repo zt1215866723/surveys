@@ -131,7 +131,7 @@
         select a.*,b.name processName, c.name typeName , c.url typeUrl
         from sur_item a
         left join sys_dict b on a.progress = b.dict_id
-        left join sur_item_type c on a.type = c.id
+        left join sur_item_type c on a.type = c.id and c.status = 0
         where a.state != 1
         and a.is_show = 1
         <if test="paramCondition.itemName != null and paramCondition.itemName != ''">

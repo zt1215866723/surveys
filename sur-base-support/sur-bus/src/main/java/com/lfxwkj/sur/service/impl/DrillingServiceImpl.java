@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageFactory;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
-import com.lfxwkj.sur.entity.Drilling;
-import com.lfxwkj.sur.mapper.DrillingMapper;
+import com.lfxwkj.sur.entity.*;
+import com.lfxwkj.sur.mapper.*;
 import com.lfxwkj.sur.model.params.DrillingParam;
 import com.lfxwkj.sur.model.result.DrillingResult;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -15,6 +15,7 @@ import com.lfxwkj.sur.model.result.DrillingVo;
 import com.lfxwkj.sur.service.DrillingService;
 import com.lfxwkj.sur.util.CoordinatesUtil;
 import com.lfxwkj.sur.util.GPSConverterUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -31,6 +32,17 @@ import java.util.*;
  */
 @Service
 public class DrillingServiceImpl extends ServiceImpl<DrillingMapper, Drilling> implements DrillingService {
+
+    @Autowired(required = false)
+    private StandardMapper standardMapper;
+    @Autowired
+    private SampleMapper sampleMapper;
+    @Autowired(required = false)
+    private WaterLevelMapper waterLevelMapper;
+    @Autowired
+    private StandardPenetrationMapper  standardPenetrationMapper;
+    @Autowired(required = false)
+    private StaticTestMapper staticTestMapper;
 
     @Override
     public void add(DrillingParam param){
@@ -173,6 +185,39 @@ public class DrillingServiceImpl extends ServiceImpl<DrillingMapper, Drilling> i
     public List<Drilling> selectExplorationPoints(Long itemId) {
         List<Drilling> drillingList = this.baseMapper.selectExplorationPoints(itemId);
         return drillingList;
+    }
+
+    @Override
+    public List<Integer> drillingCounts(Long itemId,String holeCode) {
+        QueryWrapper<Standard> standardQueryWrapper = new QueryWrapper<>();
+        standardQueryWrapper.eq("item_id",itemId);
+        standardQueryWrapper.eq("hole_code",holeCode);
+        Integer integer1 = standardMapper.selectCount(standardQueryWrapper);
+        QueryWrapper<Sample> sampleQueryWrapper = new QueryWrapper<>();
+        sampleQueryWrapper.eq("item_id",itemId);
+        sampleQueryWrapper.eq("hole_code",holeCode);
+        Integer integer2 = sampleMapper.selectCount(sampleQueryWrapper);
+        QueryWrapper<WaterLevel> waterLevelQueryWrapper = new QueryWrapper<>();
+        waterLevelQueryWrapper.eq("item_id",itemId);
+        waterLevelQueryWrapper.eq("hole_code",holeCode);
+        Integer integer3 = waterLevelMapper.selectCount(waterLevelQueryWrapper);
+        QueryWrapper<StandardPenetration> standardPenetrationQueryWrapper = new QueryWrapper<>();
+        standardPenetrationQueryWrapper.eq("item_id",itemId);
+        standardPenetrationQueryWrapper.eq("hole_code",holeCode);
+        Integer integer4 = standardPenetrationMapper.selectCount(standardPenetrationQueryWrapper);
+        QueryWrapper<StaticTest> staticTestQueryWrapper = new QueryWrapper<>();
+        staticTestQueryWrapper.eq("item_id",itemId);
+        staticTestQueryWrapper.eq("hole_code",holeCode);
+        Integer integer5 = staticTestMapper.selectCount(staticTestQueryWrapper);
+
+        List list = new ArrayList();
+        list.add(integer1);
+        list.add(integer2);
+        list.add(integer3);
+        list.add(integer4);
+        list.add(integer5);
+
+        return list;
     }
 
 }

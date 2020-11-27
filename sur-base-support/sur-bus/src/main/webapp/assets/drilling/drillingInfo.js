@@ -99,8 +99,8 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
         elem: '#' + Standard.tableId,
         url: Feng.ctxPath + '/standard/list',
         where: {
-            itemId : result.data.itemId,
-            holeCode : result.data.holeCode
+            itemId: result.data.itemId,
+            holeCode: result.data.holeCode
         },
         page: true,
         height: "full-158",
@@ -136,8 +136,8 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
         elem: '#' + Static.tableId,
         url: Feng.ctxPath + '/staticTest/list',
         where: {
-            itemId : result.data.itemId,
-            holeCode : result.data.holeCode
+            itemId: result.data.itemId,
+            holeCode: result.data.holeCode
         },
         page: true,
         height: "full-158",
@@ -174,8 +174,8 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
         elem: '#' + Penetration.tableId,
         url: Feng.ctxPath + '/standardPenetration/list',
         where: {
-            itemId : result.data.itemId,
-            holeCode : result.data.holeCode
+            itemId: result.data.itemId,
+            holeCode: result.data.holeCode
         },
         page: true,
         height: "full-158",
@@ -196,20 +196,24 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
     Water.initColumn = function () {
         return [[
             {field: 'depth', sort: true, title: '深度（米）'},
-            {field: 'swlx', sort: true, title: '是否稳定', templet: function (d) {
-                if (d.swlx == 1){
-                    return "是"
-                }else if (d.swlx == 0){
-                    return "不是"
-                }
-        }},
-            {field: 'swch', sort: true, title: '是否为地下水位', templet: function (d) {
-                    if (d.swch == 1){
+            {
+                field: 'swlx', sort: true, title: '是否稳定', templet: function (d) {
+                    if (d.swlx == 1) {
                         return "是"
-                    }else if (d.swch == 0){
+                    } else if (d.swlx == 0) {
                         return "不是"
                     }
-                }},
+                }
+            },
+            {
+                field: 'swch', sort: true, title: '是否为地下水位', templet: function (d) {
+                    if (d.swch == 1) {
+                        return "是"
+                    } else if (d.swch == 0) {
+                        return "不是"
+                    }
+                }
+            },
             {field: 'swcsrq', sort: true, title: '测水日期'},
             {field: 'swdxsw', sort: true, title: '地下水温(度)'},
             {field: 'swfw', sort: true, title: '水位范围'},
@@ -222,8 +226,8 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
         elem: '#' + Water.tableId,
         url: Feng.ctxPath + '/waterLevel/list',
         where: {
-            itemId : result.data.itemId,
-            holeCode : result.data.holeCode
+            itemId: result.data.itemId,
+            holeCode: result.data.holeCode
         },
         page: true,
         height: "full-158",
@@ -247,13 +251,15 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
             {field: 'qysd', sort: true, title: '取样顶深度(m)'},
             {field: 'qyhd', sort: true, title: '取样长度(m)'},
             {field: 'qydc', sort: true, title: '所在地层'},
-            {field: 'qylx', sort: true, title: '取样类型', templet: function (d) {
-                    if (d.qylx == 1){
+            {
+                field: 'qylx', sort: true, title: '取样类型', templet: function (d) {
+                    if (d.qylx == 1) {
                         return "扰动样"
-                    }else if (d.qylx == 0){
+                    } else if (d.qylx == 0) {
                         return "原状样"
                     }
-                }},
+                }
+            },
             {field: 'qyzlmd', sort: true, title: '质量密度ρ(g/cm^3)'},
             {field: 'qybz', sort: true, title: '土粒比重Gs'},
             {field: 'qyhsl', sort: true, title: '含水量ω(%)'},
@@ -267,12 +273,132 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
         elem: '#' + Sample.tableId,
         url: Feng.ctxPath + '/sample/list',
         where: {
-            itemId : result.data.itemId,
-            holeCode : result.data.holeCode
+            itemId: result.data.itemId,
+            holeCode: result.data.holeCode
         },
         page: true,
         height: "full-158",
         cellMinWidth: 100,
         cols: Sample.initColumn()
     });
+
+    //查询["地层数","静探数","标贯数","水位数","取样数"]
+    $.ajax({
+        url: Feng.ctxPath + "/drilling/drillingCounts",
+        dataType: 'json',
+        type: 'post',
+        data: {
+            itemId: result.data.itemId,
+            holeCode: result.data.holeCode
+        },
+        success: function (data) {
+            var option = {
+                series: [
+                    {
+                        name: '数量',
+                        type: 'bar',
+                        data: data.data,
+                        barWidth: '50%',
+
+                    },
+                    {
+                        name: '数量',
+                        type: 'line',
+                        data: data.data,
+                        symbolSize: 10,
+                        itemStyle: {
+                            normal: {
+                                color: "#DDA0DD"
+                            }
+
+                        }
+                    }
+                ]
+            };
+            myChart.setOption(option);
+        }
+    });
+
+    var myChart = echarts.init(document.getElementById('main'));
+
+    window.addEventListener("resize", function () {
+        myChart.resize();
+    });
+
+    var option = {
+        title: {
+            left: 'left',
+            text: '概率',
+            show: false
+        },
+        tooltip: {
+            trigger: 'axis',
+            formatter: '{a}:{c}',
+            axisPointer: {
+                type: 'cross',
+                crossStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        grid: {
+            show: false,
+            top: '30',
+            bottom: '60',
+            right: '60',
+            left: '60'
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: ["地层数","取样数","水位数","标贯数","静探数"],
+                axisPointer: {
+                    type: 'shadow'
+
+                },
+
+                axisTick: {
+                    show: true,
+                    interval: 0
+                },
+
+            }
+        ],
+
+//设置两个y轴，左边显示数量，右边显示概率
+
+        yAxis: [
+            {
+                type: 'value',
+                name: '数量',
+                show: true,
+                interval: 50,
+            }
+        ],
+
+//每个设备分数量、概率2个指标，只要让他们的name一致，即可通过，legeng进行统一的切换
+
+        series: [
+            {
+                name: '数量',
+                type: 'bar',
+                data: [],
+                barWidth: '50%',
+
+            },
+            {
+                name: '数量',
+                type: 'line',
+                data: [],
+                symbolSize: 10,
+                itemStyle: {
+                    normal: {
+                        color: "#DDA0DD"
+                    }
+
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
 });

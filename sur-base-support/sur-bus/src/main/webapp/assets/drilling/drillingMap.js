@@ -51,16 +51,19 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                 pos.push(point);
                 var convertor = new BMap.Convertor();
                 convertor.translate(pos, 1, 5, function (data) {
-                    var xmPoint = new Array(); //存放标注点经纬信息的数组
-                    var xmMarker = new Array(); //存放标注点对象的数组
-                    var info = new Array(); //存放提示信息窗口对象的数组
+                    var xmPoint; //存放标注点经纬信息的数组
+                    var xmMarker; //存放标注点对象的数组
+                    var info; //存放提示信息窗口对象的数组
+                    console.log(i)
+
                     if (data.status === 0) {
                         item.xaxis = data.points[0].lng
                         item.yaxis = data.points[0].lat
-                        xmPoint[i] = new window.BMap.Point(item.xaxis, item.yaxis); //循环生成新的地图点
+                        xmPoint = new window.BMap.Point(item.xaxis, item.yaxis); //循环生成新的地图点
                         var myIcon = new BMap.Icon(item.typeUrl, new BMap.Size(26, 26));
-                        xmMarker[i] = new window.BMap.Marker(xmPoint[i], {icon: myIcon}); //按照地图点坐标生成标记
-                        map.addOverlay(xmMarker[i]);
+
+                        xmMarker = new window.BMap.Marker(xmPoint, {icon: myIcon}); //按照地图点坐标生成标记
+                        map.addOverlay(xmMarker);
                         var sContent1,sContent2;
                         sContent1 =
                             "<div style='width: 300px;height: 200px;position:relative'>" +
@@ -83,12 +86,13 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                                     "</div>" +
                                     "</div>";
                             }
-                        info[i] = new window.BMap.InfoWindow(sContent1+sContent2); // 创建信息窗口对象
+                        info = new window.BMap.InfoWindow(sContent1+sContent2); // 创建信息窗口对象
 
-                        addInfo(info[i], xmMarker[i]);
+                        addInfo(info, xmMarker);
                     }
+                },function () {
+                    console.log(i)
                 });
-
             })
         }
     });

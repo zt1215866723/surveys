@@ -48,8 +48,8 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
             return false;
         }
         var viewerUrl = Feng.ctxPath + "/assets/pdf/web/viewer.html";
-        console.log(queryData.cataId)
         var pdfUrl = Feng.ctxPath + "/fileView/toPdfFile?path=" + encodeURIComponent(queryData.cataId);
+        console.log(pdfUrl)
         window.open(`${viewerUrl}?file=${encodeURIComponent(pdfUrl)}`);
     });
     $('#btnDownLoad').click(function () {

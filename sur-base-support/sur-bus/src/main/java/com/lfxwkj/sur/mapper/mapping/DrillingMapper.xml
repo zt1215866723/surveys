@@ -136,7 +136,7 @@
         FROM
         lz_drilling d
         LEFT JOIN sur_item i on d.item_id = i.id
-        LEFT JOIN sur_drilling_type t on d.type = t.`name`
+        LEFT JOIN sur_drilling_type t on d.type = t.`name` and t.status = 0
         WHERE
         t.`status` = 0
         and d.item_id = #{paramCondition.itemId}

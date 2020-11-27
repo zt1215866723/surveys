@@ -87,7 +87,8 @@ layui.use(['table', 'admin', 'ax', 'func', 'laydate', 'form'], function () {
             surNum : $("#surNum").val(),
             surLevel : $("#surLevel").val(),
             surStage : $("#surStage").val(),
-            surName : $("#surName").val()
+            surName : $("#surName").val(),
+            timeLimit : $("#timeLimit").val()
         };
         table.reload(ItemSub.tableId, {
             where: queryData, page: {curr: 1}

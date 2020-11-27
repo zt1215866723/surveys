@@ -33,8 +33,9 @@
                                     <label class="layui-col-lg3">竣工日期：<span id="zkzzrq"></span></label>
                                 </div>
                             </div>
+                            <div id="main" class="chart" style="width: 100%;height:100%;">
+                            </div></div>
                         </div>
-                    </div>
                     <div class="layui-tab-item">
                         <table class="layui-table" id="standardTable" lay-filter="standardTable">
                         </table>
@@ -60,4 +61,6 @@
         </div>
     </div>
 </div>
+<script src="${ctxPath}/assets/home/echarts.min.js?v=${constants.getReleaseVersion()}"></script>
+
 @}

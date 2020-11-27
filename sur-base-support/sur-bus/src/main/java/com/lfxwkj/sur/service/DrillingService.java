@@ -94,4 +94,6 @@ public interface DrillingService extends IService<Drilling> {
      * @Date 2020-10.22
      */
     List<Drilling> selectExplorationPoints(Long itemId);
+
+    List<Integer> drillingCounts(Long itemId,String holeCode);
 }

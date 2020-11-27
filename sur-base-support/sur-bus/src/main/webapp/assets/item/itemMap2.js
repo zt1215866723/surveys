@@ -173,6 +173,9 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         });
     }
 
+    //查询想要显示的关注项列表
+
+
     //点击工程搜索结果
     window.dianji = function (item) {
         //根据点击的项目Id获取经纬度

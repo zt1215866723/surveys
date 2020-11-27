@@ -7,16 +7,34 @@ window.onload = function () {
         var form = layui.form;
         var layer = layui.layer;
 
-//工程分类
+        //工程分类
+        $.ajax({
+            url: Feng.ctxPath + "/console/drillingsByType",
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $("#zks").html(data.data[0].value)
+                $("#yzy").html(data.data[1].value)
+                $("#rdy").html(data.data[2].value)
+                $("#bgs").html(data.data[3].value)
+            }
+        });
+
+        //工程分类
         $.ajax({
             url: Feng.ctxPath + "/console/itemsByType",
             dataType: 'json',
             type: 'post',
             success: function (data) {
+                var count = Number(data.data[0].value) + Number(data.data[1].value) + Number(data.data[2].value) + Number(data.data[3].value)
                 $("#kcItem").html(data.data[0].value)
                 $("#clItem").html(data.data[1].value)
                 $("#ytItem").html(data.data[2].value)
                 $("#qtItem").html(data.data[3].value)
+                $("#kcItem1").html(Math.round(data.data[0].value/count*100)+" <small>%</small>")
+                $("#clItem1").html(Math.round(data.data[1].value/count*100)+" <small>%</small>")
+                $("#ytItem1").html(Math.round(data.data[2].value/count*100)+" <small>%</small>")
+                $("#qtItem1").html(100-Math.round(data.data[0].value/count*100)-Math.round(data.data[1].value/count*100)-Math.round(data.data[2].value/count*100)+" <small>%</small>")
             }
         });
 
@@ -82,15 +100,15 @@ window.onload = function () {
             type: 'post',
             success: function (data) {
                 var iContent =
-                        "<li>" +
+                        "<li ew-href='item'>" +
                         "<i class='icon-cup1' style='color: #d93f36;'></i>" +
                         data.data[0].itemCode +" "+ data.data[0].itemName +
                         "</li>"+
-                        "<li>" +
+                        "<li ew-href='item'>" +
                         "<i class='icon-cup2' style='color: #68d8fe;'></i>" +
                         data.data[1].itemCode +" "+ data.data[1].itemName +
                         "</li>"+
-                        "<li>" +
+                        "<li ew-href='item'>" +
                         "<i class='icon-cup3' style='color: #4c9bfd;'></i>" +
                         data.data[2].itemCode +" "+ data.data[2].itemName +
                         "</li>";
@@ -537,5 +555,8 @@ window.onload = function () {
             myechart.setOption(option);
         })();
     });
-
+//点击工程搜索结果
+    window.dianji = function (item) {
+        console.log(item)
+    };
 }

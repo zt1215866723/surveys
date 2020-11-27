@@ -222,4 +222,18 @@ public class DrillingController extends BaseController {
                 layuiPageInfo.setData(drillingList);
                 return layuiPageInfo;
     }
+
+    /**
+     * @Description  ：钻孔柱状折线图
+     * @methodName   : drillingECharts
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    @ResponseBody
+    @RequestMapping("/drillingCounts")
+    public ResponseData drillingCounts(Long itemId,String holeCode) {
+        List<Integer> result = drillingService.drillingCounts(itemId,holeCode);
+        return ResponseData.success(result);
+    }
 }
