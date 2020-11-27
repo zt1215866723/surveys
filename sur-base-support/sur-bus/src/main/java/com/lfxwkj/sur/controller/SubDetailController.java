@@ -187,8 +187,8 @@ public class SubDetailController extends BaseController {
                 e.printStackTrace();
             }
         }
-        String filename = pathName.substring(pathName.lastIndexOf("\\")+1,pathName.length());
-//        String filename = pathName.substring(pathName.lastIndexOf("/")+1,pathName.length());
+//        String filename = pathName.substring(pathName.lastIndexOf("\\")+1,pathName.length());
+        String filename = pathName.substring(pathName.lastIndexOf("/")+1,pathName.length());
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletResponse response = requestAttributes.getResponse();
         // 设置信息给客户端不解析

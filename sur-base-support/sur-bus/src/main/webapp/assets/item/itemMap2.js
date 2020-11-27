@@ -150,6 +150,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>" + item.itemName + "</h4>" +
             "<p class='map-card-p' style=''>项目编号：" + item.itemCode + "</p>" +
             "<p class='map-card-p'>项目类型：" + item.typeName + "</p>" +
+
             "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>";
         var sContent2 = '';
         if (item.type == 2) {
@@ -172,9 +173,6 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             this.openInfoWindow(info);
         });
     }
-
-    //查询想要显示的关注项列表
-
 
     //点击工程搜索结果
     window.dianji = function (item) {

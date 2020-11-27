@@ -148,7 +148,7 @@ a{
   line-height: 1.05;
   padding: 0.6rem 1.5rem;
   color: #61a8ff;
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -178,7 +178,7 @@ a{
 	line-height: 1.05;
 	padding: 0.5rem 1.5rem;
 	color: #61a8ff;
-	font-size: 0.5rem;
+	font-size: 0.6rem;
 	position: relative; 
 	display: flex;
 	justify-content: space-between;
@@ -271,6 +271,10 @@ a{
   width: 100%;
   height: 100%;
 }
+#map canvas{
+  left: 70px!important;
+}
+
 /* 用户模块 */
 .users {
   height: 14.167rem;

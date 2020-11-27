@@ -130,7 +130,7 @@ window.onload = function () {
                 realtime: false,
                 calculable: true,
                 inRange: {
-                    color: ['lightskyblue','yellow', 'orangered']
+                    color: ['#c2e6ff','#53a4f5', '#1376f8','#0a55a6','#063a74']
                 },
                 textStyle:{
                     color:'#fff'
@@ -167,7 +167,7 @@ window.onload = function () {
                         borderColor: 'dodgerblue'
                     },
                     emphasis: {
-                        areaColor: '#0f0'
+                        areaColor: '#4ac8e8'
                     }
                 },
             }
