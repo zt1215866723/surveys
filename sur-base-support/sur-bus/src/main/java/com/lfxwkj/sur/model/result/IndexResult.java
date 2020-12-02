@@ -49,4 +49,11 @@ public class IndexResult implements Serializable {
      */
     private Integer state;
 
+    private String focusName;
+
+    private String unit;
+
+    private Long type;
+
+    private String resultName;
 }

@@ -313,6 +313,17 @@ public class ItemController extends BaseController {
     }
 
     /**
+     * 跳转到地图
+     *
+     *  @author zt
+     *      * @Date 2020-09-22
+     */
+    @RequestMapping("/map2")
+    public String map2() {
+        return PREFIX + "/itemMap2.html";
+    }
+
+    /**
      * 详情页跳转地图定位
      *
      *  @author zt

@@ -145,30 +145,58 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         map.addOverlay(xmMarker[index]);
 
         xmMarker[index].setLabel(xmLabel);
-        var sContent1 =
-            "<div style='width: 200px;height: 150px;position:relative'>" +
-            "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>" + item.itemName + "</h4>" +
-            "<p class='map-card-p' style=''>项目编号：" + item.itemCode + "</p>" +
-            "<p class='map-card-p'>项目类型：" + item.typeName + "</p>" +
-            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>";
-        var sContent2 = '';
-        if (item.type == 2) {
-            //勘察工程才有钻孔信息！！！
-            sContent2 =
-                "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
-        }
-        var sContent3 =
-            "</div>" +
-            "</div>";
-        info[index] = new window.BMap.InfoWindow(sContent1 + sContent2 + sContent3); // 创建信息窗口对象
 
-        addInfo(info[index], xmMarker[index]);
+        addInfo(item, xmMarker[index]);
     })
-    // for (var i = 0; i < tempData.length; i ++) {
-    //     addInfo(info[index],xmMarker[index]);
-    // }
-    function addInfo(info, xmMarker) {
+
+    function addInfo(item, xmMarker) {
         xmMarker.addEventListener("click", function () {
+            var sContent4 = "";
+            //查询该工程的关注项
+            $.ajax({
+                url: Feng.ctxPath + "/focus/selectFocusByitemId",
+                data: {
+                    itemId: item.id
+                },
+                dataType: 'json',
+                type: 'post',
+                async:false,
+                success: function (data) {
+                    if (data.data != null && data.data !=""){
+                        sContent4 += "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>关注项：</h4>";
+                    }
+                    $.each(data.data, function (index, item) {
+                        if(item.type == 0){
+                            sContent4 +="<p class='map-card-p'>"+ item.focusName +" ：" + item.nouValue + "(" + item.unit + ")"+"</p>";
+                        }else {
+                            sContent4 +="<p class='map-card-p'>"+ item.focusName +" ：" + item.resultName +"</p>";
+                        }
+                    })
+                    sContent4 += "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>";
+                }
+            });
+            var sContent1 =
+                "<div class='mapInfo' style='width: 200px;padding-bottom: 30px;position:relative'>" +
+                "<div class='mapInfos'>" +
+
+                "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>" + item.itemName + "</h4>" +
+                "<p class='map-card-p' style=''>项目编号：" + item.itemCode + "</p>" +
+                "<p class='map-card-p'>项目类型：" + item.typeName + "</p>"+
+                "</div>";
+            var sContent2 = '';
+            if (item.type == 2) {
+                //勘察工程才有钻孔信息！！！
+                sContent2 =
+                    "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
+            }
+            var sContent3 =
+                "</div>" +
+                "</div>";
+            var opts = {
+                width : 0,
+                height :0
+            }
+            info = new window.BMap.InfoWindow(sContent1 + sContent4 + sContent2 + sContent3,opts); // 创建信息窗口对象
             this.openInfoWindow(info);
         });
     }
@@ -180,12 +208,38 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         //根据经纬度定位中心点
         var point = new BMap.Point(item.xaxis, item.yaxis);
         map.centerAndZoom(point, 19);
+
+        var opts4 = "";
+        //查询该工程的关注项
+        $.ajax({
+            url: Feng.ctxPath + "/focus/selectFocusByitemId",
+            data: {
+                itemId: item.id
+            },
+            dataType: 'json',
+            type: 'post',
+            async:false,
+            success: function (data) {
+                if (data.data != null && data.data !=""){
+                    opts4 += "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>关注项：</h4>";
+                }
+                $.each(data.data, function (index, item) {
+                    if(item.type == 0){
+                        opts4 +="<p class='map-card-p'>"+ item.focusName +" ：" + item.nouValue + "(" + item.unit + ")"+"</p>";
+                    }else {
+                        opts4 +="<p class='map-card-p'>"+ item.focusName +" ：" + item.resultName +"</p>";
+                    }
+                })
+                opts4 += "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>";
+            }
+        });
         var opts1 =
-            "<div style='width: 200px;height: 150px;position:relative'>" +
+            "<div class='mapInfo' style='width: 200px;padding-bottom: 30px;position:relative'>" +
+            "<div class='mapInfos'>" +
             "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>" + item.itemName + "</h4>" +
             "<p class='map-card-p' style=''>项目编号：" + item.itemCode + "</p>" +
             "<p class='map-card-p'>项目类型：" + item.typeName + "</p>" +
-            "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>";
+            "</div>";
         var opts2 = '';
         if (item.type == 2) {
             //勘察工程才有钻孔信息！！！
@@ -195,7 +249,12 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         var opts3 =
             "</div>" +
             "</div>";
-        var infoWindow = new BMap.InfoWindow(opts1 + opts2 + opts3);
+
+        var opts = {
+            width : 0,
+            height :0
+        }
+        var infoWindow = new BMap.InfoWindow(opts1 + opts4 + opts2 + opts3,opts);
         map.openInfoWindow(infoWindow, point);
     };
     //点击工程搜索结果

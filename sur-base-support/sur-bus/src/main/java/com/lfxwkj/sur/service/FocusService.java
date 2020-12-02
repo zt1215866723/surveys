@@ -4,8 +4,10 @@ import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
 import com.lfxwkj.sur.entity.Focus;
 import com.lfxwkj.sur.model.params.FocusParam;
+import com.lfxwkj.sur.model.params.ItemSubParam;
 import com.lfxwkj.sur.model.result.FocusResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lfxwkj.sur.model.result.IndexResult;
 
 import java.util.List;
 
@@ -68,4 +70,6 @@ public interface FocusService extends IService<Focus> {
      LayuiPageInfo findPageBySpec(FocusParam param);
 
     List<Focus> getList(FocusParam focusParam);
+
+    List<IndexResult> selectFocusByitemId(ItemSubParam itemSubParam);
 }

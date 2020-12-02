@@ -9,11 +9,19 @@ import com.lfxwkj.sur.auth.model.LoginUser;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageFactory;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
 import com.lfxwkj.sur.entity.Focus;
+import com.lfxwkj.sur.entity.Index;
+import com.lfxwkj.sur.entity.ItemSub;
 import com.lfxwkj.sur.mapper.FocusMapper;
+import com.lfxwkj.sur.mapper.IndexMapper;
+import com.lfxwkj.sur.mapper.ItemSubMapper;
 import com.lfxwkj.sur.model.params.FocusParam;
+import com.lfxwkj.sur.model.params.IndexParam;
+import com.lfxwkj.sur.model.params.ItemSubParam;
 import com.lfxwkj.sur.model.result.FocusResult;
+import com.lfxwkj.sur.model.result.IndexResult;
 import  com.lfxwkj.sur.service.FocusService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -30,6 +38,13 @@ import java.util.List;
  */
 @Service
 public class FocusServiceImpl extends ServiceImpl<FocusMapper, Focus> implements FocusService {
+
+    @Autowired
+    private ItemSubMapper itemSubMapper;
+    @Autowired
+    private FocusMapper focusMapper;
+    @Autowired
+    private IndexMapper indexMapper;
 
     @Override
     public void add(FocusParam param){
@@ -77,6 +92,20 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper, Focus> implements
         focusQueryWrapper.eq("state", 0);
         focusQueryWrapper.orderByAsc("sort");
         return this.list(focusQueryWrapper);
+    }
+
+    @Override
+    public List<IndexResult> selectFocusByitemId(ItemSubParam itemSubParam) {
+        //先查该工程对应的文档
+        QueryWrapper<ItemSub> itemSubQueryWrapper = new QueryWrapper<>();
+        itemSubQueryWrapper.eq("item_id",itemSubParam.getItemId());
+        itemSubQueryWrapper.eq("state",0);
+        ItemSub itemSub = itemSubMapper.selectOne(itemSubQueryWrapper);
+        //在查该文档对应的关注项
+        IndexParam indexParam = new IndexParam();
+        indexParam.setSubId(itemSub.getId());
+        List<IndexResult> indexResults = indexMapper.selectIndexAndFocus(indexParam);
+        return indexResults;
     }
 
     private Serializable getKey(FocusParam param){

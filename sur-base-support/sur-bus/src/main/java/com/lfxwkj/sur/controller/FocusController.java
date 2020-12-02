@@ -3,6 +3,8 @@ package com.lfxwkj.sur.controller;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
 import com.lfxwkj.sur.entity.Focus;
 import com.lfxwkj.sur.model.params.FocusParam;
+import com.lfxwkj.sur.model.params.ItemSubParam;
+import com.lfxwkj.sur.model.result.IndexResult;
 import com.lfxwkj.sur.service.FocusService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
@@ -141,6 +143,19 @@ public class FocusController extends BaseController {
          return ResponseData.success(list);
     }
 
+
+    /**
+     * 查询某个工程的关注项
+     *
+     * @author zt
+     * @Date 2020-11-27
+     */
+    @ResponseBody
+    @RequestMapping("/selectFocusByitemId")
+    public ResponseData selectFocusByitemId(ItemSubParam itemSubParam) {
+        List<IndexResult> list = this.focusService.selectFocusByitemId(itemSubParam);
+        return ResponseData.success(list);
+    }
 }
 
 

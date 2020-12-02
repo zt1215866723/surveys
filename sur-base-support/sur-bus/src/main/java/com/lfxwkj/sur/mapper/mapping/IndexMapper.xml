@@ -42,4 +42,18 @@
         from sur_index where 1 = 1
     </select>
 
+    <select id="selectIndexAndFocus" resultType="com.lfxwkj.sur.model.result.IndexResult" parameterType="com.lfxwkj.sur.model.params.IndexParam">
+       SELECT
+            i.*,
+            f.NAME focusName,
+            f.unit,
+            f.type,
+            d.`name` AS resultName
+        FROM
+            sur_index i
+            LEFT JOIN sur_focus f ON i.focus_id = f.id
+            LEFT JOIN sys_dict d ON d.dict_id = i.str_value
+        WHERE i.state = 0
+              and i.sub_id = #{paramCondition.subId}
+    </select>
 </mapper>
