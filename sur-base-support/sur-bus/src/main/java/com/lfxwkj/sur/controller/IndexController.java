@@ -3,6 +3,9 @@ package com.lfxwkj.sur.controller;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
 import com.lfxwkj.sur.entity.Index;
 import com.lfxwkj.sur.model.params.IndexParam;
+import com.lfxwkj.sur.model.params.ItemSubParam;
+import com.lfxwkj.sur.model.result.IndexResult;
+import com.lfxwkj.sur.model.result.ItemResult;
 import com.lfxwkj.sur.service.IndexService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
@@ -10,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 
 /**
@@ -124,6 +129,18 @@ public class IndexController extends BaseController {
         return this.indexService.findPageBySpec(indexParam);
     }
 
+    /**
+     * 地图页根据关注项查询工程
+     *
+     * @author zt
+     * @Date 2020-12-10
+     */
+    @ResponseBody
+    @RequestMapping("/selectItemByFocusId")
+    public ResponseData selectItemByFocusId(IndexParam indexParam) {
+        List<ItemResult> list = this.indexService.selectItemByFocusId(indexParam);
+        return ResponseData.success(list);
+    }
 }
 
 

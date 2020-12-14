@@ -98,4 +98,16 @@
         from sur_item_sub where 1 = 1
     </select>
 
+    <select id="selectSubByIndexId" resultType="string">
+        SELECT
+            item_id
+        FROM
+            sur_item_sub
+        WHERE state = 0
+              and id in (
+        <foreach collection="indexList" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </select>
 </mapper>

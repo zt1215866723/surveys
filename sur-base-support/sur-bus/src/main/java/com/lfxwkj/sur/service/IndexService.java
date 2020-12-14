@@ -5,6 +5,7 @@ import com.lfxwkj.sur.entity.Index;
 import com.lfxwkj.sur.model.params.IndexParam;
 import com.lfxwkj.sur.model.result.IndexResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lfxwkj.sur.model.result.ItemResult;
 
 import java.util.List;
 
@@ -66,4 +67,5 @@ public interface IndexService extends IService<Index> {
      */
      LayuiPageInfo findPageBySpec(IndexParam param);
 
+    List<ItemResult> selectItemByFocusId(IndexParam indexParam);
 }

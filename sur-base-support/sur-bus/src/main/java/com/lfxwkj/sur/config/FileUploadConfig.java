@@ -12,6 +12,12 @@ public class FileUploadConfig {
     @Value("${file-upload-path.linux}")
     private String linux;
 
+    @Value("${file-topdf-path.pdfwindows}")
+    private String pdfwindows;
+
+    @Value("${file-topdf-path.pdflinux}")
+    private String pdflinux;
+
     public String getWindows() {
         return windows;
     }
@@ -26,5 +32,23 @@ public class FileUploadConfig {
 
     public void setLinux(String linux) {
         this.linux = linux;
+    }
+
+    public String getPdfwindows() {
+        return pdfwindows;
+    }
+
+    public FileUploadConfig setPdfwindows(String pdfwindows) {
+        this.pdfwindows = pdfwindows;
+        return this;
+    }
+
+    public String getPdflinux() {
+        return pdflinux;
+    }
+
+    public FileUploadConfig setPdflinux(String pdflinux) {
+        this.pdflinux = pdflinux;
+        return this;
     }
 }

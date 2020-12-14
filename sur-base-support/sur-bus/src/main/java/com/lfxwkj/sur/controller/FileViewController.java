@@ -51,6 +51,8 @@ public class FileViewController {
 
     @RequestMapping(value = "/toPdfFile", method = RequestMethod.GET)
     public String toPdfFile(String path) throws IOException {
+        String fileToPdfPath = getFileToPdfPath();
+        String filePath = getFilePath();
         String pathName = "";
         if (path != null){
             try {
@@ -61,9 +63,9 @@ public class FileViewController {
         }
         pathName = pathName.replaceAll( "& #40;","(").replaceAll("& #41;",")").replaceAll("& #39;","'");
         File file = new File(pathName);
-//        String newAdress = pathName.substring(0, pathName.lastIndexOf("\\"));
-        String newAdress = pathName.substring(0, pathName.lastIndexOf("/"));
-        String newFileUrl = pathName.substring(0, pathName.lastIndexOf(".")) + ".pdf";
+        String newFileUrl = fileToPdfPath + pathName.substring(filePath.length(), pathName.lastIndexOf(".")) + ".pdf";
+//        String newAdress = newFileUrl.substring(0, newFileUrl.lastIndexOf("\\"));
+        String newAdress = newFileUrl.substring(0, newFileUrl.lastIndexOf("/"));
         //使用response,将pdf文件以流的方式发送的前段
         ServletOutputStream outputStream = response.getOutputStream();
         InputStream in = null;
@@ -133,5 +135,41 @@ public class FileViewController {
             savePath = fileUploadConfig.getLinux();
         }
         return savePath;
+    }
+
+    private String getFileToPdfPath(){
+        String toPdfPath;
+        if (SystemUtil.getOsInfo().isWindows()) {
+            toPdfPath = fileUploadConfig.getPdfwindows();
+        } else {
+            toPdfPath = fileUploadConfig.getPdflinux();
+        }
+        return toPdfPath;
+    }
+
+    @RequestMapping(value = "/delPdfFile", method = RequestMethod.POST)
+    public String delPdfFile(String path) throws IOException {
+        String pathName = "";
+        if (path != null){
+            try {
+                pathName = URLDecoder.decode(path , "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        pathName = pathName.replaceAll( "& #40;","(").replaceAll("& #41;",")").replaceAll("& #39;","'");
+        String newFileUrl = pathName.substring(0, pathName.lastIndexOf(".")) + ".pdf";
+        File pdfFile = new File(newFileUrl);
+        try {
+            if (pathName.substring(pathName.lastIndexOf("."), pathName.length()).equals(".pdf")) {
+                //本身就是pdf文件
+            } else if (pdfFile.exists()) {
+                //已经有生成好的pdf
+                pdfFile.delete();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "delete pdf";
     }
 }

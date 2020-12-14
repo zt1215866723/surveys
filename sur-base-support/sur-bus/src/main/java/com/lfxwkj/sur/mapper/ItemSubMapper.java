@@ -53,4 +53,5 @@ public interface ItemSubMapper extends BaseMapper<ItemSub> {
      */
     Page<Map<String, Object>> customPageMapList(@Param("page") Page page, @Param("paramCondition") ItemSubParam paramCondition);
 
+    List<String> selectSubByIndexId(@Param("indexList")List<String> indexList);
 }

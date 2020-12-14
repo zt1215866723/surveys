@@ -156,6 +156,19 @@ public class FocusController extends BaseController {
         List<IndexResult> list = this.focusService.selectFocusByitemId(itemSubParam);
         return ResponseData.success(list);
     }
+
+    /**
+     * 查询地图显示关注项列表
+     *
+     * @author zt
+     * @Date 2020-11-27
+     */
+    @ResponseBody
+    @RequestMapping("/selectFocusInMap")
+    public ResponseData selectFocusInMap() {
+        List<Focus> list = this.focusService.selectFocusInMap();
+        return ResponseData.success(list);
+    }
 }
 
 

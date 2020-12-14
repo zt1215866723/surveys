@@ -56,4 +56,13 @@
         WHERE i.state = 0
               and i.sub_id = #{paramCondition.subId}
     </select>
+
+    <select id="selectIndexByFocusId" resultType="string">
+       SELECT
+            sub_id
+        FROM
+            sur_index
+        WHERE state = 0
+              and focus_id = #{focusId}
+    </select>
 </mapper>

@@ -72,4 +72,6 @@ public interface FocusService extends IService<Focus> {
     List<Focus> getList(FocusParam focusParam);
 
     List<IndexResult> selectFocusByitemId(ItemSubParam itemSubParam);
+
+    List<Focus> selectFocusInMap();
 }

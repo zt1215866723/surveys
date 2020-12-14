@@ -50,4 +50,22 @@ public interface ConsoleService {
      * @return
      */
     List<Item> itemHot();
+
+    /**
+     * @Description  ：按照季度查询近四个季度的勘察总进尺
+     * @methodName   : selectBySeasontime
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    List<Map<String, Object>> selectBySeasontime();
+
+    /**
+     * @Description  ：按照年份查询近四年的勘察总进尺
+     * @methodName   : selectByYeartime
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    List<Map<String, Object>> selectByYeartime();
 }
