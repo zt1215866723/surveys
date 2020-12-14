@@ -52,7 +52,7 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
         var value = obj.value //得到修改后的值
             ,data = obj.data //得到所在行所有键值
             ,field = obj.field; //得到字段
-        if (isNaN(parseInt(value))) {
+        if (value != null && isNaN(parseInt(value))) {
             layer.msg('请输入正确的数值');
             return false;
         }
