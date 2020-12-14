@@ -158,6 +158,7 @@
         b.bCou as rd,
         c.cCou as bg,
         w.depth as ms,
+        w.id as msId,
         CONVERT (
         ABS( w.depth - d.zkbg ),
         DECIMAL ( 10, 2 )) AS gc

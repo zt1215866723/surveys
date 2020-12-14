@@ -79,6 +79,9 @@ public class DrillingVo {
     //埋深（m）
     private Double ms;
 
+    //埋深id  2020年12月13日 王南翔
+    private Integer msId;
+
     //高程（m）
     private Double gc;
 
