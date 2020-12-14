@@ -108,6 +108,14 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper, Focus> implements
         return indexResults;
     }
 
+    @Override
+    public List<Focus> selectFocusInMap() {
+        QueryWrapper<Focus> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("state",0);
+        queryWrapper.eq("is_show",0);
+        return this.focusMapper.selectList(queryWrapper);
+    }
+
     private Serializable getKey(FocusParam param){
         return param.getId();
     }

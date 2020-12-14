@@ -6,6 +6,10 @@ file-upload-path:
   windows: D:/tempFilePath
   linux: /tmp/tempFilePath
 
+file-topdf-path:
+  pdfwindows: D:/tempFilePath/pdf
+  pdflinux: /tmp/tempFilePath/pdf
+
 beetl:
   resource-auto-check: true         #热加载beetl模板，开发时候用
 

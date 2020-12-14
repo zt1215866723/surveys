@@ -128,9 +128,8 @@
         from sur_item where 1 = 1
     </select>
     <select id="getItemOnTheMap" resultType="com.lfxwkj.sur.model.result.ItemResult">
-        select a.*,b.name processName, c.name typeName , c.url typeUrl
+        select a.*, c.name typeName , c.url typeUrl
         from sur_item a
-        left join sys_dict b on a.progress = b.dict_id
         left join sur_item_type c on a.type = c.id and c.status = 0
         where a.state != 1
         and a.is_show = 1
@@ -206,7 +205,64 @@
             </foreach>
             )
         </if>
+        <if test="paramCondition.planArray != null and paramCondition.planArray != ''">
+            and a.progress in (
+            <foreach collection="paramCondition.planArray" item="itemPlan" separator=",">
+                #{itemPlan}
+            </foreach>
+            )
+        </if>
+        <if test="paramCondition.itemIds != null and paramCondition.itemIds.size > 0">
+            and a.id in (
+            <foreach collection="paramCondition.itemIds" item="itemId" separator=",">
+                #{itemId}
+            </foreach>
+            )
+        </if>
         order by a.id desc
     </select>
 
+    <!--按照年份查询近四年的勘察总进尺 -->
+    <select id="selectByYeartime" resultType="map">
+         SELECT
+            NewTable.Yeartime AS yeartime,
+            sum( NewTable.depth ) AS footage
+        FROM
+            (
+            SELECT
+                d.depth,
+                YEAR ( i.end_date ) AS Yeartime
+            FROM
+                sur_item i
+                left join lz_drilling d on d.item_id = i.id
+            ) AS NewTable
+        GROUP BY
+            yeartime
+            order BY yeartime DESC
+            LIMIT 4
+    </select>
+
+    <!--按照季度查询近四年的勘察总进尺 -->
+    <select id="selectBySeasontime" resultType="map">
+       SELECT
+            NewTable.Seasontime AS seasontime,
+            sum( NewTable.depth ) AS footage
+        FROM
+            (
+            SELECT
+                d.depth,
+                YEAR ( i.end_date )* 10000+1+100 *(
+                    MONTH ( i.end_date )-(
+                        MONTH ( i.end_date )- 1
+                    )% 3
+                ) AS Seasontime
+            FROM
+                sur_item i
+                left join lz_drilling d on d.item_id = i.id
+            ) AS NewTable
+        GROUP BY
+            seasontime
+            order BY seasontime DESC
+            LIMIT 4
+    </select>
 </mapper>

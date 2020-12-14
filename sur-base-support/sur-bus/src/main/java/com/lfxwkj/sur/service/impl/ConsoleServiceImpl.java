@@ -162,4 +162,14 @@ public class ConsoleServiceImpl implements ConsoleService {
     public List<Item> itemHot() {
         return itemMapper.selectItemHot();
     }
+
+    @Override
+    public List<Map<String, Object>> selectBySeasontime() {
+        return itemMapper.selectBySeasontime();
+    }
+
+    @Override
+    public List<Map<String, Object>> selectByYeartime() {
+        return itemMapper.selectByYeartime();
+    }
 }

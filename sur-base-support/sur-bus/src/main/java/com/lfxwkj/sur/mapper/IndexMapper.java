@@ -54,4 +54,6 @@ public interface IndexMapper extends BaseMapper<Index> {
     Page<Map<String, Object>> customPageMapList(@Param("page") Page page, @Param("paramCondition") IndexParam paramCondition);
 
     List<IndexResult> selectIndexAndFocus(@Param("paramCondition") IndexParam paramCondition);
+
+    List<String> selectIndexByFocusId(Long focusId);
 }

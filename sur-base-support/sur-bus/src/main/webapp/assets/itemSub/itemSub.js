@@ -1,11 +1,16 @@
-layui.use(['table', 'admin', 'ax', 'func', 'laydate', 'form'], function () {
+
+layui.config({
+}).extend({
+    soulTable: '{/}https://cdn.jsdelivr.net/npm/layui-soul-table/docs/ext/soulTable.slim'
+});
+layui.use(['table', 'ax', 'func', 'laydate', 'form','soulTable'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
-    var admin = layui.admin;
     var func = layui.func;
     var laydate = layui.laydate;
     var form = layui.form;
+    var soulTable = layui.soulTable
 
     //渲染时间选择框
     laydate.render({
@@ -30,6 +35,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'laydate', 'form'], function () {
         height: "full-158",
         limit: 20,
         cols: [[
+            {type: 'checkbox', fixed: 'left'},
             {field: 'id', hide: true, title: '主键'},
             {field: 'itemName', title: '项目名'},
             {field: 'surName', title: '文档名'},
@@ -50,6 +56,8 @@ layui.use(['table', 'admin', 'ax', 'func', 'laydate', 'form'], function () {
             {align: 'center', toolbar: '#tableBar', title: '操作', width:350}
         ]],
         done: function(res, curr, count) {
+            soulTable.render(this)
+
             // $.each(res.data, function(index,value){
             //     //外单位提供
             //     if(res.data[index].isForeign == 1){

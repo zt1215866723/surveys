@@ -49,8 +49,10 @@ layui.use(['table', 'admin', 'ax', 'func', 'tree'], function () {
         }
         var viewerUrl = Feng.ctxPath + "/assets/pdf/web/viewer.html";
         var pdfUrl = Feng.ctxPath + "/fileView/toPdfFile?path=" + encodeURIComponent(queryData.cataId);
-        console.log(pdfUrl)
         window.open(`${viewerUrl}?file=${encodeURIComponent(pdfUrl)}`);
+        //预览之后删除生成的pdf文件
+        var ajax = new $ax(Feng.ctxPath + "/fileView/delPdfFile?path=" + encodeURIComponent(queryData.cataId))
+        ajax.start();
     });
     $('#btnDownLoad').click(function () {
         if (queryData.cataId == '' || queryData.cataId == -1) {

@@ -51,7 +51,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
                     return d.isNecessary == 0 ? '否' : '是';
             }},
             {field: 'isShow', title: '展示', templet: function(d){
-                    if(Boolean(d.isShow)){
+                    if(d.isShow == 0){
                         return '<input type="checkbox" id="'+ d.id +'" name="isShow" checked=""  lay-skin="switch" lay-filter="isShowSwitch" lay-text="是|否">'
                     }
                     return '<input type="checkbox" id="'+ d.id +'" name="isShow" lay-skin="switch" lay-filter="isShowSwitch" lay-text="是|否">'
@@ -115,7 +115,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
         $.ajax({
             url:"/focus/editItem",
             type: "GET",
-            data: {"id" : this.id, "isShow": this.checked ? 1 : 0},
+            data: {"id" : this.id, "isShow": this.checked ? 0 : 1},
             success: function () {
                 layer.msg('修改成功')
             }

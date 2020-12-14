@@ -360,4 +360,33 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             }
         });
     });
+
+    //查询地图显示关注项列表
+    $.ajax({
+        url: Feng.ctxPath + "/focus/selectFocusInMap",
+        type: 'post',
+        async: false,
+        success: function (data) {
+                $.each(data.data, function (index, item) {
+                    $("#gzxxz").append("<input type='radio' lay-filter='testRadio' name='focus' value='"+item.id+"' title='"+item.name+"'>")
+                })
+            form.render()
+        }
+    });
+
+    form.on('radio(testRadio)', function(data){
+        //查询该选项的工程有哪些
+        $.ajax({
+            url: Feng.ctxPath + "/index/selectItemByFocusId",
+            type: 'post',
+            async: false,
+            data: {
+                focusId: data.value
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+            }
+        });
+    });
 });

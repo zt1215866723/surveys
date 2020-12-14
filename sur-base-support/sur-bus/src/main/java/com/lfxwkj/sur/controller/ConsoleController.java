@@ -90,6 +90,34 @@ public class ConsoleController extends BaseController {
         List<Item> itemList = consoleService.itemHot();
         return ResponseData.success(itemList);
     }
+
+    /**
+     * @Description  ：按照年份查询近四年的勘察总进尺
+     * @methodName   : selectByYeartime
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    @ResponseBody
+    @RequestMapping("/selectByYeartime")
+    public ResponseData selectByYeartime() {
+        List<Map<String,Object>> result = consoleService.selectByYeartime();
+        return ResponseData.success(result);
+    }
+
+    /**
+     * @Description  ：按照季度查询近四个季度的勘察总进尺
+     * @methodName   : selectBySeasontime
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    @ResponseBody
+    @RequestMapping("/selectBySeasontime")
+    public ResponseData selectBySeasontime() {
+        List<Map<String,Object>> result = consoleService.selectBySeasontime();
+        return ResponseData.success(result);
+    }
 }
 
 

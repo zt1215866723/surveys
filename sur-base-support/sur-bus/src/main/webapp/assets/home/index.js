@@ -393,7 +393,7 @@ window.onload = function () {
             myechart.setOption(option);
         })();
 
-//销售
+//总进尺
         (function () {
             var option = {
                 //鼠标提示工具
@@ -403,8 +403,7 @@ window.onload = function () {
                 xAxis: {
                     // 类目类型
                     type: 'category',
-                    // x轴刻度文字
-                    data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                    data: ['1月', '2月', '3月', '4月'],
                     axisTick: {
                         show: false//去除刻度线
                     },
@@ -449,9 +448,8 @@ window.onload = function () {
                     containLabel: true // 包含刻度文字在内
                 },
                 series: [{
-                    name: '预期销售额',
                     // 数据
-                    data: [24, 40, 101, 134, 90, 230, 210, 230, 120, 230, 210, 120],
+                    data: [],
                     // 图表类型
                     type: 'line',
                     // 圆滑连接
@@ -459,48 +457,51 @@ window.onload = function () {
                     itemStyle: {
                         color: '#00f2f1'  // 线颜色
                     }
-                },
-                    {
-                        name: '实际销售额',
-                        // 数据
-                        data: [40, 64, 191, 324, 290, 330, 310, 213, 180, 200, 180, 79],
-                        // 图表类型
-                        type: 'line',
-                        // 圆滑连接
-                        smooth: true,
-                        itemStyle: {
-                            color: '#ed3f35'  // 线颜色
-                        }
-                    }]
+                }]
             };
             var myechart = echarts.init($('.line')[0]);
             myechart.setOption(option);
 
             //点击效果
-            var data = {
-                year: [
-                    [24, 40, 101, 134, 90, 230, 210, 230, 120, 230, 210, 120],
-                    [40, 64, 191, 324, 290, 330, 310, 213, 180, 200, 180, 79]
-                ],
-                quarter: [
-                    [23, 75, 12, 97, 21, 67, 98, 21, 43, 64, 76, 38],
-                    [43, 31, 65, 23, 78, 21, 82, 64, 43, 60, 19, 34]
-                ],
-                month: [
-                    [34, 87, 32, 76, 98, 12, 32, 87, 39, 36, 29, 36],
-                    [56, 43, 98, 21, 56, 87, 43, 12, 43, 54, 12, 98]
-                ]
+            var datas = {
+                year: [],
+                quarter: []
             }
+            var q=[],y=[],qq=[],yy=[];
+            $.ajax({
+                url:Feng.ctxPath + '/console/selectBySeasontime',
+                method:"post",
+                async:false,
+                success:function (data) {
+                    $.each(data.data, function (index, item) {
+                        q.push(item.footage)
+                        qq.push(item.seasontime)
+                    })
+                    datas.quarter.push(q)
+                }
+            })
+            $.ajax({
+                url:Feng.ctxPath + '/console/selectByYeartime',
+                method:"post",
+                async:false,
+                success:function (data) {
+                    $.each(data.data, function (index, item) {
+                        y.push(item.footage)
+                        yy.push(item.yeartime)
+                    })
+                    datas.year.push(y)
+                }
+            })
+
             $('.sales ').on('click', '.caption a', function () {
                 $(this).addClass('active').siblings('a').removeClass('active');
                 //option series   data
                 //获取自定义属性值
                 var key = $(this).attr('data-type');
                 //取出对应的值
-                key = data[key];
+                key = datas[key];
                 //将值设置到 图表中
                 option.series[0].data = key[0];
-                option.series[1].data = key[1];
                 //再次调用才能在页面显示
                 myechart.setOption(option);
             });
@@ -508,11 +509,11 @@ window.onload = function () {
             var index = 0;
             var timer = setInterval(function () {
                 index++;
-                if (index > 4) {
+                if (index > 2) {
                     index = 0;
                 }
-                ;
                 $('.sales .caption a').eq(index).click();
+
             }, 2000);
         })();
         (function () {

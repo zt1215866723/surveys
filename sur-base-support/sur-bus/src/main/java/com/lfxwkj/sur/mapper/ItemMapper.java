@@ -83,4 +83,16 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @author       : 张童
      */
     List<ItemResult> getItemOnTheMapAddGZ(@Param("paramCondition") ItemParam itemParam);
+
+    /**
+     * 按照年份查询近四年的勘察总进尺
+     * @return
+     */
+    List<Map<String, Object>> selectByYeartime();
+
+    /**
+     * -按照季度查询近四个季度的勘察总进尺
+     * @return
+     */
+    List<Map<String, Object>> selectBySeasontime();
 }
