@@ -133,6 +133,18 @@ public class DrillingController extends BaseController {
         return this.drillingService.findPageBySpec(drillingParam);
     }
 
+    /**
+     * 查询钻孔水位列表
+     *
+     * @author 张童
+     * @Date 2020-09-15
+     */
+    @ResponseBody
+    @RequestMapping("/waterList")
+    public LayuiPageInfo waterList(DrillingParam drillingParam) {
+        return this.drillingService.findWaterPageBySpec(drillingParam);
+    }
+
 //    /**
 //     * 选择多个勘探点查询列表
 //     *

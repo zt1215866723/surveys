@@ -265,4 +265,18 @@
             order BY seasontime DESC
             LIMIT 4
     </select>
+
+    <select id="getItemOnTheMapByGZ" resultType="com.lfxwkj.sur.model.result.ItemResult">
+        select id,xaxis,yaxis
+        from sur_item
+        where state != 1
+        and is_show = 1
+        <if test="paramCondition.itemIds != null and paramCondition.itemIds.size > 0">
+            and id in (
+            <foreach collection="paramCondition.itemIds" item="itemId" separator=",">
+                #{itemId}
+            </foreach>
+            )
+        </if>
+    </select>
 </mapper>

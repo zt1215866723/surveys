@@ -417,6 +417,17 @@ public class ItemController extends BaseController {
         List<ItemResult> list = this.itemService.getItemOnTheMapAddGZ(itemParam);
         return ResponseData.success(list);
     }
+
+    /**
+     * 水位对比
+     *
+     * @author zt
+     * @Date 2020-09-22
+     */
+    @RequestMapping("/waterContrast")
+    public String waterContrast() {
+        return PREFIX + "/water_contrast.html";
+    }
 }
 
 

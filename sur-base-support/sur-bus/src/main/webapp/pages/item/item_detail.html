@@ -40,7 +40,6 @@
                                 @if(shiro.hasPermission("/item/detail/ylb")){
                                 <button id="btnYlb" class="layui-btn icon-btn"><i class="layui-icon">&#xe63c;</i>一览表</button>
                                 @}
-                                <button id="btnSw" class="layui-btn icon-btn"><i class="layui-icon">&#xe63c;</i>水位</button>
                                 <button id="btnReturn" class="layui-btn icon-btn"><i class="layui-icon">&#xe65c;</i>返回</button>
                             </div>
                         </div>
@@ -61,6 +60,5 @@
     @if(shiro.hasPermission("/item/detail/look")){
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="look">查看</a>
     @}
-<!--    <a class="layui-btn layui-btn-xs" lay-event="histogram">柱状图</a>-->
 </script>
 @}

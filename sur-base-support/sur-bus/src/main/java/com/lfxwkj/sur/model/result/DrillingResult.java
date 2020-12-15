@@ -258,4 +258,8 @@ public class DrillingResult implements Serializable {
 
     private Integer sortkey;
 
+    private String itemName;
+    private String itemCode;
+    private String ms;
+    private String gc;
 }

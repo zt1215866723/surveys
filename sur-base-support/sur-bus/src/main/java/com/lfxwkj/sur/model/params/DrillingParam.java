@@ -5,6 +5,7 @@ import cn.stylefeng.roses.kernel.model.validator.BaseValidatingParam;
 import java.util.Date;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -259,6 +260,13 @@ public class DrillingParam implements Serializable, BaseValidatingParam {
 
     private Integer sortkey;
 
+    private String itemIdString;
+
+    private String[] itemIds;
+
+    private String drillingIdString;
+
+    private String[] drillingIds;
     @Override
     public String checkParam() {
         return null;

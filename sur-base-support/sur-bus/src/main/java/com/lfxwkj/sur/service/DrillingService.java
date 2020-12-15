@@ -96,4 +96,6 @@ public interface DrillingService extends IService<Drilling> {
     List<Drilling> selectExplorationPoints(Long itemId);
 
     List<Integer> drillingCounts(Long itemId,String holeCode);
+
+    LayuiPageInfo findWaterPageBySpec(DrillingParam drillingParam);
 }

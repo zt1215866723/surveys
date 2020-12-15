@@ -81,7 +81,7 @@ a{
   }
   .overview span{
     font-size: 0.667rem;
-    color: #4c9bfd;
+    color: #fff;
 }
 /* 监控 */
 .monitor{
@@ -243,7 +243,7 @@ a{
 }
 .point span {
   display: block;
-  color: #4c9bfd;
+  color: #fff;
   font-size: 0.667rem;
 }
 /* 地图  */
@@ -305,7 +305,7 @@ a{
 }
 .users span {
   display: block;
-  color: #4c9bfd;
+  color: #fff;
   font-size: 0.667rem;
 }
 /* 订单 */
@@ -348,7 +348,7 @@ a{
 }
 .order span {
   display: block;
-  color: #4c9bfd;
+  color: #fff;
   font-size: 0.667rem;
 }
 /* 销售区域 */
@@ -388,7 +388,7 @@ a{
   position: absolute;
   left: 1.75rem;
   top: 0.75rem;
-  color: #4996f5;
+  color: #fff;
   font-size: 0.583rem;
 }
 .sales .line {
@@ -491,7 +491,7 @@ a{
   display: flex;
   flex-direction: column;
   width: 7rem;
-  color: #4c9bfd;
+  color: #fff;
   font-size: 0.6rem;
   vertical-align: middle;
 }

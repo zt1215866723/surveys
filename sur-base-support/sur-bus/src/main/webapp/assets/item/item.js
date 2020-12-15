@@ -215,6 +215,16 @@ layui.use(['table', 'ax', 'func', 'form','admin', 'layer'], function () {
         });
     });
 
+    //水位对比
+    $('#waterContrast').on('click', function () {
+        layer.open({
+            title:"水位对比",
+            type: 2,
+            area: ['100%', '100%'],
+            content: Feng.ctxPath + '/item/waterContrast'
+        });
+    });
+
     // 搜索按钮点击事件
     $('#btnSearch').click(function () {
         var queryData = {

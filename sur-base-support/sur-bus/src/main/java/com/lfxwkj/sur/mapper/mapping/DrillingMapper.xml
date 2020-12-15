@@ -106,6 +106,44 @@
         order by CAST( hole_code AS SIGNED)
     </select>
 
+    <select id="customWaterPageList" resultType="com.lfxwkj.sur.model.result.DrillingResult"
+            parameterType="com.lfxwkj.sur.model.params.DrillingParam">
+        select
+        d.*,i.item_code as itemCode,i.item_name as itemName,w.depth as ms,
+        CONVERT (
+        ABS( w.depth - d.zkbg ),
+        DECIMAL ( 10, 2 )) AS gc
+        from lz_drilling d
+        left join sur_item i on d.item_id = i.id
+        LEFT JOIN lz_water_level w ON d.hole_code = w.hole_code
+        AND d.item_id = w.item_id
+        where 1 = 1
+        AND w.depth is not NULL
+        <if test="paramCondition.itemId != null">
+            AND d.item_id = #{paramCondition.itemId}
+        </if>
+        <if test="paramCondition.holeCode != null and paramCondition.holeCode != '' ">
+            AND d.hole_code = #{paramCondition.holeCode}
+        </if>
+        <if test="paramCondition.type != null and paramCondition.type != '' ">
+            AND d.type = #{paramCondition.type}
+        </if>
+        <if test="paramCondition.itemIds != null and paramCondition.itemIds != ''">
+            and d.item_id in (
+            <foreach collection="paramCondition.itemIds" item="itemId" separator=",">
+                #{itemId}
+            </foreach>
+            )
+        </if>
+        <if test="paramCondition.drillingIds != null and paramCondition.drillingIds != ''">
+            and d.id in (
+            <foreach collection="paramCondition.drillingIds" item="drillingId" separator=",">
+                #{drillingId}
+            </foreach>
+            )
+        </if>
+    </select>
+
     <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.DrillingParam">
         select
         <include refid="Base_Column_List"/>

@@ -7,7 +7,7 @@ window.onload = function () {
         var form = layui.form;
         var layer = layui.layer;
 
-        //工程分类
+        //钻孔分类
         $.ajax({
             url: Feng.ctxPath + "/console/drillingsByType",
             dataType: 'json',
@@ -20,7 +20,7 @@ window.onload = function () {
             }
         });
 
-        //工程分类
+        //工程分类（工程类型查询时候写死了）
         $.ajax({
             url: Feng.ctxPath + "/console/itemsByType",
             dataType: 'json',
@@ -38,7 +38,7 @@ window.onload = function () {
             }
         });
 
-        //工程进度
+        //工程进度（工程进度被写死了）
         $.ajax({
             url: Feng.ctxPath + "/console/itemsByProgram",
             dataType: 'json',
@@ -174,6 +174,7 @@ window.onload = function () {
         };
         // map.setOption(mapO);
         // $.ajaxSettings.async = false;
+        //左下角的图和中间的地图
         $.getJSON('/assets/item/langfang.json', function(data){
             echarts.registerMap( 'hebei', data);
             var mapData = [];
@@ -184,69 +185,32 @@ window.onload = function () {
 
                 })
             }
+            var date = new Date();
             //AJAX获取城市区域的工程数量统计
             $.ajax({
                 url:Feng.ctxPath + '/item/getList',
                 method:"post",
                 success:function (data) {
-
+                    $("#itemSum").html(data.data.length)
+                    //本年新增
+                    var count = 0
                     $.each(data.data,function (index,item) {
+                        if (item.itemCode.slice(0, 4) == date.getFullYear()) {
+                            count++
+                        }
                         // 百度地图API功能
                         var point = new BMap.Point(item.xaxis,item.yaxis);
                         var gc = new BMap.Geocoder();
                         gc.getLocation(point, function(rs){
                             var addComp = rs.addressComponents;
                             $.each(mapData,function (index1,item1) {
-                                // console.log(addComp.district)
-                                // console.log(item1.name)
                                 if (addComp.district === item1.name) {
-                                    // console.log(item1.value)
                                     item1.value++
-                                    // console.log(item1.value)
+                                    myechart.setOption(option, true);
                                 }
                             })
                             mapO.series.data = mapData
                             map.setOption(mapO,true);
-                        });
-                    })
-                }
-            })
-        });
-
-        $.getJSON('/assets/item/langfang.json', function (data) {
-            echarts.registerMap('hebei', data);
-            var mapData = [];
-            for (var i = 0; i < data.features.length; i++) {
-                mapData.push({
-                    name: data.features[i].properties.name,
-                    value: 0
-
-                })
-            }
-            var date = new Date();
-            //AJAX获取城市区域的工程数量统计
-            $.ajax({
-                url: Feng.ctxPath + '/item/getList',
-                method: "post",
-                success: function (data) {
-                    $("#itemSum").html(data.data.length)
-                    //本年新增
-                    var count = 0
-                    $.each(data.data, function (index, item) {
-                        if (item.itemCode.slice(0, 4) == date.getFullYear()) {
-                            count++
-                        }
-                        // 百度地图API功能
-                        var point = new BMap.Point(item.xaxis, item.yaxis);
-                        var gc = new BMap.Geocoder();
-                        gc.getLocation(point, function (rs) {
-                            var addComp = rs.addressComponents;
-                            $.each(mapData, function (index1, item1) {
-                                if (addComp.district === item1.name) {
-                                    item1.value++;
-                                    myechart.setOption(option, true);
-                                }
-                            })
                         });
                     })
                     $("#yearAdd").html(count)
@@ -393,7 +357,7 @@ window.onload = function () {
             myechart.setOption(option);
         })();
 
-//总进尺
+        //总进尺
         (function () {
             var option = {
                 //鼠标提示工具
@@ -408,7 +372,7 @@ window.onload = function () {
                         show: false//去除刻度线
                     },
                     axisLabel: {
-                        color: '#4c9bfd'//文本颜色
+                        color: '#fff'//文本颜色
                     },
                     axisLine: {
                         show: false//去除轴线
@@ -422,7 +386,7 @@ window.onload = function () {
                         show: false//去除刻度线
                     },
                     axisLabel: {
-                        color: '#4c9bfd'//文本颜色
+                        color: '#fff'//文本颜色
                     },
                     axisLine: {
                         show: false//去除轴线
@@ -432,7 +396,7 @@ window.onload = function () {
                 //图例组件
                 legend: {
                     textStyle: {
-                        color: '#4c9bfd' // 图例文字颜色
+                        color: '#fff' // 图例文字颜色
 
                     },
                     right: '10%'//距离右边10%
@@ -526,7 +490,7 @@ window.onload = function () {
                                 show: false//去除刻度线
                             },
                             axisLabel: {
-                                color: '#4c9bfd'//文本颜色
+                                color: '#fff'//文本颜色
                             },
                             axisLine: {
                                 show: false//去除轴线
@@ -540,7 +504,7 @@ window.onload = function () {
                                 show: false//去除刻度线
                             },
                             axisLabel: {
-                                color: '#4c9bfd'//文本颜色
+                                color: '#fff'//文本颜色
                             },
                             axisLine: {
                                 show: false//去除轴线
@@ -550,7 +514,7 @@ window.onload = function () {
                         //图例组件
                         legend: {
                             textStyle: {
-                                color: '#4c9bfd' // 图例文字颜色
+                                color: '#fff' // 图例文字颜色
 
                             },
                             right: '10%'//距离右边10%
@@ -593,7 +557,7 @@ window.onload = function () {
                                 show: false//去除刻度线
                             },
                             axisLabel: {
-                                color: '#4c9bfd'//文本颜色
+                                color: '#fff'//文本颜色
                             },
                             axisLine: {
                                 show: false//去除轴线
@@ -607,7 +571,7 @@ window.onload = function () {
                                 show: false//去除刻度线
                             },
                             axisLabel: {
-                                color: '#4c9bfd'//文本颜色
+                                color: '#fff'//文本颜色
                             },
                             axisLine: {
                                 show: false//去除轴线
@@ -617,7 +581,7 @@ window.onload = function () {
                         //图例组件
                         legend: {
                             textStyle: {
-                                color: '#4c9bfd' // 图例文字颜色
+                                color: '#fff' // 图例文字颜色
 
                             },
                             right: '10%'//距离右边10%
@@ -685,12 +649,7 @@ window.onload = function () {
                     }
                 ]
             };
-            var myechart = echarts.init($('.gauge')[0]);
             myechart.setOption(option);
         })();
     });
-//点击工程搜索结果
-    window.dianji = function (item) {
-        console.log(item)
-    };
 }

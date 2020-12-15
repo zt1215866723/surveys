@@ -87,7 +87,7 @@ public class IndexServiceImpl extends ServiceImpl<IndexMapper, Index> implements
             //再根据工程id们查询工程信息
             ItemParam itemParam = new ItemParam();
             itemParam.setItemIds(list1);
-            itemResultList = itemMapper.getItemOnTheMapAddGZ(itemParam);
+            itemResultList = itemMapper.getItemOnTheMapByGZ(itemParam);
         }
         return itemResultList;
     }

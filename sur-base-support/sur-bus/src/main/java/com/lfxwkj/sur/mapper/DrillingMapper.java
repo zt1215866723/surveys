@@ -74,4 +74,6 @@ public interface DrillingMapper extends BaseMapper<Drilling> {
     List<DrillingVo> selectDrillingByItemId(@Param("paramCondition") DrillingParam drillingParam);
 
     List<Drilling> selectExplorationPoints(@Param("itemId")Long itemId);
+
+    Page<DrillingResult> customWaterPageList(@Param("page") Page page, @Param("paramCondition") DrillingParam paramCondition);
 }

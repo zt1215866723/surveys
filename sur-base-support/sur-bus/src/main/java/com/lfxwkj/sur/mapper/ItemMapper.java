@@ -95,4 +95,14 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @return
      */
     List<Map<String, Object>> selectBySeasontime();
+
+    /**
+     * @Description  ：
+     * @methodName   : getItemOnTheMapByGZ
+     * @param        : * @param itemParam :
+     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @exception    :
+     * @author       : 张童
+     */
+    List<ItemResult> getItemOnTheMapByGZ(@Param("paramCondition") ItemParam itemParam);
 }

@@ -220,4 +220,19 @@ public class DrillingServiceImpl extends ServiceImpl<DrillingMapper, Drilling> i
         return list;
     }
 
+    @Override
+    public LayuiPageInfo findWaterPageBySpec(DrillingParam drillingParam) {
+        Page pageContext = getPageContext();
+        if (drillingParam.getItemIdString()!=null){
+            String[] split = drillingParam.getItemIdString().split(",");
+            drillingParam.setItemIds(split);
+        }
+        if (drillingParam.getDrillingIdString()!=null){
+            String[] split = drillingParam.getDrillingIdString().split(",");
+            drillingParam.setDrillingIds(split);
+        }
+        IPage page = this.baseMapper.customWaterPageList(pageContext, drillingParam);
+        return LayuiPageFactory.createPageInfo(page);
+    }
+
 }
