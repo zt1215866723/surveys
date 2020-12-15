@@ -66,4 +66,5 @@ public interface WaterLevelService extends IService<WaterLevel> {
      */
      LayuiPageInfo findPageBySpec(WaterLevelParam param);
 
+    void updateMs(Double depth, String itemId);
 }

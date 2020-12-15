@@ -1,10 +1,11 @@
-layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
+layui.use(['element', 'table', 'admin', 'ax', 'func','form'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
     var func = layui.func;
     var element = layui.element;
+    var form = layui.form;
     /**
      * 勘探点数据表管理
      */
@@ -120,5 +121,50 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
         height: "full-158",
         cellMinWidth: 100,
         cols: Standard.initColumn()
+    });
+
+    $('#msUpdateBtn').click(function () {
+        let index = layer.open({
+            title: '在线调试',
+            content: '<form id="msUpdateForm" class="layui-form" action="/waterLevel/updateMs" method="post">\n' +
+                '    <div class="layui-form-item">\n' +
+                '        <label class="layui-form-label">增减值</label>\n' +
+                '        <div class="layui-input-block">\n' +
+                '            <input type="radio" name="opt" value="+" title="+" checked>\n' +
+                '            <input type="radio" name="opt" value="-" title="-">\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <div class="layui-form-item">\n' +
+                '        <label class="layui-form-label">修正值</label>\n' +
+                '        <div class="layui-input-block">\n' +
+                '            <input type="number" name="depth" required  lay-verify="required" placeholder="请输入修正值" autocomplete="off" class="layui-input">\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                ' <input type="hidden" name="itemId" value="'+ itemId +'">' +
+                '</form>',
+            success: function(layero, index){
+                form.render()
+            },
+            closeBtn: 1,
+            btn: ['提交', '取消'],
+            yes: function(index, layero){
+                let msUpdateForm = $(layero).find('#msUpdateForm');
+                $.ajax({
+                    url: msUpdateForm.attr("action"),
+                    type: "POST",
+                    data: msUpdateForm.serialize(),
+                    success: function () {
+                        layer.closeAll();
+                        table.reload('drillingTable');
+                        layer.msg("修改成功",{
+                            time: 3000,
+                        })
+                    }
+                })
+            },
+            btn2: function(index, layero){
+
+            },
+        });
     });
 });
