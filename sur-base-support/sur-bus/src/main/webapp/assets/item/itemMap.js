@@ -386,6 +386,40 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             dataType: 'json',
             success: function (data) {
                 console.log(data)
+                data.data.forEach(function (item, index) {
+                    xmPoint[index] = new window.BMap.Point(item.xaxis, item.yaxis); //循环生成新的地图点
+                    var myIcon = new BMap.Icon("/image/"+item.typeUrl, new BMap.Size(24, 24));
+                    var xmLabel = new window.BMap.Label(item.itemName, {offset: new window.BMap.Size(20, -10)});
+                    xmLabel.setStyle({
+                        color: '#000000',
+                        background: '#ffffff',
+                        borderRadius: "5px",
+                        border: 'none',
+                        textAlign: "center",
+                        height: "20px",
+                        lineHeight: "20px",
+                        padding: "0 10px"
+                    });
+                    xmMarker[index] = new window.BMap.Marker(xmPoint[index], {icon: myIcon}); //按照地图点坐标生成标记
+
+                    const option = {
+                        position: xmPoint[index],
+                        offset: new BMap.Size(-50, -50),
+                    };
+
+                    const valueLabel = new BMap.Label(
+                        "<div class='classScale' : ''} style='display:flex; justify-content: center; align-items: center; width:80px;height:80px;border-radius:50%; opacity: 0.5;'></div></div><div class='classScale1' : ''} style='position:relative; top: -80px;width:80px;height:80px;border-radius:50%; opacity: 0.5;'>",
+                        option);
+                    valueLabel.setStyle({
+                        border: 'none',
+                        backgroundColor: 'RGBA(0,0,0,0)',
+                    });
+                    map.addOverlay(valueLabel);
+
+                    xmMarker[index].setLabel(xmLabel);
+
+                    addInfo(item, xmMarker[index]);
+                })
             }
         });
     });

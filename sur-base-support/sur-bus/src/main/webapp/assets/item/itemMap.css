@@ -1,0 +1,96 @@
+#r-result {
+  width: 100%;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0);
+    background:#ff0000;
+  }
+  10% {
+    transform: scale(0.1);
+    background:#ff1d1d;
+  }
+  20% {
+    transform: scale(0.2);
+    background:#ff3939;
+  }
+  30% {
+    transform: scale(0.3);
+    background:#ff5e5e
+  }
+  40% {
+    transform: scale(0.4);
+    background:#ff7d7d;
+  }
+  50% {
+    transform: scale(0.5);
+    background:#ff9c9c;
+  }
+  60% {
+    transform: scale(0.6);
+    background:#ffb3b3;
+  }
+  70% {
+    transform: scale(0.7);
+    background:#ffcece;
+  }
+  80% {
+    transform: scale(0.8);
+    background:#ffeeee;
+  }
+  100% {
+    transform: scale(0.9);
+    background:#fff2f2;
+  }
+}
+
+@keyframes scale1 {
+  0% {
+    transform: scale(0);
+    background:#ff0000;
+  }
+  10% {
+    transform: scale(0.1);
+    background:#ff1d1d;
+  }
+  20% {
+    transform: scale(0.2);
+    background:#ff3939;
+  }
+  30% {
+    transform: scale(0.3);
+    background:#ff5e5e
+  }
+  40% {
+    transform: scale(0.4);
+    background:#ff7d7d;
+  }
+  50% {
+    transform: scale(0.5);
+    background:#ff9c9c;
+  }
+  60% {
+    transform: scale(0.6);
+    background:#ffb3b3;
+  }
+  70% {
+    transform: scale(0.7);
+    background:#ffcece;
+  }
+  80% {
+    transform: scale(0.8);
+    background:#ffeeee;
+  }
+  100% {
+    transform: scale(0.9);
+    background:#fff2f2;
+  }
+}
+
+.classScale {
+  animation: scale 2s linear infinite normal;
+}
+.classScale1 {
+  animation: scale1 2s 1s linear infinite normal;
+}
