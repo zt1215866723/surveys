@@ -53,4 +53,13 @@ public interface WaterLevelMapper extends BaseMapper<WaterLevel> {
      */
     Page<Map<String, Object>> customPageMapList(@Param("page") Page page, @Param("paramCondition") WaterLevelParam paramCondition);
 
+    /**
+     * 批量修改某一列
+     *
+     * @王南翔
+     * @Date 2020-12-14
+     */
+    void updateMs(WaterLevelParam waterLevelParam);
+
+    void updateMs(Double depth, String itemId);
 }

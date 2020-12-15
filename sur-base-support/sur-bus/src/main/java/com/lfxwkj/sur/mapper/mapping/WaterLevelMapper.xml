@@ -53,4 +53,9 @@
         from lz_water_level where 1 = 1
     </select>
 
+    <update id="updateMs">
+        UPDATE lz_water_level
+        SET depth = ROUND(depth + #{depth},1)
+        WHERE item_id = #{itemId}
+    </update>
 </mapper>

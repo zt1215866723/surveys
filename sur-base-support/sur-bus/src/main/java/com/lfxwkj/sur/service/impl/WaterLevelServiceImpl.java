@@ -46,6 +46,14 @@ public class WaterLevelServiceImpl extends ServiceImpl<WaterLevelMapper, WaterLe
         this.updateById(newEntity);
     }
 
+    /*
+        2020年12月14日 王南翔  批量修改
+     */
+    @Override
+    public void updateMs(Double depth, String itemId) {
+        this.baseMapper.updateMs(depth, itemId);
+    }
+
     @Override
     public WaterLevelResult findBySpec(WaterLevelParam param){
         return null;

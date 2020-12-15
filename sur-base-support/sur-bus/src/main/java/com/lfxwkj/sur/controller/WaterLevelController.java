@@ -9,6 +9,7 @@ import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -124,6 +125,15 @@ public class WaterLevelController extends BaseController {
         return this.waterLevelService.findPageBySpec(waterLevelParam);
     }
 
+    @RequestMapping(value = "/updateMs", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData updateMs(String opt,Double depth, String itemId){
+        if(opt.equals("-")){
+            depth = -depth;
+        }
+        this.waterLevelService.updateMs(depth, itemId);
+        return ResponseData.success();
+    }
 }
 
 
