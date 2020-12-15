@@ -1,0 +1,184 @@
+@layout("/common/_container.html",{js:["/assets/item/water_contrast.js"]}){
+<style type="text/css">
+    [hidden] {
+        display: none;
+    }
+
+    div.awesomplete {
+        display: inline-block;
+        position: relative;
+    }
+
+    div.awesomplete > input {
+        display: block;
+    }
+
+    div.awesomplete > ul {
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        min-width: 100%;
+        box-sizing: border-box;
+        list-style: none;
+        padding: 0;
+        border-radius: .3em;
+        margin: .2em 0 0;
+        background: hsla(0, 0%, 100%, .9);
+        background: linear-gradient(to bottom right, white, hsla(0, 0%, 100%, .8));
+        border: 1px solid rgba(0, 0, 0, .3);
+        box-shadow: .05em .2em .6em rgba(0, 0, 0, .2);
+        text-shadow: none;
+    }
+
+    div.awesomplete > ul[hidden],
+    div.awesomplete > ul:empty {
+        display: none;
+    }
+
+
+    /* Pointer */
+    div.awesomplete > ul:before {
+        content: "";
+        position: absolute;
+        top: -.43em;
+        left: 1em;
+        width: 0;
+        height: 0;
+        padding: .4em;
+        background: white;
+        border: inherit;
+        border-right: 0;
+        border-bottom: 0;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    div.awesomplete > ul > li {
+        position: relative;
+        padding: .2em .5em;
+        cursor: pointer;
+    }
+
+    div.awesomplete > ul > li:hover {
+        background: hsl(200, 40%, 80%);
+        color: black;
+    }
+
+    div.awesomplete > ul > li[aria-selected="true"] {
+        background: hsl(205, 40%, 40%);
+        color: white;
+    }
+
+    div.awesomplete mark {
+        background: hsl(65, 100%, 50%);
+    }
+
+    div.awesomplete li:hover mark {
+        background: hsl(68, 101%, 41%);
+    }
+
+    div.awesomplete li[aria-selected="true"] mark {
+        background: hsl(86, 102%, 21%);
+        color: inherit;
+    }
+</style>
+
+<form id="FORM" class="layui-form" action="" lay-filter="example">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-tab layui-steps" lay-filter="demoSteps">
+                <ul class="layui-tab-title">
+                    <li style="pointer-events: none;">
+                        <i class="layui-icon layui-icon-ok">1</i>
+                        <span class="layui-steps-title">工程列表</span>
+                        <span class="layui-steps-content">选择工程对比</span>
+                    </li>
+                    <li class="layui-this" style="pointer-events: none;">
+                        <i class="layui-icon layui-icon-ok">2</i>
+                        <span class="layui-steps-title">钻孔列表</span>
+                        <span class="layui-steps-content">选择钻孔对比</span>
+                    </li>
+                    <li style="pointer-events: none;">
+                        <i class="layui-icon layui-icon-ok">3</i>
+                        <span class="layui-steps-title">水位对比表</span>
+                    </li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item  layui-show">
+                        <a class="layui-btn" data-steps="next" id="selectType">下一步</a>
+                        <div class="layui-form toolbar">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <input id="itemName" class="layui-input" type="text"
+                                           placeholder="请输入工程名称" autocomplete="off"/>
+                                </div>
+                                <div class="layui-inline">
+                                    <input id="itemCode" class="layui-input" type="text"
+                                           placeholder="请输入工程编号" autocomplete="off"/>
+                                </div>
+                                <div class="layui-inline">
+                                    <input id="location" class="layui-input" type="text"
+                                           placeholder="请输入工程地点" autocomplete="off"/>
+                                </div>
+                                <div class="layui-inline">
+                                    <select id="progress" class="layui-input" type="text"
+                                            placeholder="进度" autocomplete="off">
+                                        <option value="">请选择工程进度</option>
+                                    </select>
+                                </div>
+                                <div class="layui-inline">
+                                    <select id="type" class="layui-input" type="text"
+                                            placeholder="类型" autocomplete="off">
+                                        <option value="">请选择工程类型</option>
+                                    </select>
+                                </div>
+                                <div class="layui-inline">
+                                    <a class="layui-btn layui-btn-normal btn_color_confirm zf_h25 perssion-node-display permission-right-10001500"
+                                       id="btn_CheckBoxSearch" data-type="reload">搜索</a>
+
+                                    <a class="layui-btn layui-btn-normal btn_color_confirm zf_h25 perssion-node-display permission-right-10001510"
+                                       id="btn_CheckBoxTableMultiColumnGetValue" data-type="reload">获取多列选中内容</a>
+                                </div>
+                            </div>
+                        </div>
+                        <table id="itemTable" lay-filter="itemTable"></table>
+                    </div>
+                    <div class="layui-tab-item">
+                        <a class="layui-btn" data-steps="prev">上一步</a>
+                        <a class="layui-btn" data-steps="next" id="selectTem">下一步</a>                        <div class="layui-form toolbar">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <input id="holeCode" class="layui-input" type="text" placeholder="请输入钻孔编号" autocomplete="off" />
+                                </div>
+                                <div class="layui-inline">
+                                    <select id="drillingType" class="layui-input" type="text" placeholder="类型" lay-search="">
+                                        <option value="">请选择钻孔类型</option>
+                                        <option value="鉴别孔">鉴别孔</option>
+                                        <option value="取土标贯钻孔">取土标贯钻孔</option>
+                                        <option value="取土试样钻孔">取土标贯钻孔</option>
+                                        <option value="静力触探试验孔">静力触探试验孔</option>
+                                    </select>
+                                </div>
+                                <div class="layui-inline">
+                                    <a class="layui-btn layui-btn-normal btn_color_confirm zf_h25 perssion-node-display permission-right-10001500"
+                                       id="btn_CheckBoxSearchs" data-type="reload">搜索</a>
+
+                                    <a class="layui-btn layui-btn-normal btn_color_confirm zf_h25 perssion-node-display permission-right-10001510"
+                                       id="btn_CheckBoxTableMultiColumnGetValues" data-type="reload">获取多列选中内容</a>
+                                </div>
+                            </div>
+                        </div>
+                        <table id="drillingTable" lay-filter="drillingTable"></table>
+                    </div>
+                    <div class="layui-tab-item">
+                        <a class="layui-btn" data-steps="prev">上一步</a>
+                        <table id="drillingTables" lay-filter="drillingTable"></table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@}
