@@ -509,11 +509,144 @@ window.onload = function () {
             var index = 0;
             var timer = setInterval(function () {
                 index++;
-                if (index > 2) {
+                if (index > 1) {
                     index = 0;
                 }
-                $('.sales .caption a').eq(index).click();
+                if (index == 0){
+                    option = {
+                        //鼠标提示工具
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        xAxis: {
+                            // 类目类型
+                            type: 'category',
+                            data: yy,
+                            axisTick: {
+                                show: false//去除刻度线
+                            },
+                            axisLabel: {
+                                color: '#4c9bfd'//文本颜色
+                            },
+                            axisLine: {
+                                show: false//去除轴线
+                            },
+                            boundaryGap: false//去除轴内间距
+                        },
+                        yAxis: {
+                            // 数据作为刻度文字
+                            type: 'value',
+                            axisTick: {
+                                show: false//去除刻度线
+                            },
+                            axisLabel: {
+                                color: '#4c9bfd'//文本颜色
+                            },
+                            axisLine: {
+                                show: false//去除轴线
+                            },
+                            boundaryGap: false//去除轴内间距
+                        },
+                        //图例组件
+                        legend: {
+                            textStyle: {
+                                color: '#4c9bfd' // 图例文字颜色
 
+                            },
+                            right: '10%'//距离右边10%
+                        },
+                        // 设置网格样式
+                        grid: {
+                            show: true,// 显示边框
+                            top: '20%',
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            borderColor: '#012f4a',// 边框颜色
+                            containLabel: true // 包含刻度文字在内
+                        },
+                        series: [{
+                            // 数据
+                            data: [],
+                            // 图表类型
+                            type: 'line',
+                            // 圆滑连接
+                            smooth: true,
+                            itemStyle: {
+                                color: '#00f2f1'  // 线颜色
+                            }
+                        }]
+                    };
+                    myechart.setOption(option);
+
+                } else if (index == 1) {
+                    option = {
+                        //鼠标提示工具
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        xAxis: {
+                            // 类目类型
+                            type: 'category',
+                            data: qq,
+                            axisTick: {
+                                show: false//去除刻度线
+                            },
+                            axisLabel: {
+                                color: '#4c9bfd'//文本颜色
+                            },
+                            axisLine: {
+                                show: false//去除轴线
+                            },
+                            boundaryGap: false//去除轴内间距
+                        },
+                        yAxis: {
+                            // 数据作为刻度文字
+                            type: 'value',
+                            axisTick: {
+                                show: false//去除刻度线
+                            },
+                            axisLabel: {
+                                color: '#4c9bfd'//文本颜色
+                            },
+                            axisLine: {
+                                show: false//去除轴线
+                            },
+                            boundaryGap: false//去除轴内间距
+                        },
+                        //图例组件
+                        legend: {
+                            textStyle: {
+                                color: '#4c9bfd' // 图例文字颜色
+
+                            },
+                            right: '10%'//距离右边10%
+                        },
+                        // 设置网格样式
+                        grid: {
+                            show: true,// 显示边框
+                            top: '20%',
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            borderColor: '#012f4a',// 边框颜色
+                            containLabel: true // 包含刻度文字在内
+                        },
+                        series: [{
+                            // 数据
+                            data: [],
+                            // 图表类型
+                            type: 'line',
+                            // 圆滑连接
+                            smooth: true,
+                            itemStyle: {
+                                color: '#00f2f1'  // 线颜色
+                            }
+                        }]
+                    };
+                    myechart.setOption(option);
+                }
+                $('.sales .caption a').eq(index).click();
             }, 2000);
         })();
         (function () {
