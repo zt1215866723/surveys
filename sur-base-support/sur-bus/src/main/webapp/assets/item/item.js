@@ -58,9 +58,9 @@ layui.use(['table', 'ax', 'func', 'form','admin', 'layer'], function () {
         cols: [[
             {type: 'checkbox'},
             {field: 'itemName', title: '工程名称', align: 'center', width: 250
-                // , templet: function (d) {
-                //     return "<a lay-href='/item/map'>"+d.itemName+"</a>";
-                // }
+                , templet: function (d) {
+                    return "<a lay-href='/item/map'>"+d.itemName+"</a>";
+                }
                 },
             {field: 'itemCode', title: '工程编号', align: 'center'},
             {field: 'typeName', title: '工程类型', align: 'center'},

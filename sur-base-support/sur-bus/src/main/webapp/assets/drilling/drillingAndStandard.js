@@ -50,11 +50,13 @@ layui.use(['element', 'table', 'admin', 'ax', 'func','form'], function () {
     //2020年12月13日 王南翔
     //监听单元格编辑(埋深)
     table.on('edit(drillingTable)', function(obj){
+        $("table input").attr("type","number");
         var value = obj.value //得到修改后的值
             ,data = obj.data //得到所在行所有键值
             ,field = obj.field; //得到字段
         if (value != null && isNaN(parseInt(value))) {
             layer.msg('请输入正确的数值');
+            table.reload('drillingTable');
             return false;
         }
         $.ajax({
@@ -62,7 +64,6 @@ layui.use(['element', 'table', 'admin', 'ax', 'func','form'], function () {
             type:'POST',
             data:{"id": data.msId,"depth" : value},
             success: function (res) {
-                console.log(res);
                 layer.msg('完成将第[' + data.holeCode + ']个孔['+ data.type +'] ' + ' 数值更改为：'+ value, {
                     time: 5000,
                 });

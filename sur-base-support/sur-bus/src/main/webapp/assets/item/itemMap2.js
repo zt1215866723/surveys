@@ -1,9 +1,11 @@
-layui.use(['form', 'admin', 'ax', 'laydate'], function () {
+layui.use(['form', 'admin', 'ax', 'laydate','index', 'element'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
     var admin = layui.admin;
     var laydate = layui.laydate;
+    var index = layui.index;
+    var element = layui.element;
 
     //存放选择的工程类型,工程进度
     var itemTypes, itemPlans;
@@ -122,7 +124,6 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             }
         });
     })
-
     var xmPoint = new Array(); //存放标注点经纬信息的数组
     var xmMarker = new Array(); //存放标注点对象的数组
     var info = new Array(); //存放提示信息窗口对象的数组
@@ -158,6 +159,12 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             sContent2 =
                 "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
         }
+        /*
+            2020年12月17日 王南翔
+            跳转到项目详情
+        */
+        sContent2 += "<a class='itemDetail' style='color: #1668ff;font-weight: bold;margin: 0 auto;' href='#' onclick='itemDetail(\"" + item.id + "\")'>查看详情</a>";
+
         var sContent3 =
             "</div>" +
             "</div>";
@@ -165,6 +172,23 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
 
         addInfo(info[index], xmMarker[index]);
     })
+
+    /*
+        2020年12月17日 王南翔
+        跳转到项目详情
+     */
+    window.itemDetail = function (id){
+        console.log(id);
+        index.openTab({
+            title: '工程列表',
+            url: 'item/itemDetail?id=' + id,
+            end: function() {
+                // insTb.reload();
+            }
+        });
+        return false;
+    }
+
     // for (var i = 0; i < tempData.length; i ++) {
     //     addInfo(info[index],xmMarker[index]);
     // }
@@ -193,6 +217,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             opts2 =
                 "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
         }
+        opts2 += "<a class='itemDetail' style='color: #1668ff;font-weight: bold;margin: 0 auto;' href='#' onclick='itemDetail(\"" + item.id + "\")'>查看详情</a>";
         var opts3 =
             "</div>" +
             "</div>";

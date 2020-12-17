@@ -1,10 +1,10 @@
-layui.use(['form', 'admin', 'ax', 'laydate'], function () {
+layui.use(['form', 'admin', 'ax', 'laydate','element'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
     var admin = layui.admin;
     var laydate = layui.laydate;
-
+    var element = layui.element;
     //存放选择的工程类型,工程进度
     var itemTypes, itemPlans;
     // 图例的展开与隐藏
@@ -189,6 +189,11 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                 sContent2 =
                     "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
             }
+            /*
+                2020年12月17日 王南翔
+                跳转到项目详情
+             */
+            sContent2 += "<a class='itemDetail' style='color: #1668ff;font-weight: bold;margin: 0 auto;' href='#' onclick='itemDetail(\"" + item.id + "\")'>查看详情</a>";
             var sContent3 =
                 "</div>" +
                 "</div>";
@@ -199,6 +204,21 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             info = new window.BMap.InfoWindow(sContent1 + sContent4 + sContent2 + sContent3,opts); // 创建信息窗口对象
             this.openInfoWindow(info);
         });
+    }
+    /*
+        2020年12月17日 王南翔
+        跳转到项目详情
+     */
+    window.itemDetail = function (id){
+        console.log(id);
+        index.openTab({
+            title: '工程列表',
+            url: 'item/itemDetail?id=' + id,
+            end: function() {
+                // insTb.reload();
+            }
+        });
+        return false;
     }
 
     //点击工程搜索结果
@@ -246,6 +266,11 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
             opts2 =
                 "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
         }
+        /*
+            2020年12月17日 王南翔
+            跳转到项目详情
+         */
+        opts2 += "<a class='itemDetail' style='color: #1668ff;font-weight: bold;margin: 0 auto;' href='#' onclick='itemDetail(\"" + item.id + "\")'>查看详情</a>";
         var opts3 =
             "</div>" +
             "</div>";
@@ -256,6 +281,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         }
         var infoWindow = new BMap.InfoWindow(opts1 + opts4 + opts2 + opts3,opts);
         map.openInfoWindow(infoWindow, point);
+        element.init();
     };
     //点击工程搜索结果
     window.sousuo = function () {
