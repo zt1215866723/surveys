@@ -1,4 +1,4 @@
-layui.use(['table', 'ax', 'func', 'form','admin', 'layer'], function () {
+layui.use(['table', 'ax', 'func', 'form','admin', 'layer', 'element', 'index'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
@@ -6,6 +6,8 @@ layui.use(['table', 'ax', 'func', 'form','admin', 'layer'], function () {
     var func = layui.func;
     var form = layui.form;
     var layer = layui.layer;
+    var index = layui.index;
+    var element = layui.element
     /**
      * 工程表管理
      */
@@ -42,6 +44,24 @@ layui.use(['table', 'ax', 'func', 'form','admin', 'layer'], function () {
         }
     });
 
+    /*
+        2020年12月18日 图表切换
+        王南翔
+     */
+    window.toItemMap = function (item) {
+        item = JSON.stringify(item)         //转换成string字符串传递
+        console.log(typeof item);
+        sessionStorage.setItem("toItemMap",item)
+        index.openTab({
+            title: '工程地图',
+            url: '/item/map2',
+            end: function() {
+                // insTb.reload();
+            }
+        });
+        return false;
+    }
+
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Item.tableId,
@@ -59,7 +79,7 @@ layui.use(['table', 'ax', 'func', 'form','admin', 'layer'], function () {
             {type: 'checkbox'},
             {field: 'itemName', title: '工程名称', align: 'center', width: 250
                 , templet: function (d) {
-                    return "<a lay-href='/item/map'>"+d.itemName+"</a>";
+                    return "<a href='#', onclick='toItemMap(" + JSON.stringify(d) + ")'>"+d.itemName+"</a>";
                 }
                 },
             {field: 'itemCode', title: '工程编号', align: 'center'},

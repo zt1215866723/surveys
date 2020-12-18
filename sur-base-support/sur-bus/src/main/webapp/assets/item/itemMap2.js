@@ -24,6 +24,13 @@ layui.use(['form', 'admin', 'ax', 'laydate','index', 'element'], function () {
             flag = 1;
         }
     });
+    window.onload =  function () {
+        var ifToaItemMap = JSON.parse(sessionStorage.getItem("toItemMap"));
+        console.log(ifToaItemMap);
+        if(ifToaItemMap){
+            dianji(ifToaItemMap);
+        }
+    }
 
     // 项目数据列表
     var tempData = [];
@@ -178,7 +185,6 @@ layui.use(['form', 'admin', 'ax', 'laydate','index', 'element'], function () {
         跳转到项目详情
      */
     window.itemDetail = function (id){
-        console.log(id);
         index.openTab({
             title: '工程列表',
             url: 'item/itemDetail?id=' + id,

@@ -22,6 +22,17 @@ layui.use(['form', 'admin', 'ax', 'laydate','element'], function () {
             flag = 1;
         }
     });
+    /*
+        2020年12月18日 图表切换
+        王南翔
+
+    window.onload =  function () {
+        var ifToaItemMap = JSON.parse(sessionStorage.getItem("toItemMap"));
+        if(ifToaItemMap){
+            dianji(ifToaItemMap);
+        }
+    }
+    */
 
     // 项目数据列表
     var tempData = [];
