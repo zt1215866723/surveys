@@ -1,10 +1,12 @@
-layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
+layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
     var func = layui.func;
     var element = layui.element;
+    var layer = layui.layer;
+    var form = layui.form;
 
     var ajax = new $ax(Feng.ctxPath + "/drilling/detail?id=" + Feng.getUrlParam("id"));
     var result = ajax.start();
@@ -218,8 +220,53 @@ layui.use(['element', 'table', 'admin', 'ax', 'func'], function () {
             {field: 'swdxsw', sort: true, title: '地下水温(度)'},
             {field: 'swfw', sort: true, title: '水位范围'},
             {field: 'swxz', sort: true, title: '地下水类型'},
+            {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };
+
+    // 工具条点击事件
+    table.on('tool(' + Water.tableId + ')', function (obj) {
+        var data = obj.data;
+        var layEvent = obj.event;
+
+        if (layEvent === 'edit') {
+            let index = layer.open({
+                title: '深度修改',
+                content: '<form id="msUpdateForm" class="layui-form" action="/waterLevel/editItem" method="post">\n' +
+                    '    <div class="layui-form-item">\n' +
+                    '        <label class="layui-form-label">深度:</label>\n' +
+                    '        <div class="layui-input-block">\n' +
+                    '            <input type="number" name="depth" required  lay-verify="required" placeholder="请输入新值" autocomplete="off" class="layui-input">\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <input type="hidden" name="id" value="' + data.id + '">\n' +
+                    '</form>',
+                success: function(layero, index){
+                    form.render()
+                },
+                closeBtn: 1,
+                btn: ['提交', '取消'],
+                yes: function(index, layero){
+                    let msUpdateForm = $(layero).find('#msUpdateForm');
+                    $.ajax({
+                        url: msUpdateForm.attr("action"),
+                        type: "POST",
+                        data: msUpdateForm.serialize(),
+                        success: function () {
+                            layer.closeAll();
+                            table.reload(Water.tableId);
+                            layer.msg("修改成功",{
+                                time: 3000,
+                            })
+                        }
+                    })
+                },
+                btn2: function(index, layero){
+
+                },
+            });
+        }
+    });
 
     // 渲染表格
     var tableResult = table.render({
