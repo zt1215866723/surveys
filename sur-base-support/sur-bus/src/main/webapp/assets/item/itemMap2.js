@@ -30,6 +30,7 @@ layui.use(['form', 'admin', 'ax', 'laydate','index', 'element'], function () {
         if(ifToaItemMap){
             dianji(ifToaItemMap);
         }
+        sessionStorage.setItem("toItemMap","")
     }
 
     // 项目数据列表
@@ -164,7 +165,7 @@ layui.use(['form', 'admin', 'ax', 'laydate','index', 'element'], function () {
         if (item.type == 2) {
             //勘察工程才有钻孔信息！！！
             sContent2 =
-                "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
+                "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap2?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
         }
         /*
             2020年12月17日 王南翔

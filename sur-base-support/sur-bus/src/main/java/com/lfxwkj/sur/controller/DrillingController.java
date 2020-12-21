@@ -207,6 +207,17 @@ public class DrillingController extends BaseController {
     }
 
     /**
+     * 钻孔地图页面
+     *
+     * @author 张童
+     * @Date 2020-09-23
+     */
+    @RequestMapping("/drillingMap2")
+    public String drillingMap2() {
+        return PREFIX + "/drillingMap2.html";
+    }
+
+    /**
      * @Description  ：首页钻孔echarts图
      * @methodName   : drillingECharts
      * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
