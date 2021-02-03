@@ -89,7 +89,7 @@
             and a.write_time > #{paramCondition.startTime}
             and a.write_time &lt; #{paramCondition.endTime}
         </if>
-        order by a.write_time desc
+        order by a.add_time desc
     </select>
 
     <select id="customPageMapList" resultType="map" parameterType="com.lfxwkj.sur.model.params.ItemSubParam">

@@ -37,23 +37,28 @@
                             </div></div>
                         </div>
                     <div class="layui-tab-item">
+                        <button id="standardBtn" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
                         <table class="layui-table" id="standardTable" lay-filter="standardTable">
                         </table>
                     </div>
                     <div class="layui-tab-item">
+                        <button id="staticBtn" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
                         <table class="layui-table" id="staticTable" lay-filter="staticTable">
                         </table>
                     </div>
                     <div class="layui-tab-item">
+                        <button id="penetrationBtn" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
                         <table class="layui-table" id="penetrationTable" lay-filter="penetrationTable">
                         </table>
                     </div>
                     <div class="layui-tab-item">
+                        <button id="waterBtn" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
                         <table class="layui-table" id="waterTable" lay-filter="waterTable">
                         </table>
                     </div>
                     <div class="layui-tab-item">
-                        <table class="layui-table" id="sampleTable" lay-filter="waterTable">
+                        <button id="sampleBtn" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                        <table class="layui-table" id="sampleTable" lay-filter="sampleTable">
                         </table>
                     </div>
                 </div>
@@ -61,10 +66,20 @@
         </div>
     </div>
 </div>
-<script type="text/html" id="tableBar">
-    @if(shiro.hasPermission("/itemType/edit")){
+<script type="text/html" id="tableBar1">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
-    @}
+</script>
+<script type="text/html" id="tableBar2">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+</script>
+<script type="text/html" id="tableBar3">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+</script>
+<script type="text/html" id="tableBar4">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+</script>
+<script type="text/html" id="tableBar5">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
 </script>
 <script src="${ctxPath}/assets/home/echarts.min.js?v=${constants.getReleaseVersion()}"></script>
 

@@ -1,142 +1,108 @@
-@layout("/common/_form.html",{js:["/assets/com.lfxwkj.sur/staticTest/staticTest_add.js"],css:["/assets/expand/module/formSelects/formSelects-v4.css"]}){
+@layout("/common/_form.html",{js:["/assets/staticTest/staticTest_add.js"],css:["/assets/expand/module/formSelects/formSelects-v4.css"]}){
 
 <form class="layui-form" id="staticTestForm" lay-filter="staticTestForm">
     <div class="layui-fluid" style="padding-bottom: 75px;">
         <div class="layui-card">
             <div class="layui-card-header">基本信息</div>
             <div class="layui-card-body">
-                <div class="layui-form-item layui-row">
-                    <input name="id" type="hidden"/>
-
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">工程id<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="itemId" name="itemId" placeholder="请输入工程id" type="text" class="layui-input" lay-verify="required" required/>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <input name="id" type="hidden"/>
+                            <input name="itemId" id="itemId" type="hidden"/>
+                            <input name="holeCode" id="holeCode" type="hidden"/>
+                            <label class="layui-form-label">试探点深度（米）<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="depth" name="depth" placeholder="请输入试探点深度（米）" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">钻孔编号<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="holeCode" name="holeCode" placeholder="请输入钻孔编号" type="text" class="layui-input" lay-verify="required" required/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">静探类型<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="jtlx" name="jtlx" placeholder="请输入静探类型" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">试探点深度（米）<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="depth" name="depth" placeholder="请输入试探点深度（米）" type="text" class="layui-input" lay-verify="required" required/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">试验段长（米）<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="length" name="length" placeholder="请输入试验段长（米）" type="text"
+                                       class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">静探类型<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtlx" name="jtlx" placeholder="请输入静探类型" type="text" class="layui-input" lay-verify="required" required/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">比贯入阻力(MPa)<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="jtbgrzl" name="jtbgrzl" placeholder="请输入比贯入阻力(MPa)" type="text"
+                                       class="layui-input" lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">试验段长（米）<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="length" name="length" placeholder="请输入试验段长（米）" type="text" class="layui-input" lay-verify="required" required/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">锥头阻力(MPa)<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="jtztzl" name="jtztzl" placeholder="请输入锥头阻力(MPa)" type="text"
+                                       class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">比贯入阻力(MPa)<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtbgrzl" name="jtbgrzl" placeholder="请输入比贯入阻力(MPa)" type="text" class="layui-input" lay-verify="required" required/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">侧壁摩阻力(kPa)<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="jtcmz" name="jtcmz" placeholder="请输入侧壁摩阻力(kPa)" type="text"
+                                       class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">锥头阻力(MPa)<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtztzl" name="jtztzl" placeholder="请输入锥头阻力(MPa)" type="text" class="layui-input" lay-verify="required" required/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">摩阻比(%)<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="jtmzb" name="jtmzb" placeholder="请输入摩阻比(%)" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">侧壁摩阻力(kPa)<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtcmz" name="jtcmz" placeholder="请输入侧壁摩阻力(kPa)" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">摩阻比(%)<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtmzb" name="jtmzb" placeholder="请输入摩阻比(%)" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">孔隙水压力(kPa)<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtkxyl" name="jtkxyl" placeholder="请输入孔隙水压力(kPa)" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">是否参与统计1参与0不参与<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="cy" name="cy" placeholder="请输入是否参与统计1参与0不参与" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"><span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtbgrzlx" name="jtbgrzlx" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"><span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtbjrzltjx" name="jtbjrzltjx" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"><span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtztzlx" name="jtztzlx" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"><span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtztzltjx" name="jtztzltjx" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"><span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtcmzx" name="jtcmzx" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"><span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtcmztjx" name="jtcmztjx" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"><span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtmzbx" name="jtmzbx" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"><span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtmzbtjx" name="jtmzbtjx" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"><span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtkxylx" name="jtkxylx" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"><span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="jtkxyltjx" name="jtkxyltjx" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">孔隙水压力(kPa)<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="jtkxyl" name="jtkxyl" placeholder="请输入孔隙水压力(kPa)" type="text"
+                                       class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <div class="form-group-bottom text-center">
         <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>

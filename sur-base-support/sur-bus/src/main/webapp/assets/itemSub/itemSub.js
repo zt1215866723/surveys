@@ -35,22 +35,21 @@ layui.use(['table', 'ax', 'func', 'laydate', 'form','soulTable'], function () {
         height: "full-158",
         limit: 20,
         cols: [[
-            {type: 'checkbox', fixed: 'left'},
             {field: 'id', hide: true, title: '主键'},
-            {field: 'itemName', title: '项目名'},
-            {field: 'surName', title: '文档名'},
-            {field: 'location', title: '位置'},
-            {field: 'surNum', title: '勘察号'},
-            {field: 'levelName', title: '资质等级'},
-            {field: 'stageName', title: '勘察阶段'},
+            {field: 'itemName',align: 'center', title: '项目名'},
+            {field: 'surName',align: 'center', title: '文档名'},
+            {field: 'location',align: 'center', title: '位置'},
+            {field: 'surNum',align: 'center', width:180, title: '勘察号'},
+            // {field: 'levelName', title: '资质等级'},
+            // {field: 'stageName', title: '勘察阶段'},
             // {field: 'writeName', title: '编写'},
             // {field: 'reviewName', title: '复核'},
             // {field: 'checkName', title: '审核'},
             // {field: 'examName', title: '审定'},
-            {field: 'chargeName', title: '负责人'},
+            // {field: 'chargeName', title: '负责人'},
             // {field: 'enginName', title: '总工'},
             // {field: 'legalName', title: '法人'},
-            {field: 'writeTime', title: '完成日期', templet: function(d){
+            {field: 'writeTime', title: '完成日期', width:120,align: 'center', templet: function(d){
                     return d.writeTime == ""? "":d.writeTime.slice(0,10);
             }},
             {align: 'center', toolbar: '#tableBar', title: '操作', width:350}

@@ -46,53 +46,11 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
             {field: 'mainCode', sort: true, title: '主层编号'},
             {field: 'secondaryCode', sort: true, title: '亚层编号'},
             {field: 'thirdCode', sort: true, title: '次亚层编号'},
-            // {field: 'tcdzsd', sort: true, title: '地质时代'},
-            // {field: 'tcdzcy', sort: true, title: '地质成因'},
-            // {field: 'tcdchd', sort: true, title: '自然层厚度(m)'},
             {field: 'tchd', sort: true, title: '地层厚度(m)'},
             {field: 'type', sort: true, title: '岩土类别'},
             {field: 'name', sort: true, title: '岩土名称'},
-            // {field: 'tcmdh', sort: true, title: '土名代号'},
-            // {field: 'tcymc', sort: true, title: '亚岩土名称'},
-            // {field: 'tcys', sort: true, title: '土层颜色'},
-            // {field: 'tcmsd', sort: true, title: '密实度'},
-            // {field: 'tcsid', sort: true, title: '湿度'},
-            // {field: 'tcksx', sort: true, title: '可塑性'},
-            // {field: 'tchyd', sort: true, title: '浑圆度'},
-            // {field: 'tcjyx', sort: true, title: '均匀性'},
-            // {field: 'tcfhcd', sort: true, title: '风化程度'},
-            // {field: 'tcysqx', sort: true, title: '岩层倾向(度)'},
-            // {field: 'tcysqj', sort: true, title: '岩层倾角(度)'},
-            // {field: 'tckwcf', sort: true, title: '矿物成分'},
-            // {field: 'tcjggz', sort: true, title: '结构构造'},
-            // {field: 'tcbhw', sort: true, title: '包含物'},
-            // {field: 'tcqw', sort: true, title: '气味'},
-            {field: 'tcms', sort: true, title: '土层描述'}
-            // {field: 'tcztx', sort: true, title: '完整程度'},
-            // {field: 'tcjycd', sort: true, title: '坚硬程度'},
-            // {field: 'tcpl', sort: true, title: '破碎程度'},
-            // {field: 'tcjlfy', sort: true, title: '节理发育'},
-            // {field: 'tcdcms', sort: true, title: '地层描述'},
-            // {field: 'tcjljj', sort: true, title: '节理间距(cm)'},
-            // {field: 'tcpxjd', sort: true, title: '视倾角(度)'},
-            // {field: 'tcqttz', sort: true, title: '其他特征'},
-            // {field: 'tczrzd', sort: true, title: '天然重度(kN/m3)'},
-            // {field: 'tcnjl', sort: true, title: '粘聚力(kPa)'},
-            // {field: 'tcnmcj', sort: true, title: '内摩擦角(°)'},
-            // {field: 'tcczl', sort: true, title: '承载力(kPa)'},
-            // {field: 'tcysml', sort: true, title: '压缩模量(MPa)'},
-            // {field: 'tcyzzCzltzz', sort: true, title: '预制桩侧阻力特征值(kPa)'},
-            // {field: 'tcyzzDzltzz', sort: true, title: '预制桩端阻力特征值(kPa)'},
-            // {field: 'tcyzzCzlbzz', sort: true, title: '预制桩极限侧阻力标准值(kPa)'},
-            // {field: 'tcyzzDzlbzz', sort: true, title: '预制桩极限端阻力标准值(kPa)'},
-            // {field: 'tcckzCzltzz', sort: true, title: '冲(钻)孔桩侧阻力特征值(kPa)'},
-            // {field: 'tcckzDzltzz', sort: true, title: '冲(钻)孔桩端阻力特征值(kPa)'},
-            // {field: 'tcckzCzlbzz', sort: true, title: '冲(钻)孔桩极限侧阻力标准值(kPa)'},
-            // {field: 'tcckzDzlbzz', sort: true, title: '冲(钻)孔桩极限端阻力标准值(kPa)'},
-            // {field: 'tcuserdefine1', sort: true, title: '自定义字段1'},
-            // {field: 'tcuserdefine2', sort: true, title: '自定义字段2'},
-            // {field: 'tcuserdefine3', sort: true, title: '自定义字段3'},
-            // {align: 'center', toolbar: '#tableBar', title: '操作'}
+            {field: 'tcms', sort: true, title: '土层描述'},
+            {align: 'center', toolbar: '#tableBar1', title: '操作'}
         ]];
     };
 
@@ -108,6 +66,22 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
         height: "full-158",
         cellMinWidth: 100,
         cols: Standard.initColumn()
+    });
+
+    // 工具条点击事件
+    table.on('tool(' + Standard.tableId + ')', function (obj) {
+        var data = obj.data;
+        var layEvent = obj.event;
+
+        if (layEvent === 'edit') {
+            func.open({
+                title: '修改地层信息',
+                content: Feng.ctxPath + '/standard/edit?id=' + data.id,
+                tableId: Standard.tableId
+            });
+        } else if (layEvent === 'delete') {
+            Standard.onDeleteItem(data);
+        }
     });
 
     /**
@@ -129,7 +103,8 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
             {field: 'jtztzl', sort: true, title: '锥头阻力(MPa)'},
             {field: 'jtcmz', sort: true, title: '侧壁摩阻力(kPa)'},
             {field: 'jtmzb', sort: true, title: '摩阻比(%)'},
-            {field: 'jtkxyl', sort: true, title: '孔隙水压力(kPa)'}
+            {field: 'jtkxyl', sort: true, title: '孔隙水压力(kPa)'},
+            {align: 'center', toolbar: '#tableBar2', title: '操作'}
         ]];
     };
 
@@ -147,7 +122,24 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
         cols: Static.initColumn()
     });
 
-    /**
+    // 工具条点击事件
+    table.on('tool(' + Static.tableId + ')', function (obj) {
+        var data = obj.data;
+        var layEvent = obj.event;
+
+        if (layEvent === 'edit') {
+            func.open({
+                title: '修改地层信息',
+                content: Feng.ctxPath + '/staticTest/edit?id=' + data.id,
+                tableId: Static.tableId
+            });
+        } else if (layEvent === 'delete') {
+            Static.onDeleteItem(data);
+        }
+    });
+
+
+     /**
      * 标贯信息管理
      */
     var Penetration = {
@@ -168,6 +160,7 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
             {field: 'bgjs', sort: true, title: '标贯击数(击/30cm)'},
             {field: 'bgxs', sort: true, title: '标贯修正系数'},
             {field: 'bgxzjs', sort: true, title: '修正后的标贯击数(击/30cm)'},
+            {align: 'center', toolbar: '#tableBar3', title: '操作'}
         ]];
     };
 
@@ -183,6 +176,22 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
         height: "full-158",
         cellMinWidth: 100,
         cols: Penetration.initColumn()
+    });
+
+    // 工具条点击事件
+    table.on('tool(' + Penetration.tableId + ')', function (obj) {
+        var data = obj.data;
+        var layEvent = obj.event;
+
+        if (layEvent === 'edit') {
+            func.open({
+                title: '修改标贯数据表',
+                content: Feng.ctxPath + '/standardPenetration/edit?id=' + data.id,
+                tableId: Penetration.tableId
+            });
+        } else if (layEvent === 'delete') {
+            Penetration.onDeleteItem(data);
+        }
     });
 
     /**
@@ -204,6 +213,8 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
                         return "是"
                     } else if (d.swlx == 0) {
                         return "不是"
+                    }else {
+                        return ""
                     }
                 }
             },
@@ -213,6 +224,8 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
                         return "是"
                     } else if (d.swch == 0) {
                         return "不是"
+                    }else {
+                        return ""
                     }
                 }
             },
@@ -220,53 +233,9 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
             {field: 'swdxsw', sort: true, title: '地下水温(度)'},
             {field: 'swfw', sort: true, title: '水位范围'},
             {field: 'swxz', sort: true, title: '地下水类型'},
-            {align: 'center', toolbar: '#tableBar', title: '操作'}
+            {align: 'center', toolbar: '#tableBar4', title: '操作'}
         ]];
     };
-
-    // 工具条点击事件
-    table.on('tool(' + Water.tableId + ')', function (obj) {
-        var data = obj.data;
-        var layEvent = obj.event;
-
-        if (layEvent === 'edit') {
-            let index = layer.open({
-                title: '深度修改',
-                content: '<form id="msUpdateForm" class="layui-form" action="/waterLevel/editItem" method="post">\n' +
-                    '    <div class="layui-form-item">\n' +
-                    '        <label class="layui-form-label">深度:</label>\n' +
-                    '        <div class="layui-input-block">\n' +
-                    '            <input type="number" name="depth" required  lay-verify="required" placeholder="请输入新值" autocomplete="off" class="layui-input">\n' +
-                    '        </div>\n' +
-                    '    </div>\n' +
-                    '    <input type="hidden" name="id" value="' + data.id + '">\n' +
-                    '</form>',
-                success: function(layero, index){
-                    form.render()
-                },
-                closeBtn: 1,
-                btn: ['提交', '取消'],
-                yes: function(index, layero){
-                    let msUpdateForm = $(layero).find('#msUpdateForm');
-                    $.ajax({
-                        url: msUpdateForm.attr("action"),
-                        type: "POST",
-                        data: msUpdateForm.serialize(),
-                        success: function () {
-                            layer.closeAll();
-                            table.reload(Water.tableId);
-                            layer.msg("修改成功",{
-                                time: 3000,
-                            })
-                        }
-                    })
-                },
-                btn2: function(index, layero){
-
-                },
-            });
-        }
-    });
 
     // 渲染表格
     var tableResult = table.render({
@@ -280,6 +249,22 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
         height: "full-158",
         cellMinWidth: 100,
         cols: Water.initColumn()
+    });
+
+    // 工具条点击事件
+    table.on('tool(' + Water.tableId + ')', function (obj) {
+        var data = obj.data;
+        var layEvent = obj.event;
+
+        if (layEvent === 'edit') {
+            func.open({
+                title: '修改水位信息',
+                content: Feng.ctxPath + '/waterLevel/edit?id=' + data.id,
+                tableId: Water.tableId
+            });
+        } else if (layEvent === 'delete') {
+            Water.onDeleteItem(data);
+        }
     });
 
     /**
@@ -304,6 +289,8 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
                         return "扰动样"
                     } else if (d.qylx == 0) {
                         return "原状样"
+                    }else {
+                        return ""
                     }
                 }
             },
@@ -311,7 +298,8 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
             {field: 'qybz', sort: true, title: '土粒比重Gs'},
             {field: 'qyhsl', sort: true, title: '含水量ω(%)'},
             {field: 'qyyx', sort: true, title: '液限ωL(%)'},
-            {field: 'qysx', sort: true, title: '塑限ωP(%)'}
+            {field: 'qysx', sort: true, title: '塑限ωP(%)'},
+            {align: 'center', toolbar: '#tableBar5', title: '操作'}
         ]];
     };
 
@@ -327,6 +315,62 @@ layui.use(['element', 'table', 'admin', 'ax', 'func', 'layer', 'form'], function
         height: "full-158",
         cellMinWidth: 100,
         cols: Sample.initColumn()
+    });
+
+    // 工具条点击事件
+    table.on('tool(' + Sample.tableId + ')', function (obj) {
+        var data = obj.data;
+        var layEvent = obj.event;
+
+        if (layEvent === 'edit') {
+            func.open({
+                title: '修改取样数据表',
+                content: Feng.ctxPath + '/sample/edit?id=' + data.id,
+                tableId: Sample.tableId
+            });
+        } else if (layEvent === 'delete') {
+            Sample.onDeleteItem(data);
+        }
+    });
+
+    // 添加按钮点击事件
+    $('#standardBtn').click(function () {
+        func.open({
+            content: Feng.ctxPath + '/standard/add?itemId='+result.data.itemId +'&holeCode='+result.data.holeCode,
+            tableId: Standard.tableId
+        });
+    });
+
+    // 添加按钮点击事件
+    $('#staticBtn').click(function () {
+        func.open({
+            content: Feng.ctxPath + '/staticTest/add?itemId='+result.data.itemId +'&holeCode='+result.data.holeCode,
+            tableId: Static.tableId
+        });
+    });
+
+    // 添加按钮点击事件
+    $('#penetrationBtn').click(function () {
+        func.open({
+            content: Feng.ctxPath + '/standardPenetration/add?itemId='+result.data.itemId +'&holeCode='+result.data.holeCode,
+            tableId: Penetration.tableId
+        });
+    });
+
+    // 添加按钮点击事件
+    $('#waterBtn').click(function () {
+        func.open({
+            content: Feng.ctxPath + '/waterLevel/add?itemId='+result.data.itemId +'&holeCode='+result.data.holeCode,
+            tableId: Water.tableId
+        });
+    });
+
+    // 添加按钮点击事件
+    $('#sampleBtn').click(function () {
+        func.open({
+            content: Feng.ctxPath + '/sample/add?itemId='+result.data.itemId +'&holeCode='+result.data.holeCode,
+            tableId: Sample.tableId
+        });
     });
 
     //查询["地层数","静探数","标贯数","水位数","取样数"]

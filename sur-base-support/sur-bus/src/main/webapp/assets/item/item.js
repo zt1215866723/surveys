@@ -286,11 +286,7 @@ layui.use(['table', 'ax', 'func', 'form','admin', 'layer', 'element', 'index'], 
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        func.open({
-            title: '添加工程',
-            content: Feng.ctxPath + '/item/add',
-            tableId: Item.tableId
-        });
+        location.href = Feng.ctxPath + '/item/add'
     });
 
     // 工具条点击事件
@@ -298,11 +294,7 @@ layui.use(['table', 'ax', 'func', 'form','admin', 'layer', 'element', 'index'], 
         var data = obj.data;
         var layEvent = obj.event;
         if (layEvent === 'edit') {
-            func.open({
-                title: '修改工程',
-                content: Feng.ctxPath + '/item/edit?id=' + data.id,
-                tableId: Item.tableId
-            });
+            location.href = Feng.ctxPath + '/item/edit?id=' + data.id
         } else if (layEvent === 'delete') {
             var operation = function () {
                 var ajax = new $ax(Feng.ctxPath + "/item/delete", function (data) {

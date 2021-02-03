@@ -10,20 +10,20 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
 
 // 百度地图API功能
     var map = new BMap.Map("allmap", {enableMapClick: false});    // 创建Map实例
-    //消除底图兴趣点标记
-    map.setMapStyle({
-        styleJson: [
-            {
-                "elementType": "labels.icon",
-                "stylers": {
-                    "weight": "8",
-                    "lightness": -70,
-                    "saturation": 1,
-                    "visibility": "off"
-                }
-            }
-        ]
-    });
+    // //消除底图兴趣点标记
+    // map.setMapStyle({
+    //     styleJson: [
+    //         {
+    //             "elementType": "labels.icon",
+    //             "stylers": {
+    //                 "weight": "8",
+    //                 "lightness": -70,
+    //                 "saturation": 1,
+    //                 "visibility": "off"
+    //             }
+    //         }
+    //     ]
+    // });
     map.centerAndZoom(new BMap.Point(Feng.getUrlParam("xaxis"), Feng.getUrlParam("yaxis")), 19);  // 初始化地图,设置中心点坐标和地图级别
     //添加地图类型控件(地图/混合)
     map.addControl(new BMap.MapTypeControl({

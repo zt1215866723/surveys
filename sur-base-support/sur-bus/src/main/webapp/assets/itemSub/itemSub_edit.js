@@ -62,7 +62,7 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
         success: function (data) {
             var html = "";
             $.each(data.data, function (index, item) {
-                html += "<div class='layui-inline layui-col-md12'><label class='layui-form-label'>";
+                html += " <div class='layui-row'><div class='layui-form-item'><label class='layui-form-label'>";
                 if(item.type == 0){
                     html += !item.isNecessary ?
                         item.name + "(" + item.unit + ")</label><div class='layui-input-block'>" +
@@ -94,7 +94,7 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
                     });
                     html += "</select>";
                 }
-                html += "</div></div>";
+                html += "</div></div></div>";
             });
             $('#focus').append(html);
             form.render();

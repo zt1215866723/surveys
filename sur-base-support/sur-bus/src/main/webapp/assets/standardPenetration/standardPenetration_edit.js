@@ -1,30 +1,26 @@
 /**
  * 详情对话框
  */
-var StaticTestInfoDlg = {
+var StandardPenetrationInfoDlg = {
     data: {
         id: "",
         itemId: "",
         holeCode: "",
         depth: "",
-        jtlx: "",
+        bglx: "",
+        bgtzz: "",
         length: "",
-        jtbgrzl: "",
-        jtztzl: "",
-        jtcmz: "",
-        jtmzb: "",
-        jtkxyl: "",
+        bgyzcd: "",
+        bgyzjs: "",
+        bgjs: "",
+        bgxs: "",
+        bgxzjs: "",
+        bgsxz: "",
         cy: "",
-        jtbgrzlx: "",
-        jtbjrzltjx: "",
-        jtztzlx: "",
-        jtztzltjx: "",
-        jtcmzx: "",
-        jtcmztjx: "",
-        jtmzbx: "",
-        jtmzbtjx: "",
-        jtkxylx: "",
-        jtkxyltjx: ""
+        bgxjsx: "",
+        bgxjstjx: "",
+        bgjsx: "",
+        bgjstjx: ""
     }
 };
 
@@ -36,76 +32,14 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //获取详情信息，填充表单
-    var ajax = new $ax(Feng.ctxPath + "/staticTest/detail?id=" + Feng.getUrlParam("id"));
+    var ajax = new $ax(Feng.ctxPath + "/standardPenetration/detail?id=" + Feng.getUrlParam("id"));
     var result = ajax.start();
-    form.val('staticTestForm', result.data);
+    form.val('standardPenetrationForm', result.data);
 
     //表单提交事件
     form.on('submit(btnSubmit)', function (data) {
-        var ajax = new $ax(Feng.ctxPath + "/staticTest/editItem", function (data) {
+        var ajax = new $ax(Feng.ctxPath + "/standardPenetration/editItem", function (data) {
             Feng.success("更新成功！");
             //传给上个页面，刷新table用
             admin.putTempData('formOk', true);

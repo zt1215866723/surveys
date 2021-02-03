@@ -15,6 +15,7 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'layer'], function () {
             return false
         }
         var formData = new FormData($('#itemSubForm')[0]);
+        layer.load(); //上传loading
         $.ajax({
             url: Feng.ctxPath + "/fileView/uploadFolder",
             data : formData,
@@ -22,8 +23,9 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'layer'], function () {
             cache: false,
             processData: false,
             contentType: false,
-            async:false,
+            // async:false,
             success: function (data) {
+                layer.closeAll('loading'); //关闭loading
                 $.ajax({
                     url: Feng.ctxPath + "/itemSub/editItem",
                     data : {

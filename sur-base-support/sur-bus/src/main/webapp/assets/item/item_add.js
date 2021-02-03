@@ -90,10 +90,7 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         var ajax = new $ax(Feng.ctxPath + "/item/addItem", function (data) {
             if(data.success){
                 Feng.success("添加成功！");
-                //传给上个页面，刷新table用
-                admin.putTempData('formOk', true);
-                //关掉对话框
-                admin.closeThisDialog();
+                window.location.href = Feng.ctxPath + '/item'
             }else{
                 Feng.error(data.message);
             }
@@ -103,5 +100,9 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         ajax.set(data.field);
         ajax.start();
         return false;
+    });
+
+    $("#cancel").click(function () {
+        location.href = Feng.ctxPath + '/item'
     });
 });

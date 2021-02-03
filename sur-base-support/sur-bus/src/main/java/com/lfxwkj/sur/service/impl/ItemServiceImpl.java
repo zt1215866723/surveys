@@ -6,6 +6,7 @@ import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lfxwkj.sur.auth.context.LoginContextHolder;
 import com.lfxwkj.sur.base.pojo.node.LayuiTreeNode;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageFactory;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
@@ -36,6 +37,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 
@@ -91,12 +93,22 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     @Autowired
     private WaterLevelMapper waterLevelMapper;
 
-
     @Override
+    @Transactional
     public void add(ItemParam param) {
         Item entity = getEntity(param);
         entity.setState(0);
         this.save(entity);
+        //添加工程信息同时添加文档信息
+        ItemSub itemSub = new ItemSub();
+        itemSub.setItemId(entity.getId());
+        itemSub.setSurName(entity.getItemName());
+        itemSub.setSurNum(entity.getItemCode());
+        itemSub.setAddUser(LoginContextHolder.getContext().getUserId());
+        itemSub.setAddTime(new Date());
+        itemSub.setState(0);
+        itemSub.setIsBorrow(0);
+        this.itemSubMapper.insert(itemSub);
     }
 
     @Override

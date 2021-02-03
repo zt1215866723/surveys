@@ -8,7 +8,8 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
     var ajax = new $ax(Feng.ctxPath + "/focus/detail?id=" + Feng.getUrlParam("id"));
     var result = ajax.start();
     form.val('focusForm', result.data);
-    if(result.data.isShow == "1"){
+    console.log(result.data.isShow)
+    if(result.data.isShow == 0){
         $('#isShow').prop("checked", true)
     } else {
         $('#isShow').prop("checked", false)
@@ -27,6 +28,7 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
             $.each(data.data, function (index, item) {
                 $('#type').append(new Option(item.name, item.dictId));
             });
+            $('#type').append("<option value=-0>数值</option>");
             $('#type').val(result.data.type);
             form.render("select");
         }

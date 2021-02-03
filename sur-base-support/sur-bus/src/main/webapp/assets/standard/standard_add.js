@@ -221,7 +221,8 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
 
 
 
-
+    $("#itemId").val(Feng.getUrlParam("itemId"))
+    $("#holeCode").val(Feng.getUrlParam("holeCode"))
 
 
 

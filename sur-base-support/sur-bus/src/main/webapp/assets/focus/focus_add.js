@@ -13,6 +13,7 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
         dataType: 'json',
         type: 'post',
         success: function (data) {
+            console.log(data)
             $.each(data.data, function (index, item) {
                 $('#type').append(new Option(item.name, item.dictId));
             });

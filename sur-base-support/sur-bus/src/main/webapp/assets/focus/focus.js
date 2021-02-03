@@ -35,7 +35,6 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
         cellMinWidth: 100,
         limit: 20,
         cols:[[
-            {field: 'itemName', title: '工程类别'},
             {field: 'name', title: '关注项'},
             {field: 'unit', title: '单位'},
             {field: 'typeName', title: '类型', templet: function(d){
@@ -47,6 +46,8 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
                     return d.typeName;
                 }
             }},
+            {field: 'itemName', title: '工程类别'},
+
             {field: 'isNecessary', title: '必填项', templet: function(d){
                     return d.isNecessary == 0 ? '否' : '是';
             }},
@@ -57,6 +58,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'form'], function () {
                     return '<input type="checkbox" id="'+ d.id +'" name="isShow" lay-skin="switch" lay-filter="isShowSwitch" lay-text="是|否">'
 
                 }},
+            {field: 'sort', title: '排序'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]]
     });

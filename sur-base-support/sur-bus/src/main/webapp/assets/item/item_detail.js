@@ -49,6 +49,18 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
         ]]
     });
 
+    /**
+     * 弹出添加对话框
+     */
+    Item.openAddDlg = function () {
+        console.log(result.data.id)
+        func.open({
+            title: '添加勘探点',
+            content: Feng.ctxPath + '/drilling/add?itemId='+result.data.id,
+            tableId: Item.tableId
+        });
+    };
+
     // 搜索按钮点击事件
     $('#btnSearch').click(function () {
         var queryData = {
@@ -63,6 +75,13 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
     // 返回按钮点击事件
     $('#btnReturn').click(function () {
         location.href = "/item"
+    });
+
+    // 添加按钮点击事件
+    $('#btnAdd').click(function () {
+
+        Item.openAddDlg();
+
     });
 
     // 一览表点击事件
@@ -84,6 +103,7 @@ layui.use(['table', 'ax', 'func', 'form', 'layer'], function () {
         var data = obj.data;
         var layEvent = obj.event;
         if (layEvent === 'look') {
+            console.log(data)
             location.href = "/drilling/drillingDetail?id=" + data.id
         } else if (layEvent === 'histogram') {
             location.href = "/item/itemDetail?id=" + data.id

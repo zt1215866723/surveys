@@ -1,6 +1,6 @@
-@layout("/common/_form.html",{js:["/assets/standard/standard_edit.js"]}){
+@layout("/common/_form.html",{js:["/assets/standardPenetration/standardPenetration_add.js"],css:["/assets/expand/module/formSelects/formSelects-v4.css"]}){
 
-<form class="layui-form" id="standardForm" lay-filter="standardForm">
+<form class="layui-form" id="standardPenetrationForm" lay-filter="standardPenetrationForm">
     <div class="layui-fluid" style="padding-bottom: 75px;">
         <div class="layui-card">
             <div class="layui-card-header">基本信息</div>
@@ -9,33 +9,11 @@
                     <div class="layui-col-xs6">
                         <div class="layui-form-item">
                             <input name="id" type="hidden"/>
-
-                            <label class="layui-form-label">层底深度<span style="color: red;">*</span></label>
+                            <input name="itemId" id="itemId" type="hidden"/>
+                            <input name="holeCode" id="holeCode" type="hidden"/>
+                            <label class="layui-form-label">试验点底深度（米）<span style="color: red;">*</span></label>
                             <div class="layui-input-block">
-                                <input id="depth" name="depth" placeholder="请输入层底深度（米）" type="text" class="layui-input"
-                                       lay-verify="required" required/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs6">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">主层编号<span style="color: red;">*</span></label>
-                            <div class="layui-input-block">
-                                <input id="mainCode" name="mainCode" placeholder="请输入主层编号" type="text"
-                                       class="layui-input"
-                                       lay-verify="required" required/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs6">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">亚层编号<span style="color: red;">*</span></label>
-                            <div class="layui-input-block">
-                                <input id="secondaryCode" name="secondaryCode" placeholder="请输入亚层编号" type="text"
+                                <input id="depth" name="depth" placeholder="请输入试验点底深度（米）" type="text"
                                        class="layui-input" lay-verify="required" required/>
                             </div>
                         </div>
@@ -44,9 +22,42 @@
                 <div class="layui-row">
                     <div class="layui-col-xs6">
                         <div class="layui-form-item">
-                            <label class="layui-form-label">次亚层编号<span style="color: red;">*</span></label>
+                            <label class="layui-form-label">标贯类型<span style="color: red;">*</span></label>
                             <div class="layui-input-block">
-                                <input id="thirdCode" name="thirdCode" placeholder="请输入次亚层编号" type="text"
+                                <input id="bglx" name="bglx" placeholder="请输入标贯类型" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">特征值<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="bgtzz" name="bgtzz" placeholder="请输入特征值" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">杆长（米）<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="length" name="length" placeholder="请输入杆长（米）" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">一阵击数的长度(m)<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="bgyzcd" name="bgyzcd" placeholder="请输入一阵击数的长度(m)" type="text"
                                        class="layui-input" lay-verify="required" required/>
                             </div>
                         </div>
@@ -55,9 +66,31 @@
                 <div class="layui-row">
                     <div class="layui-col-xs6">
                         <div class="layui-form-item">
-                            <label class="layui-form-label">地层厚度<span style="color: red;">*</span></label>
+                            <label class="layui-form-label">一阵击数(击)<span style="color: red;">*</span></label>
                             <div class="layui-input-block">
-                                <input id="tchd" name="tchd" placeholder="请输入地层厚度(m)" type="text" class="layui-input"
+                                <input id="bgyzjs" name="bgyzjs" placeholder="请输入一阵击数(击)" type="text"
+                                       class="layui-input" lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">标贯击数(击/30cm)<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="bgjs" name="bgjs" placeholder="请输入标贯击数(击/30cm)" type="text"
+                                       class="layui-input" lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">标贯修正系数<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="bgxs" name="bgxs" placeholder="请输入标贯修正系数" type="text" class="layui-input"
                                        lay-verify="required" required/>
                             </div>
                         </div>
@@ -66,32 +99,10 @@
                 <div class="layui-row">
                     <div class="layui-col-xs6">
                         <div class="layui-form-item">
-                            <label class="layui-form-label">岩土类别<span style="color: red;">*</span></label>
+                            <label class="layui-form-label">修正后的标贯击数(击/30cm)<span style="color: red;">*</span></label>
                             <div class="layui-input-block">
-                                <input id="type" name="type" placeholder="请输入岩土类别" type="text" class="layui-input"
-                                       lay-verify="required" required/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs6">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">岩土名称<span style="color: red;">*</span></label>
-                            <div class="layui-input-block">
-                                <input id="name" name="name" placeholder="请输入岩土名称" type="text" class="layui-input"
-                                       lay-verify="required" required/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs6">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">土层描述<span style="color: red;">*</span></label>
-                            <div class="layui-input-block">
-                                <input id="tcms" name="tcms" placeholder="请输入土层描述" type="text" class="layui-input"
-                                       lay-verify="required" required/>
+                                <input id="bgxzjs" name="bgxzjs" placeholder="请输入修正后的标贯击数(击/30cm)" type="text"
+                                       class="layui-input" lay-verify="required" required/>
                             </div>
                         </div>
                     </div>

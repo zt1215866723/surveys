@@ -12,7 +12,10 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <input id="itemName" class="layui-input" autocomplete="off" type="text" placeholder="工程名"/>
+                                <input id="itemName" class="layui-input" autocomplete="off" type="text" placeholder="项目名"/>
+                            </div>
+                            <div class="layui-inline">
+                                <input id="surName" class="layui-input" autocomplete="off" type="text" placeholder="文档名"/>
                             </div>
                             <div class="layui-inline">
                                 <input id="surNum" class="layui-input" autocomplete="off" type="text" placeholder="勘察号"/>
@@ -20,19 +23,16 @@
                             <div class="layui-inline">
                                 <input id="timeLimit" autocomplete="off" class="layui-input" type="text" placeholder="完成日期"/>
                             </div>
-                            <div class="layui-inline">
-                                <select id="surLevel" lay-verify="required" placeholder="资质等级">
-                                    <option value="">资质等级</option>
-                                </select>
-                            </div>
-                            <div class="layui-inline">
-                                <select id="surStage" lay-verify="required" placeholder="勘察阶段">
-                                    <option value="">勘察阶段</option>
-                                </select>
-                            </div>
-                            <div class="layui-inline">
-                                <input id="surName" class="layui-input" autocomplete="off" type="text" placeholder="文档名"/>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <select id="surLevel" lay-verify="required" placeholder="资质等级">-->
+<!--                                    <option value="">资质等级</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <div class="layui-inline">-->
+<!--                                <select id="surStage" lay-verify="required" placeholder="勘察阶段">-->
+<!--                                    <option value="">勘察阶段</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
                             <div class="layui-inline">
                                 <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
                                 @if(shiro.hasPermission("/itemSub/add")){

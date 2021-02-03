@@ -5,312 +5,88 @@
         <div class="layui-card">
             <div class="layui-card-header">基本信息</div>
             <div class="layui-card-body">
-                <div class="layui-form-item layui-row">
-                    <input name="id" type="hidden"/>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <input name="id" id="id" type="hidden"/>
 
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">钻孔编号<span style="color: red;">*</span></label>
-                        <div class="layui-input-block">
-                            <input id="holeCode" name="holeCode" placeholder="请输入钻孔编号" type="text" class="layui-input" lay-verify="required" required/>
+                            <label class="layui-form-label">钻孔编号<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="holeCode" name="holeCode" placeholder="请输入钻孔编号" type="text"
+                                       class="layui-input" lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">钻孔类型</label>
-                        <div class="layui-input-block">
-                            <input id="type" name="type" placeholder="请输入钻孔类型" type="text" class="layui-input"/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">钻孔类型<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="type" name="type" placeholder="请输入钻孔类型" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">横坐标</label>
-                        <div class="layui-input-block">
-                            <input id="zkx" name="zkx" placeholder="请输入横坐标" type="text" class="layui-input"/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">横坐标<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="zkx" name="zkx" placeholder="请输入横坐标" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">纵坐标</label>
-                        <div class="layui-input-block">
-                            <input id="zky" name="zky" placeholder="请输入纵坐标" type="text" class="layui-input"/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">纵坐标<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="zky" name="zky" placeholder="请输入纵坐标" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">建筑地段</label>
-                        <div class="layui-input-block">
-                            <input id="jzdd" name="jzdd" placeholder="请输入建筑地段" type="text" class="layui-input"/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">孔口高程<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="zkbg" name="zkbg" placeholder="请输入孔口高程(m)" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">段号</label>
-                        <div class="layui-input-block">
-                            <input id="zkdh" name="zkdh" placeholder="请输入段号" type="text" class="layui-input"/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">勘探深度<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="depth" name="depth" placeholder="请输入勘探深度(m)" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">里程（米）</label>
-                        <div class="layui-input-block">
-                            <input id="zklc" name="zklc" placeholder="请输入里程（米）" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">偏移量(m)</label>
-                        <div class="layui-input-block">
-                            <input id="zkpil" name="zkpil" placeholder="请输入偏移量(m)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">孔口高程(m)</label>
-                        <div class="layui-input-block">
-                            <input id="zkbg" name="zkbg" placeholder="请输入孔口高程(m)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">水面高程(m)</label>
-                        <div class="layui-input-block">
-                            <input id="zkhsbg" name="zkhsbg" placeholder="请输入水面高程(m)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">勘探深度(m)</label>
-                        <div class="layui-input-block">
-                            <input id="depth" name="depth" placeholder="请输入勘探深度(m)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">探井深度(m)</label>
-                        <div class="layui-input-block">
-                            <input id="zktjsd" name="zktjsd" placeholder="请输入探井深度(m)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">钻孔直径(mm)</label>
-                        <div class="layui-input-block">
-                            <input id="zkzj" name="zkzj" placeholder="请输入钻孔直径(mm)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">断层类型</label>
-                        <div class="layui-input-block">
-                            <input id="zkdclc" name="zkdclc" placeholder="请输入断层类型" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">断层夹角(度)</label>
-                        <div class="layui-input-block">
-                            <input id="zkdcjj" name="zkdcjj" placeholder="请输入断层夹角(度)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">断层起始深度(m)</label>
-                        <div class="layui-input-block">
-                            <input id="zkdcqsd" name="zkdcqsd" placeholder="请输入断层起始深度(m)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">断层终止深度(m)</label>
-                        <div class="layui-input-block">
-                            <input id="zkdczsd" name="zkdczsd" placeholder="请输入断层终止深度(m)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">断层盘面</label>
-                        <div class="layui-input-block">
-                            <input id="zkdcpm" name="zkdcpm" placeholder="请输入断层盘面" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">虚拟钻孔0不是1是</label>
-                        <div class="layui-input-block">
-                            <input id="zkxn" name="zkxn" placeholder="请输入虚拟钻孔0不是1是" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">是否参与统计1是0否</label>
-                        <div class="layui-input-block">
-                            <input id="zksfcy" name="zksfcy" placeholder="请输入是否参与统计1是0否" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">已有孔标志</label>
-                        <div class="layui-input-block">
-                            <input id="zkjyk" name="zkjyk" placeholder="请输入已有孔标志" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">地下水温(度)</label>
-                        <div class="layui-input-block">
-                            <input id="zkdxsw" name="zkdxsw" placeholder="请输入地下水温(度)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">探槽角度(度)</label>
-                        <div class="layui-input-block">
-                            <input id="zktcjd" name="zktcjd" placeholder="请输入探槽角度(度)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">勘探开始日期</label>
-                        <div class="layui-input-block">
-                            <input id="zkksrq" name="zkksrq" placeholder="请输入勘探开始日期" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">勘探终止日期</label>
-                        <div class="layui-input-block">
-                            <input id="zkzzrq" name="zkzzrq" placeholder="请输入勘探终止日期" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">勘探点等级</label>
-                        <div class="layui-input-block">
-                            <input id="zkdj" name="zkdj" placeholder="请输入勘探点等级" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">土的湿度系数ψw</label>
-                        <div class="layui-input-block">
-                            <input id="zkpztsdxs" name="zkpztsdxs" placeholder="请输入土的湿度系数ψw" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">大气影响深度(m)</label>
-                        <div class="layui-input-block">
-                            <input id="zkpzdqyxs" name="zkpzdqyxs" placeholder="请输入大气影响深度(m)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">备注</label>
-                        <div class="layui-input-block">
-                            <input id="bz" name="bz" placeholder="请输入备注" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-<!--                    <div class="layui-inline layui-col-md12">-->
-<!--                        <label class="layui-form-label"></label>-->
-<!--                        <div class="layui-input-block">-->
-<!--                            <input id="zksc" name="zksc" placeholder="请输入" type="text" class="layui-input"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="layui-inline layui-col-md12">-->
-<!--                        <label class="layui-form-label"></label>-->
-<!--                        <div class="layui-input-block">-->
-<!--                            <input id="zkh" name="zkh" placeholder="请输入" type="text" class="layui-input"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="layui-inline layui-col-md12">-->
-<!--                        <label class="layui-form-label"></label>-->
-<!--                        <div class="layui-input-block">-->
-<!--                            <input id="zkv" name="zkv" placeholder="请输入" type="text" class="layui-input"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="layui-inline layui-col-md12">-->
-<!--                        <label class="layui-form-label"></label>-->
-<!--                        <div class="layui-input-block">-->
-<!--                            <input id="zkyhzs" name="zkyhzs" placeholder="请输入" type="text" class="layui-input"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">湿陷等级</label>
-                        <div class="layui-input-block">
-                            <input id="sxdj" name="sxdj" placeholder="请输入湿陷等级" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">湿陷类型</label>
-                        <div class="layui-input-block">
-                            <input id="sxlx" name="sxlx" placeholder="请输入湿陷类型" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">膨胀潜势</label>
-                        <div class="layui-input-block">
-                            <input id="zkpzqs" name="zkpzqs" placeholder="请输入膨胀潜势" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">膨胀等级</label>
-                        <div class="layui-input-block">
-                            <input id="zkpzdj" name="zkpzdj" placeholder="请输入膨胀等级" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">1m深处含水量ω1</label>
-                        <div class="layui-input-block">
-                            <input id="zkymshsl" name="zkymshsl" placeholder="请输入1m深处含水量ω1" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">1m深处塑限含水量ω1p</label>
-                        <div class="layui-input-block">
-                            <input id="zkymcsxhsl" name="zkymcsxhsl" placeholder="请输入1m深处塑限含水量ω1p" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"></label>
-                        <div class="layui-input-block">
-                            <input id="dtable" name="dtable" placeholder="请输入" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">原始工程编号</label>
-                        <div class="layui-input-block">
-                            <input id="ysgcbh" name="ysgcbh" placeholder="请输入原始工程编号" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-<!--                    <div class="layui-inline layui-col-md12">-->
-<!--                        <label class="layui-form-label"></label>-->
-<!--                        <div class="layui-input-block">-->
-<!--                            <input id="zkcolor" name="zkcolor" placeholder="请输入" type="text" class="layui-input"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">总编号</label>
-                        <div class="layui-input-block">
-                            <input id="zkzbh" name="zkzbh" placeholder="请输入总编号" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">施钻方法</label>
-                        <div class="layui-input-block">
-                            <input id="zkszff" name="zkszff" placeholder="请输入施钻方法" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">钻机类型</label>
-                        <div class="layui-input-block">
-                            <input id="zkzjlx" name="zkzjlx" placeholder="请输入钻机类型" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">钻探单位</label>
-                        <div class="layui-input-block">
-                            <input id="zkztdw" name="zkztdw" placeholder="请输入钻探单位" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">工点名称</label>
-                        <div class="layui-input-block">
-                            <input id="zkgdmc" name="zkgdmc" placeholder="请输入工点名称" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">地面高程</label>
-                        <div class="layui-input-block">
-                            <input id="zkdmbg" name="zkdmbg" placeholder="请输入地面高程" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">建议基础高程(m)</label>
-                        <div class="layui-input-block">
-                            <input id="jyjcgc" name="jyjcgc" placeholder="请输入建议基础高程(m)" type="text" class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label"></label>
-                        <div class="layui-input-block">
-                            <input id="sortikey" name="sortikey" placeholder="请输入" type="text" class="layui-input"/>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">钻孔直径<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                                <input id="zkzj" name="zkzj" placeholder="请输入钻孔直径(mm)" type="text" class="layui-input"
+                                       lay-verify="required" required/>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <div class="form-group-bottom text-center">
         <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>

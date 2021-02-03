@@ -183,7 +183,7 @@
         </if>
         order by CAST( hole_code AS SIGNED)
     </select>
-    <select id="selectExplorationPoints" resultType="com.lfxwkj.sur.model.result.DrillingVo">
+    <select id="selectExplorationPoints" resultType="com.lfxwkj.sur.entity.Drilling">
         SELECT
 --         ROW_NUMBER() OVER ( ORDER BY CAST( d.hole_code AS SIGNED ) ) rowNum,
         d.hole_code,

@@ -29,7 +29,8 @@ import java.util.Date;
  * @Date 2017/5/5 22:40
  */
 @Data
-public class UserDto {
+public class
+UserDto {
 
     private Long userId;
 

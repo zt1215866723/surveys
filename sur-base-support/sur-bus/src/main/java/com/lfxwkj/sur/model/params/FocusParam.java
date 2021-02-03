@@ -67,6 +67,8 @@ public class FocusParam implements Serializable, BaseValidatingParam {
      */
     private Integer isNecessary;
 
+    private Integer sort;
+
     /**
      * 是否展示
      */
