@@ -21,6 +21,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lfxwkj.sur.sys.modular.system.entity.Dict;
 import com.lfxwkj.sur.sys.modular.system.service.DictService;
 import com.lfxwkj.sur.util.AsyncResult;
+import com.lfxwkj.sur.util.CoordinatesUtil;
+import com.lfxwkj.sur.util.GPSConverterUtils;
 import com.lfxwkj.sur.util.ReadMdb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,6 +98,23 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     @Override
     @Transactional
     public void add(ItemParam param) {
+        if (param.getKcXaxis()!=0 && param.getKcYaxis()!=0) {
+            //格式化double类型数据，不用科学计数法表示
+            DecimalFormat df = new DecimalFormat("0");
+            String format = df.format(param.getKcXaxis());
+            //判断坐标是什么坐标系的
+            if ( format.length() == 8 || format.length() == 6) {
+                //xian 80 guass kruger 3degree zone 39 (也就是说X轴坐标是39开头小数点前是八位的)
+                //xian 80 6度分带中央经线117E (也就是说X轴坐标是小数点前是六位的)
+                double[] doubles = CoordinatesUtil.GaussToBL(param.getKcXaxis(), param.getKcYaxis(),param.getCoorSystem());
+//                String s = GPSConverterUtils.changgeXY(String.valueOf(doubles[0]), String.valueOf(doubles[1]));
+//                String[] split = s.split(",");
+                param.setXaxis(String.valueOf(doubles[0]));
+                param.setYaxis(String.valueOf(doubles[1]));
+            }else{
+                //X轴坐标开头4位代表以项目中的一个点为基准，无法转换为经纬度，不在地图中显示
+            }
+        }
         Item entity = getEntity(param);
         entity.setState(0);
         this.save(entity);
@@ -170,8 +189,8 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     }
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
-    public ResponseData synchronous(Long itemId, String fileUrl){
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseData synchronous(Long itemId, String fileUrl) {
         Item item = this.getById(itemId);
         item.setSynchronousState(1);
         this.updateById(item);
@@ -179,7 +198,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
         String[] tableNames = {"z_ZuanKong", "z_y_JingTan", "z_y_BiaoGuan", "z_g_TuCeng", "z_g_ShuiWei", "x_GongCheng", "p_PouXian", "g_STuCengGC", "z_c_quyang"};
         try {
             readMdb.selectData(itemId, fileUrl, tableNames);
-        }catch (RejectedExecutionException | ParseException | ClassNotFoundException e){
+        } catch (RejectedExecutionException | ParseException | ClassNotFoundException e) {
             e.printStackTrace();
             item.setSynchronousState(0);
             this.updateById(item);
@@ -189,10 +208,10 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     }
 
     @Override
-    @Transactional(rollbackFor=Exception.class, timeout = 3000)
+    @Transactional(rollbackFor = Exception.class, timeout = 3000)
     public void saveData(Long itemId, boolean sign, Map<String, List<Map>> data) throws ParseException {
         Item item = this.getById(itemId);
-        if(sign){
+        if (sign) {
             //删除当前工程下的所有理正数据
             QueryWrapper<Drilling> drillingQueryWrapper = new QueryWrapper<>();
             drillingQueryWrapper.eq("item_id", itemId);
@@ -507,21 +526,21 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     }
 
     /**
-     * @Description  ：在地图上展示所有工程信息(+关注项)
-     * @methodName   : getItemOnTheMap
-     * @param        : * @param itemParam :
-     * @return       : cn.stylefeng.roses.kernel.model.response.ResponseData
-     * @exception    :
-     * @author       : 张童
+     * @param : * @param itemParam :
+     * @return : cn.stylefeng.roses.kernel.model.response.ResponseData
+     * @throws :
+     * @Description ：在地图上展示所有工程信息(+关注项)
+     * @methodName : getItemOnTheMap
+     * @author : 张童
      */
     @Override
     public List<ItemResult> getItemOnTheMapAddGZ(ItemParam itemParam) {
-        if (itemParam.getItemTypes()!=null && !itemParam.getItemTypes().equals("")) {
+        if (itemParam.getItemTypes() != null && !itemParam.getItemTypes().equals("")) {
             String s1 = itemParam.getItemTypes().substring(0, itemParam.getItemTypes().length() - 1);
             String[] split = s1.split(",");
             itemParam.setTypeArray(split);
         }
-        if (itemParam.getItemPlans()!=null && !itemParam.getItemPlans().equals("")) {
+        if (itemParam.getItemPlans() != null && !itemParam.getItemPlans().equals("")) {
             String s2 = itemParam.getItemPlans().substring(0, itemParam.getItemPlans().length() - 1);
             String[] split1 = s2.split(",");
             itemParam.setPlanArray(split1);
@@ -558,12 +577,12 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
      */
     @Override
     public List<ItemResult> getItemOnTheMap(ItemParam itemParam) {
-        if (itemParam.getItemTypes()!=null && !itemParam.getItemTypes().equals("")) {
+        if (itemParam.getItemTypes() != null && !itemParam.getItemTypes().equals("")) {
             String s1 = itemParam.getItemTypes().substring(0, itemParam.getItemTypes().length() - 1);
             String[] split = s1.split(",");
             itemParam.setTypeArray(split);
         }
-        if (itemParam.getItemPlans()!=null && !itemParam.getItemPlans().equals("")) {
+        if (itemParam.getItemPlans() != null && !itemParam.getItemPlans().equals("")) {
             String s2 = itemParam.getItemPlans().substring(0, itemParam.getItemPlans().length() - 1);
             String[] split1 = s2.split(",");
             itemParam.setPlanArray(split1);
@@ -610,16 +629,16 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
         //岩土设计
         String count3 = this.baseMapper.getCountByType(3L);
         String count4 = this.baseMapper.getCountByType(5L);
-        Integer integer = Integer.parseInt(count3)+Integer.parseInt(count4);
+        Integer integer = Integer.parseInt(count3) + Integer.parseInt(count4);
         Map<String, String> a3 = new HashMap<>();
         a3.put("name", "岩土设计");
         a3.put("value", integer.toString());
         result.add(a3);
         //其他工程
         QueryWrapper<Item> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("state",0);
+        queryWrapper.eq("state", 0);
         Integer count5 = this.baseMapper.selectCount(queryWrapper);
-        count5 = count5 - integer - Integer.parseInt(count1)+Integer.parseInt(count2);
+        count5 = count5 - integer - Integer.parseInt(count1) + Integer.parseInt(count2);
         Map<String, String> a = new HashMap<>();
         a.put("name", "其他工程");
         a.put("value", count5.toString());

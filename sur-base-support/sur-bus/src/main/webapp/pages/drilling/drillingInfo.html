@@ -37,27 +37,37 @@
                             </div></div>
                         </div>
                     <div class="layui-tab-item">
+                        @if(shiro.hasPermission("/item/detail/standardAdd")){
                         <button id="standardBtn" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                        @}
                         <table class="layui-table" id="standardTable" lay-filter="standardTable">
                         </table>
                     </div>
                     <div class="layui-tab-item">
+                        @if(shiro.hasPermission("/item/detail/staticAdd")){
                         <button id="staticBtn" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                        @}
                         <table class="layui-table" id="staticTable" lay-filter="staticTable">
                         </table>
                     </div>
                     <div class="layui-tab-item">
+                        @if(shiro.hasPermission("/item/detail/penetrationAdd")){
                         <button id="penetrationBtn" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                        @}
                         <table class="layui-table" id="penetrationTable" lay-filter="penetrationTable">
                         </table>
                     </div>
                     <div class="layui-tab-item">
+                        @if(shiro.hasPermission("/item/detail/waterAdd")){
                         <button id="waterBtn" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                        @}
                         <table class="layui-table" id="waterTable" lay-filter="waterTable">
                         </table>
                     </div>
                     <div class="layui-tab-item">
+                        @if(shiro.hasPermission("/item/detail/sampleAdd")){
                         <button id="sampleBtn" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                        @}
                         <table class="layui-table" id="sampleTable" lay-filter="sampleTable">
                         </table>
                     </div>
@@ -67,19 +77,29 @@
     </div>
 </div>
 <script type="text/html" id="tableBar1">
+    @if(shiro.hasPermission("/item/detail/standardEdit")){
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    @}
 </script>
 <script type="text/html" id="tableBar2">
+    @if(shiro.hasPermission("/item/detail/staticEdit")){
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    @}
 </script>
 <script type="text/html" id="tableBar3">
+    @if(shiro.hasPermission("/item/detail/penetrationEdit")){
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    @}
 </script>
 <script type="text/html" id="tableBar4">
+    @if(shiro.hasPermission("/item/detail/waterEdit")){
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    @}
 </script>
 <script type="text/html" id="tableBar5">
+    @if(shiro.hasPermission("/item/detail/sampleEdit")){
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    @}
 </script>
 <script src="${ctxPath}/assets/home/echarts.min.js?v=${constants.getReleaseVersion()}"></script>
 

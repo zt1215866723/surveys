@@ -54,7 +54,6 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                     var xmPoint; //存放标注点经纬信息的数组
                     var xmMarker; //存放标注点对象的数组
                     var info; //存放提示信息窗口对象的数组
-                    console.log(i)
 
                     if (data.status === 0) {
                         item.xaxis = data.points[0].lng
@@ -91,7 +90,6 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
                         addInfo(info, xmMarker);
                     }
                 },function () {
-                    console.log(i)
                 });
             })
         }

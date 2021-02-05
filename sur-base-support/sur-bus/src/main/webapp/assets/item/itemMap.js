@@ -1,4 +1,4 @@
-layui.use(['form', 'admin', 'ax', 'laydate','element'], function () {
+layui.use(['form', 'admin', 'ax', 'laydate', 'element'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
@@ -139,19 +139,19 @@ layui.use(['form', 'admin', 'ax', 'laydate','element'], function () {
     var info = new Array(); //存放提示信息窗口对象的数组
     tempData.forEach(function (item, index) {
         xmPoint[index] = new window.BMap.Point(item.xaxis, item.yaxis); //循环生成新的地图点
-        var myIcon = new BMap.Icon("/image/"+item.typeUrl, new BMap.Size(24, 24));
-            var xmLabel = new window.BMap.Label(item.itemName, {offset: new window.BMap.Size(20, -10)});
-            xmLabel.setStyle({
-                color: '#000000',
-                background: '#ffffff',
-                borderRadius: "5px",
-                border: 'none',
-                textAlign: "center",
-                height: "20px",
-                lineHeight: "20px",
-                padding: "0 10px"
-            });
-            xmMarker[index] = new window.BMap.Marker(xmPoint[index], {icon: myIcon}); //按照地图点坐标生成标记
+        var myIcon = new BMap.Icon("/image/" + item.typeUrl, new BMap.Size(24, 24));
+        var xmLabel = new window.BMap.Label(item.itemName, {offset: new window.BMap.Size(20, -10)});
+        xmLabel.setStyle({
+            color: '#000000',
+            background: '#ffffff',
+            borderRadius: "5px",
+            border: 'none',
+            textAlign: "center",
+            height: "20px",
+            lineHeight: "20px",
+            padding: "0 10px"
+        });
+        xmMarker[index] = new window.BMap.Marker(xmPoint[index], {icon: myIcon}); //按照地图点坐标生成标记
 
         map.addOverlay(xmMarker[index]);
 
@@ -171,16 +171,16 @@ layui.use(['form', 'admin', 'ax', 'laydate','element'], function () {
                 },
                 dataType: 'json',
                 type: 'post',
-                async:false,
+                async: false,
                 success: function (data) {
-                    if (data.data != null && data.data !=""){
+                    if (data.data != null && data.data != "") {
                         sContent4 += "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>关注项：</h4>";
                     }
                     $.each(data.data, function (index, item) {
-                        if(item.type == 0){
-                            sContent4 +="<p class='map-card-p'>"+ item.focusName +" ：" + item.nouValue + "(" + item.unit + ")"+"</p>";
-                        }else {
-                            sContent4 +="<p class='map-card-p'>"+ item.focusName +" ：" + item.resultName +"</p>";
+                        if (item.type == 0) {
+                            sContent4 += "<p class='map-card-p'>" + item.focusName + " ：" + item.nouValue + "(" + item.unit + ")" + "</p>";
+                        } else {
+                            sContent4 += "<p class='map-card-p'>" + item.focusName + " ：" + item.resultName + "</p>";
                         }
                     })
                     sContent4 += "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>";
@@ -192,7 +192,7 @@ layui.use(['form', 'admin', 'ax', 'laydate','element'], function () {
 
                 "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>" + item.itemName + "</h4>" +
                 "<p class='map-card-p' style=''>项目编号：" + item.itemCode + "</p>" +
-                "<p class='map-card-p'>项目类型：" + item.typeName + "</p>"+
+                "<p class='map-card-p'>项目类型：" + item.typeName + "</p>" +
                 "</div>";
             var sContent2 = '';
             if (item.type == 2) {
@@ -209,23 +209,24 @@ layui.use(['form', 'admin', 'ax', 'laydate','element'], function () {
                 "</div>" +
                 "</div>";
             var opts = {
-                width : 0,
-                height :0
+                width: 0,
+                height: 0
             }
-            info = new window.BMap.InfoWindow(sContent1 + sContent4 + sContent2 + sContent3,opts); // 创建信息窗口对象
+            info = new window.BMap.InfoWindow(sContent1 + sContent4 + sContent2 + sContent3, opts); // 创建信息窗口对象
             this.openInfoWindow(info);
         });
     }
+
     /*
         2020年12月17日 王南翔
         跳转到项目详情
      */
-    window.itemDetail = function (id){
+    window.itemDetail = function (id) {
         console.log(id);
         index.openTab({
             title: '工程列表',
             url: 'item/itemDetail?id=' + id,
-            end: function() {
+            end: function () {
                 // insTb.reload();
             }
         });
@@ -249,16 +250,16 @@ layui.use(['form', 'admin', 'ax', 'laydate','element'], function () {
             },
             dataType: 'json',
             type: 'post',
-            async:false,
+            async: false,
             success: function (data) {
-                if (data.data != null && data.data !=""){
+                if (data.data != null && data.data != "") {
                     opts4 += "<h4 style='margin:0 0 5px 0;padding:0.2em 0;color: #1E9FFF;font-weight: bold'>关注项：</h4>";
                 }
                 $.each(data.data, function (index, item) {
-                    if(item.type == 0){
-                        opts4 +="<p class='map-card-p'>"+ item.focusName +" ：" + item.nouValue + "(" + item.unit + ")"+"</p>";
-                    }else {
-                        opts4 +="<p class='map-card-p'>"+ item.focusName +" ：" + item.resultName +"</p>";
+                    if (item.type == 0) {
+                        opts4 += "<p class='map-card-p'>" + item.focusName + " ：" + item.nouValue + "(" + item.unit + ")" + "</p>";
+                    } else {
+                        opts4 += "<p class='map-card-p'>" + item.focusName + " ：" + item.resultName + "</p>";
                     }
                 })
                 opts4 += "<div style='position:absolute; bottom: 0;display: flex;width: 100%'>";
@@ -287,10 +288,10 @@ layui.use(['form', 'admin', 'ax', 'laydate','element'], function () {
             "</div>";
 
         var opts = {
-            width : 0,
-            height :0
+            width: 0,
+            height: 0
         }
-        var infoWindow = new BMap.InfoWindow(opts1 + opts4 + opts2 + opts3,opts);
+        var infoWindow = new BMap.InfoWindow(opts1 + opts4 + opts2 + opts3, opts);
         map.openInfoWindow(infoWindow, point);
         element.init();
     };
@@ -404,14 +405,14 @@ layui.use(['form', 'admin', 'ax', 'laydate','element'], function () {
         type: 'post',
         async: false,
         success: function (data) {
-                $.each(data.data, function (index, item) {
-                    $("#gzxxz").append("<input type='radio' lay-filter='testRadio' name='focus' value='"+item.id+"' title='"+item.name+"'>")
-                })
+            $.each(data.data, function (index, item) {
+                $("#gzxxz").append("<input type='radio' lay-filter='testRadio' name='focus' value='" + item.id + "' title='" + item.name + "'>")
+            })
             form.render()
         }
     });
     var xmMarkers = new Array();
-    form.on('radio(testRadio)', function(data){
+    form.on('radio(testRadio)', function (data) {
         for (var i = 0; i < xmMarkers.length; i++) {
             map.removeOverlay(xmMarkers[i]);
         }
@@ -426,7 +427,7 @@ layui.use(['form', 'admin', 'ax', 'laydate','element'], function () {
             },
             dataType: 'json',
             success: function (data) {
-                if (data.data.length>0){
+                if (data.data.length > 0) {
                     data.data.forEach(function (item, index) {
                         xmPoint[index] = new window.BMap.Point(item.xaxis, item.yaxis); //循环生成新的地图点
 

@@ -92,6 +92,16 @@ public class ItemParam implements Serializable, BaseValidatingParam {
 
     private List<String> itemIds;
 
+    /**
+     * 项目勘察经度
+     */
+    private double kcXaxis;
+
+    /**
+     * 项目勘察纬度
+     */
+    private double kcYaxis;
+
     @Override
     public String checkParam() {
         return null;
