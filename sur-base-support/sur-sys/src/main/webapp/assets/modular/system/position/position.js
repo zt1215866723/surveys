@@ -20,12 +20,10 @@ layui.use(['table', 'admin', 'ax', 'form', 'func'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'positionId', hide: true, title: '主键id'},
-            {field: 'name', sort: true, title: '职位名称'},
-            {field: 'code', sort: true, title: '职位编码'},
-            {field: 'remark', sort: true, title: '备注'},
-            {field: 'createTime', sort: true, title: '创建时间'},
-            {field: 'updateTime', sort: true, title: '更新时间'},
-            {field: 'status', sort: true, templet: '#statusTpl', title: '状态'},
+            {align: 'center', field: 'name', title: '职位名称'},
+            {align: 'center', field: 'code', title: '职位编码'},
+            {align: 'center', field: 'sort', title: '顺序'},
+            {align: 'center', field: 'remark', title: '备注'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };
