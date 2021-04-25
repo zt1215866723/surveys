@@ -98,7 +98,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     @Override
     @Transactional
     public void add(ItemParam param) {
-        if (param.getKcXaxis()!=0 && param.getKcYaxis()!=0) {
+        if (ToolUtil.isNotEmpty(param.getKcXaxis())&& ToolUtil.isNotEmpty(param.getKcYaxis())) {
             //格式化double类型数据，不用科学计数法表示
             DecimalFormat df = new DecimalFormat("0");
             String format = df.format(param.getKcXaxis());

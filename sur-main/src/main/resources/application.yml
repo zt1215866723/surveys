@@ -45,9 +45,5 @@ mybatis-plus:
 log:
   path: _app_logs
 
-img:
-  drillingPath: D:\tempImgPath\drillingFilePath\
-  itemPath: D:\tempImgPath\itemFilePath\
-#img:
-#  drillingPath: /tmp/tempImgPath/drillingFilePath/
-#  itemPath: /tmp/tempImgPath/itemFilePath/
+
+

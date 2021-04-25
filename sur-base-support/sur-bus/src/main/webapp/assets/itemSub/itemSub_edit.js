@@ -126,6 +126,8 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
 
     var focus = {}
     form.on('select(monitor)', function(data){
+        console.log(focus[data.elem.id])
+        console.log(data.value)
         focus[data.elem.id] = data.value;
     });
 

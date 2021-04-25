@@ -17,6 +17,10 @@ spring:
       request-timeout: 300000000000 #设置restful的api超时时间为60秒
     # 连接池大小根据实际情况调整
 
+img:
+  drillingPath: /tmp/tempImgPath/drillingFilePath/
+  itemPath: /tmp/tempImgPath/itemFilePath/
+
 jodconverter:
   local:
     enabled: true
