@@ -1,9 +1,10 @@
-layui.use(['form', 'admin', 'ax', 'laydate', 'element'], function () {
+layui.use(['form', 'admin', 'ax', 'laydate','index', 'element'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
     var admin = layui.admin;
     var laydate = layui.laydate;
+    var index = layui.index;
     var element = layui.element;
     //存放选择的工程类型,工程进度
     var itemTypes, itemPlans;
