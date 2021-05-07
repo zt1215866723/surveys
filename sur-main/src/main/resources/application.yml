@@ -3,11 +3,11 @@ server:
   max-http-header-size: 40960
 
 file-upload-path:
-  windows: D:/tempFilePath
+  windows: E:/tempFilePath
   linux: /tmp/tempFilePath
 
 file-topdf-path:
-  pdfwindows: D:/tempFilePath/pdf
+  pdfwindows: E:/tempFilePath/pdf
   pdflinux: /tmp/tempFilePath/pdf
 
 beetl:

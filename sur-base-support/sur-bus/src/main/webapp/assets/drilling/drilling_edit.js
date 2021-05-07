@@ -69,6 +69,19 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
     var result = ajax.start();
     form.val('drillingForm', result.data);
 
+    $.ajax({
+        url: Feng.ctxPath + "/drillingType/getDrillingTypeList",
+        dataType: 'json',
+        type: 'post',
+        success: function (data) {
+            $.each(data, function (index, item) {
+                $('#type').append(new Option(item.name, item.id));
+            });
+            $('#type').val(result.data.type);
+            form.render("select");
+        }
+    });
+
     //表单提交事件
     form.on('submit(btnSubmit)', function (data) {
         var ajax = new $ax(Feng.ctxPath + "/drilling/editItem", function (data) {

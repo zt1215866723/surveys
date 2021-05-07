@@ -1,8 +1,11 @@
 package com.lfxwkj.sur.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lfxwkj.sur.base.pojo.page.LayuiPageInfo;
 import com.lfxwkj.sur.entity.DrillingType;
+import com.lfxwkj.sur.entity.ItemType;
 import com.lfxwkj.sur.model.params.DrillingTypeParam;
+import com.lfxwkj.sur.model.params.ItemTypeParam;
 import com.lfxwkj.sur.service.DrillingTypeService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
@@ -19,10 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 
 /**
@@ -190,6 +190,20 @@ public class DrillingTypeController extends BaseController {
         map.put("code", 0);
         map.put("msg", "");
         return map;
+    }
+
+    /**
+     * 查询列表
+     *
+     * @author zt
+     * @Date 2020-11-3
+     */
+    @ResponseBody
+    @RequestMapping("/getDrillingTypeList")
+    public List<DrillingType> getItemTypeList() {
+        QueryWrapper<DrillingType> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status",0);
+        return this.drillingTypeService.list(queryWrapper);
     }
 }
 

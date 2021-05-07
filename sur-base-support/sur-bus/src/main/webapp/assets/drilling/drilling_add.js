@@ -66,6 +66,19 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
 
     $("#itemId").val(Feng.getUrlParam("itemId"))
 
+    //获取钻孔类型的下拉框
+    $.ajax({
+        url: Feng.ctxPath + "/drillingType/getDrillingTypeList",
+        dataType: 'json',
+        type: 'post',
+        success: function (data) {
+            $.each(data, function (index, item) {
+                $('#type').append(new Option(item.name, item.id));
+            });
+            form.render("select");
+        }
+    });
+
     //表单提交事件
     form.on('submit(btnSubmit)', function (data) {
         var ajax = new $ax(Feng.ctxPath + "/drilling/addItem", function (data) {

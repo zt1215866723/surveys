@@ -1,10 +1,10 @@
 @layout("/common/_form.html",{js:["/assets/item/item_edit.js"]}){
-<div class="layui-fluid">
-    <div class="layui-card">
-        <div class="layui-card-header">基本信息</div>
-        <div class="layui-card-body">
-            <div style="width:100%;height:420px;margin-bottom: 15px" id="allmap"></div>
-            <form class="layui-form" id="itemForm" lay-filter="itemForm">
+<form class="layui-form" id="itemForm" lay-filter="itemForm">
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-card-header">基本信息</div>
+            <div class="layui-card-body">
+                <div style="width:100%;height:420px;margin-bottom: 15px" id="allmap"></div>
                 <input name="id" type="hidden" id="id">
                 <div class="layui-row">
                     <div class="layui-col-xs6">
@@ -124,7 +124,8 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">坐标系<span style="color: red;">*</span></label>
                             <div class="layui-input-block">
-                                <select id="coorSystem" name="coorSystem" autocomplete="off" type="text" class="layui-input"
+                                <select id="coorSystem" name="coorSystem" autocomplete="off" type="text"
+                                        class="layui-input"
                                         lay-verify="required" required lay-search="">
                                     <option value=""></option>
                                     <option value="1">54坐标系</option>
@@ -149,17 +150,25 @@
                         <textarea id="remarks" name="remarks" placeholder="请输入备注" class="layui-textarea"></textarea>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <div class="layui-form-block" style="text-align: center">
-                        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
-                        <button type="reset" id="cancel" class="layui-btn layui-btn-primary" ew-event="closeDialog">&emsp;取消&emsp;
-                        </button>
-                    </div>
+            </div>
+        </div>
+        <div class="layui-card">
+            <div class="layui-card-header">提取信息</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item layui-row" id="focus">
                 </div>
-            </form>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-form-block" style="text-align: center">
+                <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+                <button type="reset" id="cancel" class="layui-btn layui-btn-primary" ew-event="closeDialog">&emsp;取消&emsp;
+                </button>
+            </div>
         </div>
     </div>
-</div>
+</form>
+
 <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=GXPDLcpdfGRaZ42n5TgQW6DIwftiTN8E"></script>
 
 @}

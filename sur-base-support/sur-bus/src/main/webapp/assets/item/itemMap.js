@@ -46,20 +46,20 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'element'], function () {
     var label = new BMap.Label("勘察院测绘处", {
         offset: new BMap.Size(15, -25)
     });
-    // //消除底图兴趣点标记
-    // map.setMapStyle({
-    //     styleJson: [
-    //         {
-    //             "elementType": "labels.icon",
-    //             "stylers": {
-    //                 "weight": "8",
-    //                 "lightness": -70,
-    //                 "saturation": 1,
-    //                 "visibility": "off"
-    //             }
-    //         }
-    //     ]
-    // });
+    //消除底图兴趣点标记
+    map.setMapStyle({
+        styleJson: [
+            {
+                "elementType": "labels.icon",
+                "stylers": {
+                    "weight": "8",
+                    "lightness": -70,
+                    "saturation": 1,
+                    "visibility": "off"
+                }
+            }
+        ]
+    });
     label.setStyle({
         color: '#ffffff',
         background: '#a15cc8',
@@ -198,7 +198,7 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'element'], function () {
             if (item.type == 2) {
                 //勘察工程才有钻孔信息！！！
                 sContent2 =
-                    "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
+                    "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >勘探孔</a>";
             }
             /*
                 2020年12月17日 王南翔
@@ -276,7 +276,7 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'element'], function () {
         if (item.type == 2) {
             //勘察工程才有钻孔信息！！！
             opts2 =
-                "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >工程钻孔</a>";
+                "<a style='color: #1668ff;font-weight: bold;margin: 0 auto;'  href='/drilling/drillingMap?itemId=" + item.id + "&xaxis=" + item.xaxis + "&yaxis=" + item.yaxis + "' >勘探孔</a>";
         }
         /*
             2020年12月17日 王南翔

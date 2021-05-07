@@ -121,8 +121,6 @@ public class ItemSubParam implements Serializable, BaseValidatingParam {
 
     private String timeLimit;
 
-    private Map<Long, String> focus;
-
     private String location;
 
     private Integer isForeign;

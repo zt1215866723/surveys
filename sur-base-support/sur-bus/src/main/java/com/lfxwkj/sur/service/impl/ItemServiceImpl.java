@@ -42,6 +42,7 @@ import java.util.*;
 import java.util.Date;
 import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -94,7 +95,10 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
     private StaticTestMapper staticTestMapper;
     @Autowired
     private WaterLevelMapper waterLevelMapper;
-
+    @Autowired
+    private FocusMapper focusMapper;
+    @Autowired
+    private IndexMapper indexMapper;
     @Override
     @Transactional
     public void add(ItemParam param) {
@@ -128,6 +132,28 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
         itemSub.setState(0);
         itemSub.setIsBorrow(0);
         this.itemSubMapper.insert(itemSub);
+
+        QueryWrapper<Focus> focusQueryWrapper = new QueryWrapper<>();
+        focusQueryWrapper.eq("type", 0);
+        focusQueryWrapper.select("id");
+        List<Focus> focusList = focusMapper.selectList(focusQueryWrapper);
+        List<Long> doubleFocusIds = focusList.stream().map(Focus::getId).collect(Collectors.toList());
+        if(param.getFocus() != null){
+            for(Map.Entry<Long, String> entry : param.getFocus().entrySet()){
+                if(!"".equals(entry.getValue())){
+                    Index index = new Index();
+                    index.setFocusId(entry.getKey());
+                    index.setState(0);
+                    index.setSubId(entity.getId());
+                    if(doubleFocusIds.contains(entry.getKey())){
+                        index.setNouValue("".equals(entry.getValue())? null : Double.valueOf(entry.getValue()));
+                    }else{
+                        index.setStrValue(entry.getValue());
+                    }
+                    indexMapper.insert(index);
+                }
+            }
+        }
     }
 
     @Override
@@ -142,6 +168,37 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
         Item newEntity = getEntity(param);
         ToolUtil.copyProperties(newEntity, oldEntity);
         this.updateById(newEntity);
+
+        if(param.getFocus() != null){
+            QueryWrapper<Focus> focusQueryWrapper = new QueryWrapper<>();
+            focusQueryWrapper.eq("type", 0);
+            focusQueryWrapper.select("id");
+            List<Focus> focusList = focusMapper.selectList(focusQueryWrapper);
+            List<Long> doubleFocusIds = focusList.stream().map(Focus::getId).collect(Collectors.toList());
+            for(Map.Entry<Long, String> entry : param.getFocus().entrySet()){
+                QueryWrapper<Index> indexQueryWrapper = new QueryWrapper<>();
+                indexQueryWrapper.eq("sub_id", param.getId());
+                indexQueryWrapper.eq("focus_id", entry.getKey());
+                indexQueryWrapper.eq("state", 0);
+                Index index = indexMapper.selectOne(indexQueryWrapper);
+                if(index == null){
+                    index = new Index();
+                    index.setSubId(param.getId());
+                    index.setFocusId(entry.getKey());
+                    index.setState(0);
+                }
+                if(doubleFocusIds.contains(entry.getKey())){
+                    index.setNouValue(Double.valueOf(entry.getValue()));
+                }else{
+                    index.setStrValue(entry.getValue());
+                }
+                if(index.getId() == null){
+                    indexMapper.insert(index);
+                }else{
+                    indexMapper.updateById(index);
+                }
+            }
+        }
     }
 
     @Override

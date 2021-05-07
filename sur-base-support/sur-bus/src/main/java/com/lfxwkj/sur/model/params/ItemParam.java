@@ -7,6 +7,7 @@ import java.util.Date;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -102,6 +103,7 @@ public class ItemParam implements Serializable, BaseValidatingParam {
      */
     private Double kcYaxis;
 
+    private Map<Long, String> focus;
     @Override
     public String checkParam() {
         return null;

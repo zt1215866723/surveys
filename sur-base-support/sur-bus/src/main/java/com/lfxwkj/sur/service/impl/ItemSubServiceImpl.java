@@ -47,47 +47,20 @@ import java.util.stream.Collectors;
 public class ItemSubServiceImpl extends ServiceImpl<ItemSubMapper, ItemSub> implements ItemSubService {
 
     @Autowired
-    private FocusMapper focusMapper;
-    @Autowired
-    private IndexMapper indexMapper;
-    @Autowired
-    private ItemMapper itemMapper;
-    @Autowired
-    private DictMapper dictMapper;
-    @Autowired
     private TakeFilePathAndName takeFilePathAndName;
     @Autowired
     private FileUploadConfig fileUploadConfig;
+    @Autowired
+    private IndexMapper indexMapper;
     @Override
     @Transactional(rollbackFor={RuntimeException.class, Exception.class})
     public void add(ItemSubParam param){
-        QueryWrapper<Focus> focusQueryWrapper = new QueryWrapper<>();
-        focusQueryWrapper.eq("type", 0);
-        focusQueryWrapper.select("id");
-        List<Focus> focusList = focusMapper.selectList(focusQueryWrapper);
-        List<Long> doubleFocusIds = focusList.stream().map(Focus::getId).collect(Collectors.toList());
         LoginUser user = LoginContextHolder.getContext().getUser();
         param.setAddTime(new Date());
         param.setAddUser(user.getId());
         param.setState(0);
         ItemSub entity = getEntity(param);
         this.save(entity);
-        if(param.getFocus() != null){
-            for(Map.Entry<Long, String> entry : param.getFocus().entrySet()){
-                if(!"".equals(entry.getValue())){
-                    Index index = new Index();
-                    index.setFocusId(entry.getKey());
-                    index.setState(0);
-                    index.setSubId(entity.getId());
-                    if(doubleFocusIds.contains(entry.getKey())){
-                        index.setNouValue("".equals(entry.getValue())? null : Double.valueOf(entry.getValue()));
-                    }else{
-                        index.setStrValue(entry.getValue());
-                    }
-                    indexMapper.insert(index);
-                }
-            }
-        }
     }
 
     @Override
@@ -103,36 +76,6 @@ public class ItemSubServiceImpl extends ServiceImpl<ItemSubMapper, ItemSub> impl
         ItemSub newEntity = getEntity(param);
         ToolUtil.copyProperties(newEntity, oldEntity);
         this.updateById(newEntity);
-        if(param.getFocus() != null){
-            QueryWrapper<Focus> focusQueryWrapper = new QueryWrapper<>();
-            focusQueryWrapper.eq("type", 0);
-            focusQueryWrapper.select("id");
-            List<Focus> focusList = focusMapper.selectList(focusQueryWrapper);
-            List<Long> doubleFocusIds = focusList.stream().map(Focus::getId).collect(Collectors.toList());
-            for(Map.Entry<Long, String> entry : param.getFocus().entrySet()){
-                QueryWrapper<Index> indexQueryWrapper = new QueryWrapper<>();
-                indexQueryWrapper.eq("sub_id", param.getId());
-                indexQueryWrapper.eq("focus_id", entry.getKey());
-                indexQueryWrapper.eq("state", 0);
-                Index index = indexMapper.selectOne(indexQueryWrapper);
-                if(index == null){
-                    index = new Index();
-                    index.setSubId(param.getId());
-                    index.setFocusId(entry.getKey());
-                    index.setState(0);
-                }
-                if(doubleFocusIds.contains(entry.getKey())){
-                    index.setNouValue(Double.valueOf(entry.getValue()));
-                }else{
-                    index.setStrValue(entry.getValue());
-                }
-                if(index.getId() == null){
-                    indexMapper.insert(index);
-                }else{
-                    indexMapper.updateById(index);
-                }
-            }
-        }
     }
 
     @Override

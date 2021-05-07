@@ -12,6 +12,53 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         type: 'date'
     });
 
+    //关注项
+    $.ajax({
+        url: Feng.ctxPath + "/focus/getList",
+        dataType: 'json',
+        type: 'post',
+        success: function (data) {
+            var html = "";
+            $.each(data.data, function (index, item) {
+                html += " <div class='layui-row'><div class='layui-form-item'><label class='layui-form-label'>";
+                if(item.type == 0){
+                    html += !item.isNecessary ?
+                        item.name + "(" + item.unit + ")</label><div class='layui-input-block'>" +
+                        "<input id=" + item.id + " name=" + item.id + " type='number' class='layui-input' autocomplete='off'/>"
+                        :
+                        item.name + "(" + item.unit + ")<span style='color: red;'>*</span></label>" +
+                        "<div class='layui-input-block'>" +
+                        "<input id=" + item.id + " name=" + item.id + " type='number' class='layui-input' lay-verify='required' required autocomplete='off'/>";
+                }else{
+                    html += !item.isNecessary ?
+                        item.name + "</label><div class='layui-input-block'>" +
+                        "<select name=" + item.id + "  id=" + item.id + " lay-search><option value=''>请选择</option>"
+                        :
+                        item.name + "<span style='color: red;'>*</span></label><div class='layui-input-block'>" +
+                        "<select name=" + item.id + "  id=" + item.id + " lay-verify='required' required lay-search><option value=''>请选择</option>"
+                    $.ajax({
+                        url: Feng.ctxPath + "/dict/listDictsByParent",
+                        dataType: 'json',
+                        async: false,
+                        data: {
+                            parentId : item.type
+                        },
+                        type: 'post',
+                        success: function (res) {
+                            $.each(res.data, function (sort, value) {
+                                html += "<option value=" + value.dictId + ">" + value.name + "</option>";
+                            })
+                        }
+                    });
+                    html += "</select>";
+                }
+                html += "</div></div></div>";
+            });
+            $('#focus').append(html);
+            form.render();
+        }
+    });
+
     //渲染时间选择框
     laydate.render({
         elem: '#endDate',
@@ -97,6 +144,17 @@ layui.use(['form', 'admin', 'ax', 'laydate'], function () {
         }, function (data) {
             Feng.error("添加失败！" + data.responseJSON.message)
         });
+
+        var focus = {}
+        $("#focus").find("input").each(function () {
+            if($(this).prop("id") != ""){
+                focus[$(this).prop("id")]=$(this).prop("value");
+            }
+        })
+        $("#focus").find("select").each(function () {
+            focus[$(this).prop("id")]=$(this).prop("value");
+        })
+        data.field.focus = focus;
         ajax.set(data.field);
         ajax.start();
         return false;
