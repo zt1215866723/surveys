@@ -48,19 +48,7 @@ layui.use(['form', 'admin', 'ax', 'laydate','index', 'element'], function () {
         offset: new BMap.Size(15, -25)
     });
     //消除底图兴趣点标记
-    map.setMapStyle({
-        styleJson: [
-            {
-                "elementType": "labels.icon",
-                "stylers": {
-                    "weight": "8",
-                    "lightness": -70,
-                    "saturation": 1,
-                    "visibility": "off"
-                }
-            }
-        ]
-    });
+
     label.setStyle({
         color: '#ffffff',
         background: '#a15cc8',
