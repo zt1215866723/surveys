@@ -59,6 +59,10 @@ public class ReadMdb {
             e.printStackTrace();
             sign = false;
         }
-        itemService.saveData(itemId, sign, data);
+//        try{
+            itemService.saveData(itemId, sign, data);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
 }

@@ -291,8 +291,6 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
             QueryWrapper<WaterLevel> waterLevelQueryWrapper = new QueryWrapper<>();
             waterLevelQueryWrapper.eq("item_id", itemId);
             waterLevelMapper.delete(waterLevelQueryWrapper);
-            //将所有表的时间格式化
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             for (Map.Entry<String, List<Map>> entry : data.entrySet()) {
                 String tableName = entry.getKey();
                 List<Map> tableData = entry.getValue();
@@ -325,8 +323,8 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                         drilling.setZkjyk(map.get("ZKJYK") == null ? null : Integer.parseInt(String.valueOf(map.get("ZKJYK"))));
                         drilling.setZkdxsw(map.get("ZKDXSW") == null ? null : new BigDecimal((String) map.get("ZKDXSW")).doubleValue());
                         drilling.setZktcjd(map.get("ZKTCJD") == null ? null : new BigDecimal((String) map.get("ZKTCJD")).doubleValue());
-                        drilling.setZkksrq(map.get("ZKKSRQ") == null ? null : format.parse(String.valueOf(map.get("ZKKSRQ"))));
-                        drilling.setZkzzrq(map.get("ZKZZRQ") == null ? null : format.parse(String.valueOf(map.get("ZKZZRQ"))));
+                        drilling.setZkksrq(map.get("ZKKSRQ") == null ? null : this.timeConversion(String.valueOf(map.get("ZKKSRQ"))));
+                        drilling.setZkzzrq(map.get("ZKZZRQ") == null ? null : this.timeConversion(String.valueOf(map.get("ZKZZRQ"))));
                         drilling.setZkdj(map.get("ZKDJ") == null ? null : Integer.parseInt(String.valueOf(map.get("ZKDJ"))));
                         drilling.setZkpztsdxs(map.get("ZKPZTSDXS") == null ? null : new BigDecimal((String) map.get("ZKPZTSDXS")).doubleValue());
                         drilling.setZkpzdqyxsd(map.get("ZKPZDQYXSD") == null ? null : new BigDecimal((String) map.get("ZKPZDQYXSD")).doubleValue());
@@ -480,7 +478,11 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
                         waterLevel.setDepth(map.get("SWSD") == null ? null : new BigDecimal((String) map.get("SWSD")).doubleValue());
                         waterLevel.setSwlx(map.get("SWLX") == null ? null : Integer.parseInt(String.valueOf(map.get("SWLX"))));
                         waterLevel.setSwch(map.get("SWCH") == null ? null : Integer.parseInt(String.valueOf(map.get("SWCH"))));
-                        waterLevel.setSwcsrq(map.get("SWCSRQ") == null ? null : format.parse(String.valueOf(map.get("SWCSRQ"))));
+                        try{
+                            waterLevel.setSwcsrq(map.get("SWCSRQ") == null ? null : this.timeConversion(String.valueOf(map.get("SWCSRQ"))));
+                        }catch (ParseException e){
+                            waterLevel.setSwcsrq(map.get("SWCSRQ") == null ? null : this.timeConversion(String.valueOf(map.get("SWCSRQ"))));
+                        }
                         waterLevel.setSwdxsw(map.get("SWDXSW") == null ? null : new BigDecimal((String) map.get("SWDXSW")).doubleValue());
                         waterLevel.setSwfw(map.get("SWFW") == null ? null : (String) map.get("SWFW"));
                         waterLevel.setSwxz(map.get("SWXZ") == null ? null : Integer.parseInt(String.valueOf(map.get("SWXZ"))));
@@ -580,6 +582,19 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
         //状态设置为同步完成
         item.setSynchronousState(0);
         itemService.updateById(item);
+    }
+
+    /**
+     * 时间格式转换
+     */
+    private Date timeConversion(String time) throws ParseException {
+        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat format2 = new SimpleDateFormat("yyyy.MM.dd");
+        if(time.contains(".")){
+            return format2.parse(time);
+        }else{
+            return format1.parse(time);
+        }
     }
 
     /**
